@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Update the host to the confirmed production domain before go-live. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/</loc><priority>1.0</priority></url>
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/services</loc><priority>0.9</priority></url>
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/services/emergency-plumbing</loc><priority>0.9</priority></url>
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/services/drainage</loc><priority>0.8</priority></url>
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/services/blocked-drains</loc><priority>0.8</priority></url>
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/services/leak-repairs</loc><priority>0.8</priority></url>
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/services/drain-cleaning</loc><priority>0.8</priority></url>
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/services/toilet-repairs</loc><priority>0.8</priority></url>
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/services/bathroom-plumbing</loc><priority>0.8</priority></url>
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/areas-we-cover</loc><priority>0.9</priority></url>
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/areas/cambridge</loc><priority>0.8</priority></url>
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/areas/ely</loc><priority>0.7</priority></url>
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/areas/huntingdon</loc><priority>0.7</priority></url>
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/areas/newmarket</loc><priority>0.7</priority></url>
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/areas/haverhill</loc><priority>0.7</priority></url>
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/areas/st-neots</loc><priority>0.7</priority></url>
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/projects</loc><priority>0.6</priority></url>
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/about</loc><priority>0.6</priority></url>
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/reviews</loc><priority>0.6</priority></url>
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/faqs</loc><priority>0.6</priority></url>
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/blog</loc><priority>0.6</priority></url>
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/blog/what-to-do-burst-pipe</loc><priority>0.5</priority></url>
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/blog/why-drains-keep-blocking</loc><priority>0.5</priority></url>
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/blog/signs-of-hidden-leak</loc><priority>0.5</priority></url>
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/contact</loc><priority>0.8</priority></url>
+  <url><loc>https://www.speedyplumbinganddrain.co.uk/quote</loc><priority>0.9</priority></url>
+</urlset>

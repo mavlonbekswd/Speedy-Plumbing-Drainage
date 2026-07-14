@@ -1,0 +1,6 @@
+# Speedy Plumbing & Drain
+# NOTE: update the sitemap host to the confirmed production domain before go-live.
+User-agent: *
+Allow: /
+
+Sitemap: https://www.speedyplumbinganddrain.co.uk/sitemap.xml
