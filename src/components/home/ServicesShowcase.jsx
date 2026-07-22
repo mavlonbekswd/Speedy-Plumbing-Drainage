@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import { getServiceBySlug, homepageServiceSlugs } from '../../data/services'
 import Reveal from '../ui/Reveal'
+import ResponsiveImage from '../ui/ResponsiveImage'
 import SectionHeading from '../ui/SectionHeading'
 
 /**
@@ -33,10 +34,9 @@ export default function ServicesShowcase() {
                   className="group relative block overflow-hidden rounded-sm"
                   aria-label={`Learn more about ${service.name}`}
                 >
-                  <img
-                    src={service.image}
-                    alt={service.imageAlt}
-                    loading="lazy"
+                  <ResponsiveImage
+                    image={service.images.card}
+                    sizes="(min-width: 1280px) 604px, (min-width: 768px) calc(50vw - 3.5rem), calc(100vw - 2.5rem)"
                     className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                   <span className="absolute inset-0 bg-gradient-to-t from-charcoal/50 to-transparent" aria-hidden="true" />

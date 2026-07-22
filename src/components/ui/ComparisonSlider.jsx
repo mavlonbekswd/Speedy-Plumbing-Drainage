@@ -1,11 +1,12 @@
 import { useCallback, useRef, useState } from 'react'
 import { ChevronsLeftRight } from 'lucide-react'
+import ResponsiveImage from './ResponsiveImage'
 
 /**
  * Accessible drag before/after comparison. Pointer-driven with a keyboard
  * fallback (the handle is a range slider for screen readers / keyboards).
  */
-export default function ComparisonSlider({ before, after, beforeAlt, afterAlt }) {
+export default function ComparisonSlider({ before, after }) {
   const [position, setPosition] = useState(50)
   const containerRef = useRef(null)
   const draggingRef = useRef(false)
@@ -38,15 +39,26 @@ export default function ComparisonSlider({ before, after, beforeAlt, afterAlt })
       onPointerUp={endDrag}
       onPointerCancel={endDrag}
     >
-      <img src={after} alt={afterAlt} className="absolute inset-0 h-full w-full object-cover" draggable="false" />
+      <ResponsiveImage
+        image={after}
+        sizes="(min-width: 1280px) 1280px, 100vw"
+        className="absolute inset-0 h-full w-full object-cover"
+        draggable="false"
+      />
       <div
         className="absolute inset-0 overflow-hidden"
         style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
         aria-hidden="true"
       >
-        <img src={before} alt="" className="absolute inset-0 h-full w-full object-cover" draggable="false" />
+        <ResponsiveImage
+          image={before}
+          alt=""
+          sizes="(min-width: 1280px) 1280px, 100vw"
+          className="absolute inset-0 h-full w-full object-cover"
+          draggable="false"
+        />
       </div>
-      <span className="sr-only">{beforeAlt}</span>
+      <span className="sr-only">{before.alt}</span>
 
       {/* Divider + handle */}
       <div

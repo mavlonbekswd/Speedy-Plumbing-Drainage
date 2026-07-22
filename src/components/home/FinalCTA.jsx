@@ -3,9 +3,11 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Mail, MessageCircle, Phone } from 'lucide-react'
 import { businessConfig } from '../../data/business'
+import { sharedImages } from '../../data/images'
 import { usePrefersReducedMotion } from '../../lib/hooks'
 import Button from '../ui/Button'
 import Reveal from '../ui/Reveal'
+import ResponsiveImage from '../ui/ResponsiveImage'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -45,10 +47,16 @@ export default function FinalCTA() {
     >
       <div
         ref={bgRef}
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/final-cta.svg')" }}
+        className="absolute inset-0"
         aria-hidden="true"
-      />
+      >
+        <ResponsiveImage
+          image={sharedImages.finalCta}
+          alt=""
+          sizes="100vw"
+          className="h-full w-full object-cover"
+        />
+      </div>
       <div className="absolute inset-0 bg-charcoal/70" aria-hidden="true" />
 
       <div className="relative mx-auto w-full max-w-7xl text-center">

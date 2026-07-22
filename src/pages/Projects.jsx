@@ -1,7 +1,6 @@
-import { MapPin } from 'lucide-react'
 import Seo from '../lib/seo'
 import { breadcrumbSchema } from '../lib/schema'
-import { projects, projectsArePlaceholders } from '../data/projects'
+import { projects, projectsAreIllustrative } from '../data/projects'
 import PageHero from '../components/layout/PageHero'
 import ComparisonSlider from '../components/ui/ComparisonSlider'
 import Reveal from '../components/ui/Reveal'
@@ -10,19 +9,19 @@ export default function Projects() {
   return (
     <>
       <Seo
-        title="Projects — Before & After"
-        description="Recent plumbing and drainage projects across Cambridge and surrounding areas — before and after comparisons with details of the work completed."
+        title="Before & After Service Examples"
+        description="Illustrative before and after plumbing and drainage comparisons showing the type of result professional repair and clearance work can achieve."
         path="/projects"
         jsonLd={[breadcrumbSchema([{ name: 'Projects', path: '/projects' }])]}
       />
 
       <PageHero
         eyebrow="Our work"
-        title="Before. After. Proof."
+        title="Before. After. The difference."
         intro={
-          projectsArePlaceholders
-            ? 'The projects below show the gallery format with placeholder imagery — genuine completed jobs (with customer permission) replace them as they are documented.'
-            : 'Recent jobs across Cambridge and the surrounding areas.'
+          projectsAreIllustrative
+            ? 'These generated comparisons are illustrative service examples, not photographs of Speedy Plumbing & Drain customer jobs.'
+            : 'Completed jobs shown with customer permission.'
         }
         crumbs={[{ name: 'Projects', path: '/projects' }]}
       />
@@ -35,21 +34,16 @@ export default function Projects() {
                 <ComparisonSlider
                   before={project.before}
                   after={project.after}
-                  beforeAlt={project.beforeAlt}
-                  afterAlt={project.afterAlt}
                 />
                 <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
                   <div>
                     <h2 id={`project-${project.slug}`} className="display-md">
                       {project.title}
                     </h2>
-                    <p className="mt-2 flex items-center gap-2 text-sm font-medium text-steel-dark">
-                      <MapPin className="size-4 text-blue" aria-hidden="true" />
-                      {project.location} · {project.service} · {project.completedIn}
-                    </p>
-                    {projectsArePlaceholders && (
+                    <p className="mt-2 text-sm font-medium text-steel-dark">{project.service}</p>
+                    {project.isIllustrative && (
                       <p className="mt-2 text-xs tracking-wide text-steel-dark/70 uppercase">
-                        Placeholder project
+                        Illustrative example
                       </p>
                     )}
                   </div>

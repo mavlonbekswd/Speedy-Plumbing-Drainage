@@ -1,6 +1,7 @@
+import { serviceImages } from './images'
+
 // All services, used by the homepage showcase, the services index and the
-// individual service pages. Images are cinematic SVG placeholders — replace
-// with real photography (see README.md).
+// individual service pages. Photographic assets are centralised in images.js.
 
 export const services = [
   {
@@ -10,8 +11,7 @@ export const services = [
     emergency: true,
     short: 'Burst pipes, major leaks and urgent failures handled fast across Cambridge.',
     heroLine: 'When water won’t stop, speed is everything.',
-    image: '/images/emergency.svg',
-    imageAlt: 'Dark industrial pipework under emergency lighting',
+    images: serviceImages['emergency-plumbing'],
     description:
       'A burst pipe or uncontrollable leak can damage a home in minutes. Our emergency plumbing service prioritises rapid response across Cambridge and the surrounding areas: we isolate the problem, make it safe, and complete a lasting repair — not just a patch.',
     points: [
@@ -34,8 +34,7 @@ export const services = [
     icon: 'Waves',
     short: 'Complete drainage services — from slow drains to full system faults.',
     heroLine: 'Drainage problems, fixed at the source.',
-    image: '/images/drainage.svg',
-    imageAlt: 'Underground drainage channel with flowing water',
+    images: serviceImages.drainage,
     description:
       'Drainage faults rarely fix themselves. We investigate the whole run — not just the visible symptom — to find where the system is failing, then clear, repair or advise on the right long-term fix for your property.',
     points: [
@@ -57,8 +56,7 @@ export const services = [
     icon: 'CircleSlash',
     short: 'Fast clearance of blocked sinks, toilets, showers and outside drains.',
     heroLine: 'Blocked today. Cleared today.',
-    image: '/images/blocked-drain.svg',
-    imageAlt: 'Blocked pipe section before clearance',
+    images: serviceImages['blocked-drains'],
     description:
       'From a single blocked sink to a backed-up external drain, we clear blockages properly and check the flow afterwards so the problem doesn’t come straight back. If a blockage keeps returning, we find out why.',
     points: [
@@ -80,8 +78,7 @@ export const services = [
     icon: 'Droplets',
     short: 'Finding and fixing leaks — visible or hidden — before they spread.',
     heroLine: 'Small leaks become big problems. We stop them early.',
-    image: '/images/leak.svg',
-    imageAlt: 'Water tracing along a copper pipe joint',
+    images: serviceImages['leak-repairs'],
     description:
       'Water travels, so where a leak shows is often not where it starts. We trace leaks to their true source — under floors, behind walls, at hidden joints — and repair them with minimal disruption to your home.',
     points: [
@@ -103,8 +100,7 @@ export const services = [
     icon: 'SprayCan',
     short: 'Preventative cleaning that keeps drains flowing and smells away.',
     heroLine: 'Keep the flow. Skip the emergency.',
-    image: '/images/drain-cleaning.svg',
-    imageAlt: 'Clean stainless drain channel after maintenance',
+    images: serviceImages['drain-cleaning'],
     description:
       'Regular drain cleaning prevents the slow build-up of grease, scale and debris that ends in a blocked drain at the worst possible moment. Ideal for busy family homes, rental properties and commercial kitchens.',
     points: [
@@ -126,8 +122,7 @@ export const services = [
     icon: 'Wrench',
     short: 'Running, leaking, weak-flushing or broken toilets repaired properly.',
     heroLine: 'One of the most used fixtures in your home — fixed right.',
-    image: '/images/toilet.svg',
-    imageAlt: 'Modern bathroom with wall-hung toilet',
+    images: serviceImages['toilet-repairs'],
     description:
       'A constantly running toilet wastes hundreds of litres a day; a leaking one can quietly damage floors. We repair fill valves, flush mechanisms, seals and pans — and tell you honestly when replacement beats repair.',
     points: [
@@ -149,8 +144,7 @@ export const services = [
     icon: 'ShowerHead',
     short: 'Taps, showers, wastes and full bathroom plumbing installations.',
     heroLine: 'Precision plumbing behind beautiful bathrooms.',
-    image: '/images/bathroom.svg',
-    imageAlt: 'Bright modern bathroom with walk-in shower',
+    images: serviceImages['bathroom-plumbing'],
     description:
       'From replacing a dripping tap to first-fix and final-fix plumbing for a full bathroom refit, we deliver neat, reliable pipework that installers and tilers can build on — and that keeps working long after the sealant dries.',
     points: [

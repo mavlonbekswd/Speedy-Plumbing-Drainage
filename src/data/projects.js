@@ -1,59 +1,50 @@
-// PLACEHOLDER PROJECTS — illustrative structure for the before/after gallery.
-// Replace images and details with genuine completed jobs (with customer
-// permission for photos). Completion times are placeholders by design.
+import { projectImages } from './images'
 
-export const projectsArePlaceholders = true
+// Generated comparison imagery is always disclosed as illustrative. Replace
+// each entry with consented project photography before presenting real jobs.
+export const projectsAreIllustrative = true
 
 export const projects = [
   {
     slug: 'external-drain-clearance',
     title: 'External Drain Clearance',
     service: 'Blocked Drains',
-    location: 'Cambridge',
-    completedIn: 'Completion time placeholder',
-    before: '/images/before-drain.svg',
-    after: '/images/after-drain.svg',
-    beforeAlt: 'Blocked external drain before clearance (placeholder image)',
-    afterAlt: 'Cleared, flowing external drain after work (placeholder image)',
+    before: projectImages.externalDrainClearance.before,
+    after: projectImages.externalDrainClearance.after,
+    isIllustrative: true,
     workCompleted: [
-      'Located the blockage in the external run',
-      'Cleared the obstruction with professional equipment',
-      'Flow-tested the full run',
-      'Left the area clean and tidy',
+      'Locate the obstruction in the external gully',
+      'Remove leaves, mud and small debris',
+      'Flow-test the drain after clearance',
+      'Clean the surrounding paving',
     ],
   },
   {
     slug: 'bathroom-pipework-refresh',
     title: 'Bathroom Pipework Refresh',
     service: 'Bathroom Plumbing',
-    location: 'Ely',
-    completedIn: 'Completion time placeholder',
-    before: '/images/before-bathroom.svg',
-    after: '/images/after-bathroom.svg',
-    beforeAlt: 'Ageing bathroom pipework before replacement (placeholder image)',
-    afterAlt: 'Neat new bathroom installation after work (placeholder image)',
+    before: projectImages.bathroomPipeworkRefresh.before,
+    after: projectImages.bathroomPipeworkRefresh.after,
+    isIllustrative: true,
     workCompleted: [
-      'Replaced ageing supply pipework',
-      'Installed new bath, basin and toilet connections',
-      'Pressure-tested the completed system',
-      'Clean finish ready for tiling',
+      'Remove ageing supply pipework',
+      'Route and clip new hot and cold supplies',
+      'Fit and align the new basin waste',
+      'Pressure-test and leave the cabinet dry',
     ],
   },
   {
     slug: 'hidden-leak-trace-repair',
     title: 'Hidden Leak Trace & Repair',
     service: 'Leak Repairs',
-    location: 'St Neots',
-    completedIn: 'Completion time placeholder',
-    before: '/images/before-leak.svg',
-    after: '/images/after-leak.svg',
-    beforeAlt: 'Water staining from a hidden leak before repair (placeholder image)',
-    afterAlt: 'Repaired dry pipework after leak repair (placeholder image)',
+    before: projectImages.hiddenLeakTraceRepair.before,
+    after: projectImages.hiddenLeakTraceRepair.after,
+    isIllustrative: true,
     workCompleted: [
-      'Traced the leak to a hidden joint',
-      'Repaired with minimal access required',
-      'Retested pressure over a full cycle',
-      'Confirmed the area dry before leaving',
+      'Trace the leak to the defective joint',
+      'Reseal or replace the failed fitting',
+      'Retest the pipework under pressure',
+      'Confirm the joint and cabinet are dry',
     ],
   },
 ]

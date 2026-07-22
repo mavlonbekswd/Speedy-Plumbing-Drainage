@@ -24,9 +24,10 @@ emergency section, contact page, quote form, mobile bar, footer, structured data
 | `src/data/business.js` | Name, phone, email, WhatsApp slot, hours, socials, site URL |
 | `src/data/serviceAreas.js` | The 17 confirmed service areas, groupings, postcode districts |
 | `src/data/services.js` | All service content (pages + homepage showcase) |
+| `src/data/images.js` | Responsive image sources, dimensions, crop positions and alt text |
 | `src/data/locationPages.js` | Unique content for the six location pages |
 | `src/data/reviews.js` | Placeholder reviews (flagged) + Google review link slot |
-| `src/data/projects.js` | Before/after projects (placeholder-flagged) |
+| `src/data/projects.js` | Clearly disclosed illustrative before/after service examples |
 | `src/data/faqs.js`, `src/data/blogPosts.js` | FAQs and advice articles |
 
 ## Before go-live checklist
@@ -36,13 +37,13 @@ emergency section, contact page, quote form, mobile bar, footer, structured data
 2. **Quote form backend** — the form currently simulates submission (see the `TODO` in
    `src/pages/Quote.jsx`). Connect it to an email service or serverless endpoint, and add
    real spam protection where the honeypot placeholder sits.
-3. **Photography** — replace the SVG placeholders in `public/images/` with real
-   photography (large landscape AVIF/WebP, ≥2400px wide): real pipework, drainage work,
-   finished bathrooms, tools, uniforms, van, genuine before/after pairs.
+3. **Photography** — the site currently uses generated, photorealistic illustrative
+   imagery in responsive AVIF/WebP variants. Replace it with genuine company photography
+   when available, keeping the same filenames and crop ratios where practical.
 4. **Reviews** — replace the samples in `src/data/reviews.js` with genuine reviews, set
    `reviewsArePlaceholders = false`, and add the Google Business Profile link.
-5. **Projects** — replace placeholder projects with real jobs (with customer permission),
-   set `projectsArePlaceholders = false`.
+5. **Projects** — replace the visibly disclosed illustrative service examples with real
+   jobs (with customer permission), then remove the illustrative disclosure flag.
 6. **Opening hours** — when confirmed, set `openingHours` in `business.js`. Do not claim
    24/7 unless the owner confirms it.
 7. **WhatsApp** — when a number is confirmed, set `whatsappHref` (e.g. `https://wa.me/44…`)
@@ -63,6 +64,8 @@ emergency section, contact page, quote form, mobile bar, footer, structured data
 ## Performance & accessibility
 
 - Route-based code splitting; the Three.js chunk loads only on capable devices.
+- Responsive AVIF/WebP images use explicit dimensions, per-image crop positioning,
+  lazy loading below the fold and eager loading for page heroes.
 - The 3D pipe scene is progressively enhanced: static cinematic fallback when WebGL is
   missing, on low-power devices, and under `prefers-reduced-motion`; rendering pauses
   off-screen; DPR capped; particle counts reduced on mobile.

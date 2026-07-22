@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import { ArrowUpRight, MapPin } from 'lucide-react'
-import { projects, projectsArePlaceholders } from '../../data/projects'
+import { ArrowUpRight } from 'lucide-react'
+import { projects } from '../../data/projects'
 import ComparisonSlider from '../ui/ComparisonSlider'
 import Reveal from '../ui/Reveal'
 import SectionHeading from '../ui/SectionHeading'
@@ -22,8 +22,6 @@ export default function BeforeAfterSection() {
           <ComparisonSlider
             before={project.before}
             after={project.after}
-            beforeAlt={project.beforeAlt}
-            afterAlt={project.afterAlt}
           />
         </Reveal>
 
@@ -31,13 +29,10 @@ export default function BeforeAfterSection() {
           <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
             <div>
               <h3 className="display-md">{project.title}</h3>
-              <p className="mt-2 flex items-center gap-2 text-sm font-medium text-steel-dark">
-                <MapPin className="size-4 text-blue" aria-hidden="true" />
-                {project.location} · {project.service} · {project.completedIn}
-              </p>
-              {projectsArePlaceholders && (
+              <p className="mt-2 text-sm font-medium text-steel-dark">{project.service}</p>
+              {project.isIllustrative && (
                 <p className="mt-2 text-xs tracking-wide text-steel-dark/70 uppercase">
-                  Placeholder project — replaced with genuine completed jobs
+                  Illustrative example
                 </p>
               )}
             </div>

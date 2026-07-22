@@ -1,3 +1,5 @@
+import { blogImages } from './images'
+
 // Helpful, genuinely useful articles supporting local SEO. Extend over time.
 
 export const blogPosts = [
@@ -8,8 +10,7 @@ export const blogPosts = [
       'A burst pipe can release hundreds of litres an hour. The four steps you take in the first five minutes make the biggest difference to the damage.',
     date: '2026-06-10',
     readingTime: '4 min read',
-    image: '/images/emergency.svg',
-    imageAlt: 'Dark industrial pipework under emergency lighting',
+    image: blogImages.whatToDoBurstPipe,
     body: [
       {
         h: '1. Turn off the water at the stopcock',
@@ -36,8 +37,7 @@ export const blogPosts = [
       'Clearing the same blockage every few months? The blockage is the symptom. Here are the usual underlying causes and the fixes that end the cycle.',
     date: '2026-05-18',
     readingTime: '5 min read',
-    image: '/images/drainage.svg',
-    imageAlt: 'Underground drainage channel with flowing water',
+    image: blogImages.whyDrainsKeepBlocking,
     body: [
       {
         h: 'The usual suspects',
@@ -60,8 +60,7 @@ export const blogPosts = [
       'Hidden leaks can run for months before they show. These six signs let you catch one early — before the ceiling does the telling.',
     date: '2026-04-02',
     readingTime: '4 min read',
-    image: '/images/leak.svg',
-    imageAlt: 'Water tracing along a copper pipe joint',
+    image: blogImages.signsOfHiddenLeak,
     body: [
       {
         h: 'Watch for these signs',

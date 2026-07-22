@@ -6,6 +6,7 @@ import { businessConfig } from '../data/business'
 import { services } from '../data/services'
 import PageHero from '../components/layout/PageHero'
 import Button from '../components/ui/Button'
+import ResponsiveImage from '../components/ui/ResponsiveImage'
 import Reveal from '../components/ui/Reveal'
 
 export default function Services() {
@@ -34,10 +35,9 @@ export default function Services() {
                   to={`/services/${service.slug}`}
                   className="group relative block h-full overflow-hidden rounded-sm bg-charcoal"
                 >
-                  <img
-                    src={service.image}
-                    alt={service.imageAlt}
-                    loading="lazy"
+                  <ResponsiveImage
+                    image={service.images.card}
+                    sizes={i === 0 ? '(min-width: 1280px) 1280px, calc(100vw - 2.5rem)' : '(min-width: 1280px) 628px, (min-width: 768px) calc(50vw - 2.5rem), calc(100vw - 2.5rem)'}
                     className={`w-full object-cover opacity-60 transition duration-700 group-hover:scale-105 group-hover:opacity-45 ${
                       i === 0 ? 'aspect-[16/7]' : 'aspect-[16/9]'
                     }`}

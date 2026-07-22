@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ChevronRight } from 'lucide-react'
 import Reveal from '../ui/Reveal'
+import ResponsiveImage from '../ui/ResponsiveImage'
 
 /**
  * Shared cinematic hero for internal pages — keeps the premium visual
@@ -11,11 +12,14 @@ export default function PageHero({ eyebrow, title, intro, crumbs = [], image, ch
     <section className="grain relative overflow-hidden bg-charcoal px-5 pt-36 pb-20 md:px-8 md:pt-48 md:pb-28">
       {image && (
         <>
-          <div
-            className="absolute inset-0 bg-cover bg-center opacity-40"
-            style={{ backgroundImage: `url('${image}')` }}
-            aria-hidden="true"
-          />
+          <div className="absolute inset-0 opacity-40">
+            <ResponsiveImage
+              image={image}
+              priority
+              sizes="100vw"
+              className="h-full w-full object-cover"
+            />
+          </div>
           <div className="absolute inset-0 bg-gradient-to-b from-charcoal/70 via-charcoal/50 to-charcoal" aria-hidden="true" />
         </>
       )}

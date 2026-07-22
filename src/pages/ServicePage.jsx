@@ -38,7 +38,7 @@ export default function ServicePage() {
         eyebrow={service.emergency ? 'Emergency service' : 'Our services'}
         title={service.heroLine}
         intro={service.description}
-        image={service.image}
+        image={service.images.hero}
         crumbs={[
           { name: 'Services', path: '/services' },
           { name: service.name, path: `/services/${service.slug}` },
