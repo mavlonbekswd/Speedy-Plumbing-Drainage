@@ -145,8 +145,11 @@ invisible to them.
 
 ## Before go-live
 
-1. **Domain** — set the real domain in `src/data/business.js` (`siteUrl`) and update
-   `public/sitemap.xml` + `public/robots.txt`.
+1. **Domain** — `siteUrl` in `src/data/business.js` is still the placeholder
+   `www.speedyplumbinganddrain.co.uk`, which does not currently resolve (NXDOMAIN).
+   Canonical URLs and the absolute `og:image` URL are both built from it, so **social
+   previews stay blank and canonicals point at nothing until this is set.** Update it
+   together with `public/sitemap.xml` and `public/robots.txt`.
 2. **Quote form backend** — ⚠️ **the form does not send anything yet.** `submit()` in
    [`src/pages/Quote.jsx`](src/pages/Quote.jsx) logs the enquiry to the console, waits
    900ms and shows "Request received". A customer filling it in today gets a success
