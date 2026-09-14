@@ -42,7 +42,7 @@ export default function FinalCTA() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex min-h-screen items-center overflow-hidden px-5 py-28 md:px-8"
+      className="relative flex min-h-[100svh] items-center overflow-hidden px-5 py-28 md:px-8"
       aria-labelledby="finalcta-heading"
     >
       <div

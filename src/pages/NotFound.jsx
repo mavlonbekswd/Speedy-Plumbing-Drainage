@@ -10,8 +10,9 @@ export default function NotFound() {
         title="Page Not Found"
         description="The page you were looking for doesn’t exist. Find plumbing and drainage services across Cambridge and surrounding areas."
         path="/404"
+        noIndex
       />
-      <section className="flex min-h-screen flex-col items-center justify-center bg-charcoal px-5 text-center">
+      <section className="flex min-h-[100svh] flex-col items-center justify-center bg-charcoal px-5 pt-32 pb-24 text-center">
         <p className="font-display text-[clamp(6rem,20vw,16rem)] leading-none text-white/10">404</p>
         <h1 className="display-lg -mt-6 text-white">This pipe leads nowhere.</h1>
         <p className="mt-5 max-w-md text-lg text-steel">

@@ -26,15 +26,23 @@ export function usePrefersReducedMotion() {
   return reduced
 }
 
+/**
+ * Width-only breakpoint check. matchMedia — not a resize listener — because on
+ * mobile every URL-bar show/hide fires `resize` with an unchanged width, which
+ * re-rendered the whole subscriber tree on each scroll gesture.
+ */
 export function useIsMobile(breakpoint = 768) {
+  const query = `(max-width: ${breakpoint - 0.02}px)`
   const [isMobile, setIsMobile] = useState(
-    () => typeof window !== 'undefined' && window.innerWidth < breakpoint
+    () => typeof window !== 'undefined' && window.matchMedia(query).matches
   )
   useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth < breakpoint)
-    window.addEventListener('resize', onResize)
-    return () => window.removeEventListener('resize', onResize)
-  }, [breakpoint])
+    const mq = window.matchMedia(query)
+    const onChange = () => setIsMobile(mq.matches)
+    onChange()
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [query])
   return isMobile
 }
 

@@ -16,7 +16,13 @@ export default function Hero() {
         }
 
   return (
-    <section className="relative flex min-h-screen flex-col justify-end px-5 pb-24 md:px-8 lg:justify-center lg:pb-0">
+    /*
+      pt-28 keeps the badge row clear of the fixed header on short viewports
+      (iPhone SE, landscape phones): without it the content column starts at
+      y≈14px and slides under the 84px navbar. svh — not vh — so the mobile
+      URL bar can't push the CTAs below the fold.
+    */
+    <section className="relative flex min-h-[100svh] flex-col justify-end px-5 pt-28 pb-24 md:px-8 lg:justify-center lg:pt-24 lg:pb-0">
       {/* Readability overlay above the 3D scene */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-charcoal/55 via-transparent to-charcoal/70" aria-hidden="true" />
 

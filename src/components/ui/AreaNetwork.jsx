@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo, useRef, useState } from 'react'
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Phone, X } from 'lucide-react'
@@ -212,6 +212,10 @@ function AreaNetwork({ highlightedIds = [] }) {
     setActiveId(null)
   }, [cancelClear])
 
+  // The 110ms grace timer outlives the component if the user navigates away
+  // mid-hover — clear it so it can never fire against an unmounted tree.
+  useEffect(() => () => clearTimeout(clearTimer.current), [])
+
   const activeConnections = useMemo(() => connectionsFor(activeArea), [activeArea])
   const relatedSet = useMemo(() => {
     if (!activeArea) return new Set()
@@ -363,7 +367,7 @@ function AreaNetwork({ highlightedIds = [] }) {
         {activeArea && (
           <motion.div
             key="area-tooltip"
-            role="dialog"
+            role="group"
             aria-label={`${activeArea.name} coverage details`}
             className={
               mobile

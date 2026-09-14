@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import {
   AlertTriangle,
   ArrowLeft,
@@ -102,6 +102,18 @@ export default function Quote() {
     set('photos')(files)
   }
 
+  // Enter inside a field used to fire the form's onSubmit from any step, and
+  // submit() validates step 5 only — so pressing Enter on the postcode step
+  // surfaced the consent error. Enter now advances, exactly like Continue.
+  function onFormKeyDown(e) {
+    if (e.key !== 'Enter') return
+    if (e.target.tagName === 'TEXTAREA') return // newlines stay newlines
+    if (step < steps.length - 1) {
+      e.preventDefault()
+      next()
+    }
+  }
+
   async function submit(e) {
     e.preventDefault()
     const errs = stepErrors[5]()
@@ -137,12 +149,14 @@ export default function Quote() {
     setStatus('success')
   }
 
+  // Enter-only. No AnimatePresence exit phase: a hidden tab pauses rAF, and an
+  // exit animation that never finishes leaves mode="wait" holding the previous
+  // step on screen for good (Layout.jsx avoids the same trap on route change).
   const stepMotion = reduced
     ? {}
     : {
         initial: { opacity: 0, x: 32 },
         animate: { opacity: 1, x: 0 },
-        exit: { opacity: 0, x: -32 },
         transition: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
       }
 
@@ -197,7 +211,7 @@ export default function Quote() {
               </p>
             </div>
           ) : (
-            <form onSubmit={submit} noValidate className="rounded-sm border border-charcoal/10 bg-white p-6 md:p-10">
+            <form onSubmit={submit} onKeyDown={onFormKeyDown} noValidate className="rounded-sm border border-charcoal/10 bg-white p-6 md:p-10">
               {/* Progress indicator */}
               <div aria-hidden="true" className="mb-3 flex gap-1.5">
                 {steps.map((label, i) => (
@@ -231,7 +245,6 @@ export default function Quote() {
                 />
               </div>
 
-              <AnimatePresence mode="wait" initial={false}>
                 {step === 0 && (
                   <motion.fieldset key="s0" {...stepMotion}>
                     <legend className="display-md">What’s the problem?</legend>
@@ -484,9 +497,12 @@ export default function Quote() {
                         ['Preferred contact', form.contactMethod],
                         ['Photos', form.photos.length ? `${form.photos.length} attached` : 'None'],
                       ].map(([label, value]) => (
-                        <div key={label} className="flex gap-3">
-                          <dt className="w-36 shrink-0 font-semibold">{label}:</dt>
-                          <dd className="text-steel-dark">{value}</dd>
+                        // Stacked below sm: a 144px label column left ~86px for
+                        // the value at 320px wide, so long email addresses ran
+                        // straight out of the card (clipped by overflow-x).
+                        <div key={label} className="flex flex-col gap-0.5 sm:flex-row sm:gap-3">
+                          <dt className="font-semibold sm:w-36 sm:shrink-0">{label}:</dt>
+                          <dd className="min-w-0 break-words text-steel-dark">{value}</dd>
                         </div>
                       ))}
                     </dl>
@@ -507,7 +523,6 @@ export default function Quote() {
                     {fieldError('consent')}
                   </motion.div>
                 )}
-              </AnimatePresence>
 
               {/* Navigation */}
               <div className="mt-10 flex items-center justify-between gap-4 border-t border-charcoal/10 pt-7">

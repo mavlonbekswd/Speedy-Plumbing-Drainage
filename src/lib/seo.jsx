@@ -33,7 +33,7 @@ function upsertOgMeta(property, content) {
  * JSON-LD structured data. Important content stays in the HTML of each page —
  * this only manages head metadata.
  */
-export default function Seo({ title, description, path = '/', jsonLd = [] }) {
+export default function Seo({ title, description, path = '/', jsonLd = [], noIndex = false }) {
   useEffect(() => {
     const fullTitle = title
       ? `${title} | ${businessConfig.name}`
@@ -56,8 +56,15 @@ export default function Seo({ title, description, path = '/', jsonLd = [] }) {
     upsertOgMeta('og:type', 'website')
     upsertOgMeta('og:site_name', businessConfig.name)
     upsertOgMeta('og:locale', 'en_GB')
-    upsertOgMeta('og:image', `${businessConfig.siteUrl}/images/og-card.svg`)
+    upsertOgMeta('og:image', `${businessConfig.siteUrl}/images/og-card.png`)
+    upsertOgMeta('og:image:type', 'image/png')
+    upsertOgMeta('og:image:width', '1200')
+    upsertOgMeta('og:image:height', '630')
+    upsertOgMeta('og:image:alt', `${businessConfig.name} — ${businessConfig.tagline}`)
     upsertNamedMeta('twitter:card', 'summary_large_image')
+
+    // Pages that must never enter the index (e.g. 404) opt in explicitly.
+    upsertNamedMeta('robots', noIndex ? 'noindex, follow' : 'index, follow')
 
     // Replace this page's JSON-LD blocks
     document.head.querySelectorAll(`script[${JSONLD_ATTR}]`).forEach((s) => s.remove())
@@ -73,7 +80,7 @@ export default function Seo({ title, description, path = '/', jsonLd = [] }) {
       document.head.querySelectorAll(`script[${JSONLD_ATTR}]`).forEach((s) => s.remove())
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [title, description, path, JSON.stringify(jsonLd)])
+  }, [title, description, path, noIndex, JSON.stringify(jsonLd)])
 
   return null
 }
