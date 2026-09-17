@@ -146,10 +146,14 @@ invisible to them.
 ## Before go-live
 
 1. **Tracking & quote delivery env** — set every variable in
-   [`.env.example`](.env.example) in Vercel (Production **and** Preview). The build
-   fails without `VITE_GADS_ID` / `VITE_GA4_ID`; quote requests return an error (and the
-   form tells the customer to call) until `TELEGRAM_BOT_TOKEN` / `TELEGRAM_CHAT_ID` are
-   set. Full event list and Google Ads/GA4 setup steps: [`docs/tracking.md`](docs/tracking.md).
+   [`.env.example`](.env.example) in Vercel (Production **and** Preview). Nothing here
+   blocks a deploy: without `VITE_GADS_ID` / `VITE_GA4_ID` the build succeeds and simply
+   omits the gtag snippet (a tag pointing at a non-existent id is worse than no tag, and
+   an unset marketing id is not a reason to take the site down). Quote requests return an
+   error — and the form tells the customer to call — until `TELEGRAM_BOT_TOKEN` /
+   `TELEGRAM_CHAT_ID` are set. `VITE_*` and `NEXT_PUBLIC_*` values are baked in at build
+   time, so changing one in Vercel needs a redeploy to take effect. Full event list and
+   Google Ads/GA4 setup steps: [`docs/tracking.md`](docs/tracking.md).
 2. **Quote form backend** — the form posts to [`api/quote.js`](api/quote.js), a Vercel
    function that validates the request and sends it (with photos) to the business
    Telegram group. `npm run dev` does not serve `/api`; use `vercel dev` to test the
