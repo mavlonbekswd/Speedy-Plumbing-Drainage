@@ -10,7 +10,7 @@ export default function Footer() {
   const keyAreas = footerAreaSlugs.map(getAreaBySlug)
 
   return (
-    <footer className="border-t border-white/8 bg-navy-deep pb-28 lg:pb-12">
+    <footer data-cta-location="footer" className="border-t border-white/8 bg-navy-deep pb-28 lg:pb-12">
       <div className="mx-auto max-w-7xl px-5 py-16 md:px-8">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand + contact */}

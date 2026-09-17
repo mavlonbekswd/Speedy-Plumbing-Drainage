@@ -22,6 +22,7 @@ export default function MobileContactBar() {
   return (
     <nav
       aria-label="Quick contact"
+      data-cta-location="mobile_bar"
       className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-3 border-t border-white/10 bg-charcoal/95 backdrop-blur-md lg:hidden"
       style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
     >

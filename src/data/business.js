@@ -29,9 +29,9 @@ export const businessConfig = {
   // Social profiles — only rendered when real URLs are added.
   socialLinks: [],
 
-  // Placeholder production domain — update before go-live (also update
-  // public/sitemap.xml and public/robots.txt).
-  siteUrl: 'https://www.speedyplumbinganddrain.co.uk',
+  // Production domain (live on Vercel). If it ever changes, also update
+  // public/sitemap.xml, public/robots.txt and the og: URLs in index.html.
+  siteUrl: 'https://www.speedyplumbingdrain.co.uk',
 
   serviceRegion: 'Cambridge and surrounding areas',
 }

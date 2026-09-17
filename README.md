@@ -145,18 +145,15 @@ invisible to them.
 
 ## Before go-live
 
-1. **Domain** — `siteUrl` in `src/data/business.js` is still the placeholder
-   `www.speedyplumbinganddrain.co.uk`, which does not currently resolve (NXDOMAIN).
-   Canonical URLs and the absolute `og:image` URL are both built from it, so **social
-   previews stay blank and canonicals point at nothing until this is set.** Update it
-   together with `public/sitemap.xml` and `public/robots.txt`.
-2. **Quote form backend** — ⚠️ **the form does not send anything yet.** `submit()` in
-   [`src/pages/Quote.jsx`](src/pages/Quote.jsx) logs the enquiry to the console, waits
-   900ms and shows "Request received". A customer filling it in today gets a success
-   screen and nobody is notified. Wire it to a serverless endpoint or email service, and
-   replace the honeypot with real spam protection, **before this site takes traffic.**
-   Uploaded photos are collected in state but never transmitted — the backend needs to
-   accept them too.
+1. **Tracking & quote delivery env** — set every variable in
+   [`.env.example`](.env.example) in Vercel (Production **and** Preview). The build
+   fails without `VITE_GADS_ID` / `VITE_GA4_ID`; quote requests return an error (and the
+   form tells the customer to call) until `TELEGRAM_BOT_TOKEN` / `TELEGRAM_CHAT_ID` are
+   set. Full event list and Google Ads/GA4 setup steps: [`docs/tracking.md`](docs/tracking.md).
+2. **Quote form backend** — the form posts to [`api/quote.js`](api/quote.js), a Vercel
+   function that validates the request and sends it (with photos) to the business
+   Telegram group. `npm run dev` does not serve `/api`; use `vercel dev` to test the
+   full submission locally.
 3. **Photography** — the site uses generated, photorealistic illustrative imagery in
    responsive AVIF/WebP variants. Replace with genuine company photography when
    available, keeping the same filenames and crop ratios where practical.

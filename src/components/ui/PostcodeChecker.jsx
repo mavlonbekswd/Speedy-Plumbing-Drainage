@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { CheckCircle2, MapPin, PhoneCall, Search } from 'lucide-react'
 import { businessConfig } from '../../data/business'
+import { trackEvent } from '../../lib/analytics'
 import { coveredPostcodeDistricts, districtToAreaIds, getNetworkArea } from '../../data/serviceAreas'
 
 const POSTCODE_RE = /^([A-Z]{1,2}\d[A-Z\d]?)\s*(\d[A-Z]{2})?$/i
@@ -31,6 +32,7 @@ export default function PostcodeChecker({ dark = true, onResult }) {
       setState('invalid')
       setMatchedNames([])
       onResult?.(null)
+      trackEvent('postcode_check', { result: 'invalid' })
       return
     }
     const covered = coveredPostcodeDistricts.includes(district)
@@ -38,6 +40,8 @@ export default function PostcodeChecker({ dark = true, onResult }) {
     const names = areaIds.map((id) => getNetworkArea(id)?.name).filter(Boolean)
     setState(covered ? 'covered' : 'unknown')
     setMatchedNames(names)
+    // District only (e.g. "CB1") — never the full postcode.
+    trackEvent('postcode_check', { result: covered ? 'covered' : 'unknown', district })
     onResult?.({ status: covered ? 'covered' : 'unknown', district, areaIds, areaNames: names })
   }
 

@@ -248,6 +248,7 @@ function AreaNetwork({ highlightedIds = [] }) {
 
   return (
     <div
+      data-cta-location="area_map"
       className="relative w-full"
       onKeyDown={(e) => {
         if (e.key === 'Escape') reset()

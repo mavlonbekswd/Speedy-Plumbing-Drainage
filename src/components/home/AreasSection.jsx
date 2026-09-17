@@ -14,6 +14,7 @@ import SectionHeading from '../ui/SectionHeading'
 export default function AreasSection() {
   return (
     <section
+      data-cta-location="areas_section"
       className="grain relative overflow-hidden bg-navy-deep px-5 py-28 md:px-8 md:py-40"
       aria-labelledby="areas-heading"
     >

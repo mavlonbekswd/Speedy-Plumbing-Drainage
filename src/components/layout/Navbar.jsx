@@ -104,6 +104,7 @@ export default function Navbar() {
   return (
     <>
       <header
+        data-cta-location="navbar"
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
           scrolled
             ? 'border-b border-white/8 bg-charcoal/85 py-2.5 backdrop-blur-lg'
@@ -173,6 +174,7 @@ export default function Navbar() {
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             role="dialog"
             aria-modal="true"
+            data-cta-location="mobile_menu"
             aria-label="Site menu"
           >
             <div className="flex items-center justify-between px-5 py-4 md:px-8">

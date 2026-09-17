@@ -17,6 +17,8 @@ import { businessConfig } from '../data/business'
 import { services } from '../data/services'
 import PageHero from '../components/layout/PageHero'
 import Button from '../components/ui/Button'
+import { readClickIds } from '../lib/analytics'
+import { useQuoteTracking } from '../lib/useQuoteTracking'
 
 const URGENCIES = [
   { value: 'emergency', label: 'Emergency', hint: 'Water flowing now / risk of damage' },
@@ -51,13 +53,16 @@ export default function Quote() {
   const [step, setStep] = useState(0)
   const [form, setForm] = useState(initialForm)
   const [errors, setErrors] = useState({})
-  const [status, setStatus] = useState('editing') // editing | submitting | success
+  const [status, setStatus] = useState('editing') // editing | submitting | success | error
   const reduced = useReducedMotion()
   const liveRef = useRef(null)
+  const track = useQuoteTracking(steps, step)
 
   const set = (field) => (value) => {
     setForm((f) => ({ ...f, [field]: value }))
     setErrors((e) => ({ ...e, [field]: undefined }))
+    if (field !== 'company') track.start()
+    if (field === 'urgency' && value === 'emergency') track.emergencyPrompt()
   }
 
   const stepErrors = useMemo(() => {
@@ -87,12 +92,22 @@ export default function Quote() {
     const e = stepErrors[step]()
     setErrors(e)
     if (Object.keys(e).length === 0) {
+      // Only non-personal answers ride along on the event.
+      track.stepComplete(step, {
+        ...(step === 0 ? { service: form.service } : {}),
+        ...(step === 1 ? { urgency: form.urgency } : {}),
+        ...(step === 3 ? { photo_count: form.photos.length } : {}),
+        ...(step === 4 ? { contact_method: form.contactMethod } : {}),
+      })
       setStep((s) => Math.min(s + 1, steps.length - 1))
       liveRef.current?.focus()
+    } else {
+      track.validationError(step, Object.keys(e))
     }
   }
 
   function back() {
+    track.stepBack(step)
     setStep((s) => Math.max(s - 1, 0))
     liveRef.current?.focus()
   }
@@ -100,6 +115,7 @@ export default function Quote() {
   function onPhotos(fileList) {
     const files = Array.from(fileList || []).slice(0, 4)
     set('photos')(files)
+    if (files.length) track.photosAdded(files.length)
   }
 
   // Enter inside a field used to fire the form's onSubmit from any step, and
@@ -118,35 +134,60 @@ export default function Quote() {
     e.preventDefault()
     const errs = stepErrors[5]()
     setErrors(errs)
-    if (Object.keys(errs).length > 0) return
+    if (Object.keys(errs).length > 0) {
+      track.validationError(5, Object.keys(errs))
+      return
+    }
 
-    // Spam protection placeholder: silently drop obvious bot submissions.
+    // Honeypot: bots get a fake success and are never tracked or counted as a
+    // conversion. The server repeats this check independently.
     if (form.company !== '') {
+      track.spam()
       setStatus('success')
       return
     }
 
-    setStatus('submitting')
-    const enquiry = {
+    const eventProps = {
       service: form.service,
       urgency: form.urgency,
-      postcode: form.postcode.trim().toUpperCase(), // stored with the enquiry
-      details: form.details.trim(),
-      photoNames: form.photos.map((f) => f.name),
-      name: form.name.trim(),
-      phone: form.phone.trim(),
-      email: form.email.trim(),
-      preferredContact: form.contactMethod,
-      consent: form.consent,
-      submittedAt: new Date().toISOString(),
+      contact_method: form.contactMethod,
+      photo_count: form.photos.length,
+    }
+    track.submit(eventProps)
+    setStatus('submitting')
+
+    const body = new FormData()
+    body.append('service', form.service)
+    body.append('urgency', form.urgency)
+    body.append('postcode', form.postcode.trim())
+    body.append('details', form.details.trim())
+    body.append('name', form.name.trim())
+    body.append('phone', form.phone.trim())
+    body.append('email', form.email.trim())
+    body.append('contactMethod', form.contactMethod)
+    body.append('consent', String(form.consent))
+    body.append('company', form.company)
+    for (const [key, value] of Object.entries(readClickIds())) body.append(key, value)
+    for (const photo of form.photos) body.append('photos', photo, photo.name)
+
+    let httpStatus = 0
+    try {
+      const res = await fetch('/api/quote', { method: 'POST', body })
+      httpStatus = res.status
+    } catch {
+      // Network failure — httpStatus stays 0.
     }
 
-    // TODO: connect to a real backend / email service (e.g. a serverless
-    // endpoint) before go-live. Until then the enquiry is logged locally so
-    // the flow can be tested end-to-end.
-    console.info('[quote-enquiry]', enquiry)
-    await new Promise((resolve) => setTimeout(resolve, 900))
-    setStatus('success')
+    if (httpStatus >= 200 && httpStatus < 300) {
+      setStatus('success')
+      await track.success(
+        { ...eventProps, http_status: httpStatus },
+        { name: form.name, phone: form.phone, email: form.email, postcode: form.postcode },
+      )
+    } else {
+      setStatus('error')
+      track.error({ ...eventProps, http_status: httpStatus })
+    }
   }
 
   // Enter-only. No AnimatePresence exit phase: a hidden tab pauses rAF, and an
@@ -186,7 +227,7 @@ export default function Quote() {
         intro="Around one minute, six quick steps. Photos help us quote accurately. Anything urgent? Skip the form and call."
         crumbs={[{ name: 'Request a Quote', path: '/quote' }]}
       >
-        <div className="mt-8">
+        <div className="mt-8" data-cta-location="quote_hero">
           <Button href={businessConfig.phoneHref} icon={Phone} variant="emergency">
             Emergency? Call {businessConfig.phoneDisplay}
           </Button>
@@ -196,7 +237,7 @@ export default function Quote() {
       <section className="bg-mist px-5 py-20 text-charcoal md:px-8 md:py-28">
         <div className="mx-auto max-w-3xl">
           {status === 'success' ? (
-            <div className="rounded-sm border border-charcoal/10 bg-white p-10 text-center md:p-14" role="status">
+            <div className="rounded-sm border border-charcoal/10 bg-white p-10 text-center md:p-14" role="status" data-cta-location="quote_success">
               <CheckCircle2 className="mx-auto size-14 text-blue" aria-hidden="true" />
               <h2 className="display-md mt-6">Request received</h2>
               <p className="mx-auto mt-5 max-w-md text-lg leading-relaxed text-steel-dark">
@@ -211,7 +252,7 @@ export default function Quote() {
               </p>
             </div>
           ) : (
-            <form onSubmit={submit} onKeyDown={onFormKeyDown} noValidate className="rounded-sm border border-charcoal/10 bg-white p-6 md:p-10">
+            <form onSubmit={submit} onKeyDown={onFormKeyDown} noValidate data-cta-location="quote_form" className="rounded-sm border border-charcoal/10 bg-white p-6 md:p-10">
               {/* Progress indicator */}
               <div aria-hidden="true" className="mb-3 flex gap-1.5">
                 {steps.map((label, i) => (
@@ -523,6 +564,19 @@ export default function Quote() {
                     {fieldError('consent')}
                   </motion.div>
                 )}
+
+              {status === 'error' && (
+                <div role="alert" className="mt-8 flex items-start gap-3 rounded-sm border border-amber/40 bg-amber/10 p-4 text-sm">
+                  <AlertTriangle className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
+                  <span>
+                    Sorry — your request didn’t go through. Please try again, or call us on{' '}
+                    <a href={businessConfig.phoneHref} className="font-bold underline underline-offset-2">
+                      {businessConfig.phoneDisplay}
+                    </a>
+                    .
+                  </span>
+                </div>
+              )}
 
               {/* Navigation */}
               <div className="mt-10 flex items-center justify-between gap-4 border-t border-charcoal/10 pt-7">

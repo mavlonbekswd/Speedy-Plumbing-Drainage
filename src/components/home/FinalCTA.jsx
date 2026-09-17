@@ -42,6 +42,7 @@ export default function FinalCTA() {
   return (
     <section
       ref={sectionRef}
+      data-cta-location="final_cta"
       className="relative flex min-h-[100svh] items-center overflow-hidden px-5 py-28 md:px-8"
       aria-labelledby="finalcta-heading"
     >

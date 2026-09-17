@@ -3,4 +3,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.speedyplumbinganddrain.co.uk/sitemap.xml
+Sitemap: https://www.speedyplumbingdrain.co.uk/sitemap.xml

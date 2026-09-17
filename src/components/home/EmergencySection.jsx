@@ -24,6 +24,7 @@ const instructions = [
 export default function EmergencySection() {
   return (
     <section
+      data-cta-location="emergency_section"
       className="grain relative overflow-hidden bg-charcoal px-5 py-28 md:px-8 md:py-40"
       aria-labelledby="emergency-heading"
     >
