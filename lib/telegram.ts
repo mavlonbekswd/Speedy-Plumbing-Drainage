@@ -162,8 +162,8 @@ function bookingMessage(b: Booking, photoCount: number, isOutOfHours: boolean): 
 }
 
 /**
- * Sends the booking. Resolves true only once Telegram has accepted the text
- * message, which is the lead itself. Photos are best effort and are attempted
+ * Sends the booking. Resolves false unless Telegram has accepted the text
+ * message, which is the lead itself; otherwise resolves how many photos were lost. Photos are best effort and are attempted
  * only after the text has landed: a failed upload is logged without any
  * personal detail and the lead still counts as delivered, because the contact
  * details are already in the group.
@@ -172,7 +172,7 @@ export async function notifyBookingTelegram(
   booking: Booking,
   photos: BookingPhoto[],
   isOutOfHours = false,
-): Promise<boolean> {
+): Promise<false | { photosLost: number }> {
   const chatId = process.env.TELEGRAM_CHAT_ID;
   if (!chatId || !process.env.TELEGRAM_BOT_TOKEN) {
     console.error("Telegram not configured: TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID are required");
@@ -189,7 +189,8 @@ export async function notifyBookingTelegram(
     parse_mode: "HTML",
     disable_web_page_preview: true,
   }));
-  if (!sent || photos.length === 0) return sent;
+  if (!sent) return false;
+  if (photos.length === 0) return { photosLost: 0 };
 
   // Plain text, sent without parse_mode, so it needs no escaping and cannot
   // fail the upload on a stray "<" in a customer's name.
@@ -227,6 +228,9 @@ export async function notifyBookingTelegram(
     console.error("Telegram photo upload failed, text lead was delivered without it", {
       photos: photos.length,
     });
+    // The lead itself landed, so this is still a success. The count goes back to the form so the
+    // customer is told the photos did not arrive, instead of assuming we have seen them.
+    return { photosLost: photos.length };
   }
-  return true;
+  return { photosLost: 0 };
 }

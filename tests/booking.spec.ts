@@ -218,6 +218,31 @@ test.describe("POST /api/book", () => {
     ]);
   });
 
+  test("a photo Telegram refuses is reported as not received, and the lead still goes through", async ({
+    request,
+    baseURL,
+  }) => {
+    // Found on the live test of 19 Sept 2026: Telegram took the text and refused the image, and
+    // the customer was told everything had arrived. The lead is safe, so it is still a 200, but
+    // the count has to go back so the form can say the photo did not make it.
+    mock.setFailure("sendPhoto", 400);
+    const res = await request.post("/api/book", {
+      headers: { origin: baseURL! },
+      multipart: {
+        ...LEAD,
+        photos: {
+          name: "leak.jpg",
+          mimeType: "image/jpeg",
+          buffer: Buffer.concat([Buffer.from([0xff, 0xd8, 0xff, 0xe0]), Buffer.alloc(256)]),
+        },
+      },
+    });
+    expect(res.status(), "a lead that landed was reported as lost").toBe(200);
+    expect((await res.json()).photos_dropped, "a refused photo was reported as delivered").toBe(1);
+    expect(methods()[0]).toBe("sendMessage");
+    mock.setFailure(null, 200);
+  });
+
   test("when Telegram will not take it, the route says 500 rather than inventing a success", async ({
     request,
     baseURL,

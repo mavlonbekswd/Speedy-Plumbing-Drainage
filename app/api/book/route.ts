@@ -195,5 +195,5 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ error: "Failed to send booking" }, { status: 500 });
   }
 
-  return NextResponse.json({ ok: true, photos_dropped: photosDropped });
+  return NextResponse.json({ ok: true, photos_dropped: photosDropped + sent.photosLost });
 }
