@@ -1,30 +1,33 @@
 {
-  "name": "speedy-plumbing-and-drain",
+  "name": "speedy-plumbing-drain",
+  "version": "0.1.0",
   "private": true,
-  "version": "1.0.0",
-  "type": "module",
+  "engines": {
+    "node": ">=20.9"
+  },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@react-three/drei": "^9.114.0",
-    "@react-three/fiber": "^8.17.10",
-    "framer-motion": "^11.11.0",
-    "gsap": "^3.12.5",
-    "lenis": "^1.1.14",
-    "lucide-react": "^0.454.0",
-    "posthog-js": "^1.433.9",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.27.0",
-    "three": "^0.169.0"
+    "@phosphor-icons/react": "^2.1.10",
+    "next": "^15.3.3",
+    "posthog-js": "^1.395.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.0.0",
-    "@vitejs/plugin-react": "^4.3.3",
-    "tailwindcss": "^4.0.0",
-    "vite": "^5.4.10"
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
   }
 }

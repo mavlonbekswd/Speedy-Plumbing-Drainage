@@ -1,0 +1,61 @@
+# Every URL site-claims-audit.py checks, one absolute www URL per line.
+# Generated from the data barrels: lib/routes.ts (static), lib/types.ts (services) and
+# lib/towns.ts (towns). /services/boiler-repairs is deliberately absent: it is held pending
+# the credential decision and has no page to audit.
+# Regenerate by hand when a route is added; the audit runs against the LIVE site, so a URL
+# listed here that has not shipped is reported as a failure, which is the point.
+https://www.speedyplumbingdrain.co.uk/
+https://www.speedyplumbingdrain.co.uk/services
+https://www.speedyplumbingdrain.co.uk/areas-we-cover
+https://www.speedyplumbingdrain.co.uk/about
+https://www.speedyplumbingdrain.co.uk/guarantee
+https://www.speedyplumbingdrain.co.uk/contact
+https://www.speedyplumbingdrain.co.uk/quote
+https://www.speedyplumbingdrain.co.uk/projects
+https://www.speedyplumbingdrain.co.uk/reviews
+https://www.speedyplumbingdrain.co.uk/faqs
+https://www.speedyplumbingdrain.co.uk/blog
+https://www.speedyplumbingdrain.co.uk/terms
+https://www.speedyplumbingdrain.co.uk/services/emergency-plumbing
+https://www.speedyplumbingdrain.co.uk/services/drainage
+https://www.speedyplumbingdrain.co.uk/services/blocked-drains
+https://www.speedyplumbingdrain.co.uk/services/leak-repairs
+https://www.speedyplumbingdrain.co.uk/services/drain-cleaning
+https://www.speedyplumbingdrain.co.uk/services/toilet-repairs
+https://www.speedyplumbingdrain.co.uk/services/bathroom-plumbing
+https://www.speedyplumbingdrain.co.uk/services/hot-water
+https://www.speedyplumbingdrain.co.uk/services/saniflo-and-macerators
+https://www.speedyplumbingdrain.co.uk/areas/cambridge
+https://www.speedyplumbingdrain.co.uk/areas/ely
+https://www.speedyplumbingdrain.co.uk/areas/huntingdon
+https://www.speedyplumbingdrain.co.uk/areas/st-neots
+https://www.speedyplumbingdrain.co.uk/areas/wisbech
+https://www.speedyplumbingdrain.co.uk/areas/march
+https://www.speedyplumbingdrain.co.uk/areas/chatteris
+https://www.speedyplumbingdrain.co.uk/areas/st-ives
+https://www.speedyplumbingdrain.co.uk/areas/soham
+https://www.speedyplumbingdrain.co.uk/areas/newmarket
+https://www.speedyplumbingdrain.co.uk/areas/haverhill
+https://www.speedyplumbingdrain.co.uk/areas/bury-st-edmunds
+https://www.speedyplumbingdrain.co.uk/areas/mildenhall
+https://www.speedyplumbingdrain.co.uk/areas/brandon
+https://www.speedyplumbingdrain.co.uk/areas/stowmarket
+https://www.speedyplumbingdrain.co.uk/areas/sudbury
+https://www.speedyplumbingdrain.co.uk/areas/thetford
+https://www.speedyplumbingdrain.co.uk/areas/diss
+https://www.speedyplumbingdrain.co.uk/areas/attleborough
+https://www.speedyplumbingdrain.co.uk/areas/watton
+https://www.speedyplumbingdrain.co.uk/areas/downham-market
+https://www.speedyplumbingdrain.co.uk/areas/swaffham
+https://www.speedyplumbingdrain.co.uk/areas/saffron-walden
+https://www.speedyplumbingdrain.co.uk/areas/braintree
+https://www.speedyplumbingdrain.co.uk/areas/royston
+https://www.speedyplumbingdrain.co.uk/areas/bishops-stortford
+https://www.speedyplumbingdrain.co.uk/areas/biggleswade
+https://www.speedyplumbingdrain.co.uk/areas/stamford
+https://www.speedyplumbingdrain.co.uk/areas/kings-lynn
+https://www.speedyplumbingdrain.co.uk/areas/peterborough
+https://www.speedyplumbingdrain.co.uk/areas/bedford
+https://www.speedyplumbingdrain.co.uk/blog/what-to-do-burst-pipe
+https://www.speedyplumbingdrain.co.uk/blog/why-drains-keep-blocking
+https://www.speedyplumbingdrain.co.uk/blog/signs-of-hidden-leak

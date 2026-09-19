@@ -1,0 +1,21 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "incremental": false,
+    "types": ["node"]
+  },
+  "include": [
+    "../playwright.config.ts",
+    "./**/*.ts",
+    "../lib/types.ts",
+    "../lib/routes.ts",
+    "../lib/towns.ts",
+    "../lib/services.ts",
+    "../lib/claims.ts",
+    "../lib/site.ts",
+    "../lib/coverage.ts",
+    "../content/ads.ts"
+  ],
+  "exclude": []
+}
