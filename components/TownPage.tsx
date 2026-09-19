@@ -8,6 +8,10 @@
 //   2. the page carries the pinned lines of both town-keyword ad groups, through
 //      TownServicesBlock, which is what makes any published town page a safe Final URL.
 //
+// Reshaped with the service template on 19 September 2026: the proof strip comes up to the
+// middle of the page, the boxed "In plain words" card is gone and its sentences are folded into
+// the cross-link section as ordinary copy, and every section runs the shorter vertical rhythm.
+//
 // A server component. `lead` is the emergency service leaf: its answers, steps, problems and
 // proof are reused here, and the town's own sentences come from the City leaf.
 
@@ -33,12 +37,26 @@ import { TOWN_CLOSING, TOWN_CTA_BAND, URGENT_GRID_NOTE } from "@/lib/claims";
 import { townCoverFaq } from "@/lib/faqs";
 import { PUBLISHED_SERVICES } from "@/lib/services";
 import { STATIC_ROUTE_BY_PATH } from "@/lib/routes";
-import { TOWN_AD_LINES } from "@/content/ads";
+import { ADS, TOWN_AD_LINES } from "@/content/ads";
 import type { Answer, City, ServiceContent } from "@/lib/types";
 import { placeOf } from "@/lib/towns";
 
 /** The most any page shows, so the schema and the accordion can never disagree about the set. */
 const MAX_TOWN_FAQS = 5;
+
+// TOWN_AD_LINES is the flat list of pinned descriptions a town page must carry. It is split here
+// so each line lands with the cross-link its ad was written about, and the split is by
+// MEMBERSHIP rather than by index: anything that is not an Emergency line is a drains line, so a
+// third ad group joining the town keywords tomorrow still renders rather than falling out.
+const EMERGENCY_PINNED = new Set(ADS.filter((ad) => ad.group === "E").map((ad) => ad.pinned));
+const TOWN_EMERGENCY_LINES = TOWN_AD_LINES.filter((line) => EMERGENCY_PINNED.has(line));
+const TOWN_DRAIN_LINES = TOWN_AD_LINES.filter((line) => !EMERGENCY_PINNED.has(line));
+
+// The partition itself cannot lose a line; what it can do is leave a group with nothing to say,
+// which is how an ad group quietly stops having its promise on the page it lands on.
+if (TOWN_EMERGENCY_LINES.length === 0 || TOWN_DRAIN_LINES.length === 0) {
+  throw new Error("components/TownPage.tsx: a town ad group has no pinned line left to render");
+}
 
 /** A link is only offered when the page behind it is live, so no crumb is ever a 404. */
 function publishedHref(path: string): string | undefined {
@@ -94,6 +112,7 @@ export default function TownPage({ city, lead }: { city: City; lead: ServiceCont
           // 60 words and the longest town H1 already spends more of it than the service page does.
           sub=""
           urgent
+          heroImage="areas"
           aside={
             <CallbackInline
               formId={`area_${city.slug}_hero`}
@@ -105,7 +124,7 @@ export default function TownPage({ city, lead }: { city: City; lead: ServiceCont
 
         <TickChips guaranteeHref={guaranteeHref} />
 
-        <StraightAnswers answers={answers} after={lead.afterAnswers} tinted={false} />
+        <StraightAnswers answers={answers} after={lead.afterAnswers} tinted={false} compact />
 
         <ProblemGrid
           heading={`${lead.navLabel} in ${place}.`}
@@ -113,17 +132,28 @@ export default function TownPage({ city, lead }: { city: City; lead: ServiceCont
           cards={lead.problems.cards}
           note={URGENT_GRID_NOTE}
           tinted
+          compact
         />
 
         <TownAreaBlock city={city} tinted={false} />
 
+        {/* Real jobs, at the middle of the page rather than the foot. */}
+        <ProofStrip photoSlugs={lead.proof.photos} videoSlug={lead.proof.video} tinted compact />
+
         {/* Carries the pinned lines of the Emergency and Drain Cleaning ads, verbatim and always
-            visible, which is what lets a town keyword point here. */}
-        <TownServicesBlock city={city} services={PUBLISHED_SERVICES} adLines={TOWN_AD_LINES} tinted />
+            visible, each beside the cross-link its ad was written about. This is what lets a town
+            keyword point here. */}
+        <TownServicesBlock
+          city={city}
+          services={PUBLISHED_SERVICES}
+          emergencyLines={TOWN_EMERGENCY_LINES}
+          drainLines={TOWN_DRAIN_LINES}
+          tinted={false}
+        />
 
         <CTABand {...TOWN_CTA_BAND(place)} />
 
-        <HowItWorks steps={lead.steps} tinted={false} />
+        <HowItWorks steps={lead.steps} tinted={false} compact />
 
         <BookingForm
           heading={`Book a plumber in ${place}`}
@@ -131,9 +161,7 @@ export default function TownPage({ city, lead }: { city: City; lead: ServiceCont
           service={lead.slug}
         />
 
-        <ProofStrip photoSlugs={lead.proof.photos} videoSlug={lead.proof.video} tinted={false} />
-
-        <ServiceFAQ faqs={faqs} tinted />
+        <ServiceFAQ faqs={faqs} tinted={false} />
 
         <ClosingBand {...TOWN_CLOSING(place)} />
       </main>

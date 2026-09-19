@@ -6,6 +6,7 @@ import {
   INSURED_LEAD,
   PAYMENT_ANSWER,
   PAYMENT_FAQ,
+  PHONE_ANSWER,
   PRICE_PROCESS_LINE,
 } from "../../lib/claims";
 
@@ -51,11 +52,7 @@ const emergencyPlumbing: ServiceContent = {
       lead: "None, and no extra charge at night or weekends.",
       rest: "Nothing changes without your say-so. If the job turns out bigger once we are in, we stop and tell you first.",
     },
-    {
-      q: "Who answers the phone?",
-      lead: "A plumber does, day or night.",
-      rest: "Not a call centre. The person who answers is the person who comes.",
-    },
+    PHONE_ANSWER,
     {
       q: "Are you insured?",
       lead: INSURED_LEAD,

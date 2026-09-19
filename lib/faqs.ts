@@ -2,8 +2,8 @@
 // drift from the line the rest of the site renders. Every answer opens with the answer.
 //
 // Service and town pages carry three to five FAQs of their own and emit FAQPage schema; this
-// file holds the sitewide set for /faqs, the five standard ones a page may reuse, and the town
-// coverage question, which is built per town.
+// file holds the shared questions, the per-page sets the static pages render (there is no
+// separate questions page since 19 Sept 2026), and the town coverage question, built per town.
 
 import type { Faq } from "./types";
 import {
@@ -92,21 +92,14 @@ export const WHO_WORKS_FAQ: Faq = {
   a: `One of our own plumbers. ${EXPERIENCE_LINE}`,
 };
 
-/** The /faqs page, in decision order: coverage, speed, price, then the trust questions. */
-export const SITE_FAQS: readonly Faq[] = [
-  COVERAGE_FAQ,
-  HOURS_FAQ,
-  ARRIVAL_FAQ,
-  PRICE_FAQ,
-  PAYMENT_FAQ,
-  GUARANTEE_FAQ,
-  INSURED_FAQ,
-  WHO_COMES_FAQ,
-  WHO_WORKS_FAQ,
-  SMALL_JOBS_FAQ,
-  PHOTO_QUOTE_FAQ,
-  OUT_OF_SCOPE_FAQ,
-];
+// Per-page sets. /faqs was removed on 19 Sept 2026 (owner): each page now answers the questions
+// that belong to it, and carries its own FAQPage schema over exactly the list it renders.
+export const HOME_FAQS: readonly Faq[] = [PRICE_FAQ, ARRIVAL_FAQ, COVERAGE_FAQ, GUARANTEE_FAQ, PAYMENT_FAQ, OUT_OF_SCOPE_FAQ];
+export const SERVICES_HUB_FAQS: readonly Faq[] = [PRICE_FAQ, SMALL_JOBS_FAQ, PHOTO_QUOTE_FAQ, OUT_OF_SCOPE_FAQ];
+export const AREAS_FAQS: readonly Faq[] = [COVERAGE_FAQ, ARRIVAL_FAQ, HOURS_FAQ];
+export const ABOUT_FAQS: readonly Faq[] = [WHO_WORKS_FAQ, WHO_COMES_FAQ, INSURED_FAQ];
+export const GUARANTEE_FAQS: readonly Faq[] = [GUARANTEE_FAQ, INSURED_FAQ, PAYMENT_FAQ];
+export const CONTACT_FAQS: readonly Faq[] = [HOURS_FAQ, PHOTO_QUOTE_FAQ, PRICE_FAQ, PAYMENT_FAQ];
 
 /**
  * FAQ 1 on every town page, built locally so each URL carries a sentence nothing else has.

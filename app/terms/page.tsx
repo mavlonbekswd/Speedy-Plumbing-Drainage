@@ -16,7 +16,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileCallBar from "@/components/MobileCallBar";
 import Breadcrumb from "@/components/Breadcrumb";
+import HeroBackdrop from "@/components/HeroBackdrop";
 import Button from "@/components/ui/Button";
+import { FALLBACK_HERO } from "@/lib/media";
 import {
   ANSWERED_LINE,
   GUARANTEE_LINE,
@@ -79,14 +81,19 @@ function Lead({ children }: { children: React.ReactNode }) {
 export default function TermsPage() {
   const guaranteeHref = publishedHref("/guarantee");
   const privacyHref = publishedHref("/privacy");
+  const projectsHref = publishedHref("/projects");
 
   return (
     <div className="has-callbar">
       <Header />
 
       <main id="main" tabIndex={-1} className="outline-none">
-        <section className="bg-paper">
-          <div className="mx-auto max-w-content px-5 py-16 sm:px-8 md:py-20">
+        {/* The heading block is its own section so the backdrop sits behind the first screen and
+            not behind three hundred lines of legal text. Everything below it stays plain. */}
+        <section className="relative isolate overflow-hidden bg-paper">
+          <HeroBackdrop image={FALLBACK_HERO} />
+
+          <div className="mx-auto max-w-content px-5 pb-12 pt-16 sm:px-8 md:pb-14 md:pt-20">
             <Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Website terms" }]} className="mb-8" />
 
             <h1 className="max-w-[18ch] text-pretty font-display text-[clamp(34px,4.6vw,60px)] font-extrabold leading-[1.02] text-brand">
@@ -128,7 +135,11 @@ export default function TermsPage() {
                 WhatsApp us
               </Button>
             </div>
+          </div>
+        </section>
 
+        <section className="bg-paper">
+          <div className="mx-auto max-w-content px-5 pb-16 sm:px-8 md:pb-20">
             <Section title="Who runs this site">
               <p>
                 <Lead>This site is run by {REGISTERED_NAME}, which trades as {TRADING_NAME}.</Lead> It is
@@ -159,6 +170,24 @@ export default function TermsPage() {
               <p>
                 So do not act on a page here as though a plumber had seen the job. Ring us, describe what is
                 happening, and you get an answer about your house rather than about houses in general.
+              </p>
+              <p>
+                Some pictures on this site are representative and do not show our own jobs. Every photo and
+                clip on{" "}
+                {projectsHref ? (
+                  <a
+                    href={projectsHref}
+                    data-cta="nav"
+                    data-cta-location="terms_page"
+                    data-cta-variant="text_link"
+                    className="font-semibold text-brand underline underline-offset-2 hover:text-tint"
+                  >
+                    our work page
+                  </a>
+                ) : (
+                  "our work page"
+                )}{" "}
+                is from our own jobs.
               </p>
             </Section>
 

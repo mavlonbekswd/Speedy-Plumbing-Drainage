@@ -48,6 +48,14 @@ const nextConfig: NextConfig = {
   // merely hidden from crawlers. 308 preserves the path, so /sitemap.xml,
   // /robots.txt and every page land on their real-domain equivalent.
   async redirects() {
+    // Pages removed on 19 Sept 2026 (owner): the callback wizard moved onto /contact, the
+    // questions moved onto the pages they belong to, and reviews moved onto the home page.
+    // Redirects run before middleware, so these beat its catch-all.
+    const removed = [
+      { source: "/quote", destination: "/contact#book", permanent: true },
+      { source: "/faqs", destination: "/#faq", permanent: true },
+      { source: "/reviews", destination: "/#reviews", permanent: true },
+    ];
     return VERCEL_ALIAS_HOST
       ? [
           {
@@ -56,8 +64,9 @@ const nextConfig: NextConfig = {
             destination: `${CANONICAL_ORIGIN}/:path*`,
             permanent: true,
           },
+          ...removed,
         ]
-      : [];
+      : removed;
   },
 
   // PostHog reverse proxy (US region): events go to /ingest on our own

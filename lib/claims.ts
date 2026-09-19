@@ -32,8 +32,16 @@ export const NIGHT_RATE_LINE = "No extra charge at night or weekends.";
 /** Urgent pages only. Booked pages never carry same-day wording in the hero. */
 export const SAME_DAY_LINE = "Same day, on site within 45 minutes, 24/7.";
 
-export const ANSWERED_LINE =
-  "A plumber answers the phone, day or night. The person who answers is the person who comes.";
+/**
+ * Two sentences, held apart as constants because MUST_RENDER rule 2 wants BOTH of them, word
+ * for word, somewhere on every service and town page. The owner took the first of them out of
+ * the hero on 19 September 2026, so their one always-in-the-document home is now answer card 4,
+ * PHONE_ANSWER below. Never retype either of them into a leaf.
+ */
+export const PHONE_ANSWERED_SENTENCE = "A plumber answers the phone, day or night.";
+export const SAME_PERSON_SENTENCE = "The person who answers is the person who comes.";
+
+export const ANSWERED_LINE = `${PHONE_ANSWERED_SENTENCE} ${SAME_PERSON_SENTENCE}`;
 
 export const ARRIVAL_LINE = "With you within 45 minutes, day or night.";
 
@@ -135,6 +143,18 @@ const outOfScopeList = sentenceList(OUT_OF_SCOPE);
 export const OUT_OF_SCOPE_SENTENCE = `No. ${outOfScopeList.charAt(0).toUpperCase()}${outOfScopeList.slice(1)} are not our trade.`;
 
 /**
+ * Card 4 of the straight-answers set, on every service leaf and on the town template. It is the
+ * only place both ANSWERED_LINE sentences are certain to render now that the hero carries
+ * neither, and the card is never collapsed, so the wording here is load-bearing: MUST_RENDER
+ * rule 2, checked on every service and town route by tests/ad-page-join.spec.ts.
+ */
+export const PHONE_ANSWER: Answer = {
+  q: "Who answers the phone?",
+  lead: PHONE_ANSWERED_SENTENCE,
+  rest: `Not a call centre. ${SAME_PERSON_SENTENCE}`,
+};
+
+/**
  * Card 8 of the straight-answers set. Payment was settled on 19 September 2026: paid once the
  * work is finished, by cash, card or bank transfer.
  */
@@ -183,10 +203,7 @@ export const MUST_RENDER: readonly MustRenderRule[] = [
   { label: "Availability, 24/7 including weekends and bank holidays", test: anywhere("24/7, including weekends and bank holidays") },
   {
     label: "A plumber answers, and the person who answers is the person who comes",
-    test: bothAnywhere(
-      "A plumber answers the phone, day or night.",
-      "The person who answers is the person who comes.",
-    ),
+    test: bothAnywhere(PHONE_ANSWERED_SENTENCE, SAME_PERSON_SENTENCE),
   },
   { label: "No extra charge at night or weekends", test: anywhere("No extra charge at night or weekends") },
   { label: "The price is agreed before we start", test: anywhere("The price is agreed before we start") },
@@ -202,11 +219,74 @@ export const MUST_RENDER: readonly MustRenderRule[] = [
 ];
 
 // ---------------------------------------------------------------------------
+// Where the pinned ad descriptions land on a page
+// ---------------------------------------------------------------------------
+
+/**
+ * THESE STRINGS ARE VERBATIM AND STAY VERBATIM.
+ *
+ * Every string in a service leaf's `adLines`, and every string in TOWN_AD_LINES, is the pinned
+ * description of a Google ad that lands on that page. An ad may only promise what its own
+ * landing page says, so each line has to render there word for word, as ONE text node from ONE
+ * string expression, in markup that is always in the document: never inside a disclosure, never
+ * behind `hidden`, never truncated, never reworded and never twice on the same page.
+ * tests/ad-page-join.spec.ts is the gate, and it costs money when it breaks.
+ *
+ * The owner removed the boxed "In plain words" card on 19 September 2026. The sentences stayed,
+ * folded into the page as ordinary copy, and this function decides where from the data alone so
+ * that adding an ad line never means editing a template.
+ */
+export type AdSlot = "problemLead" | "closingSub" | "howIntro" | "ctaSub";
+
+/**
+ * The order the slots fill. Line 1 goes high on the page and line 2 goes to the very bottom,
+ * because two ads in one group often overlap almost word for word (both Emergency lines say
+ * "A plumber answers, day or night"), and two near-identical sentences in neighbouring sections
+ * read as a stutter. The middle slots take the third and fourth lines, which by then belong to
+ * a different ad group and no longer repeat each other.
+ */
+const AD_SLOT_FILL_ORDER: readonly AdSlot[] = ["problemLead", "closingSub", "howIntro", "ctaSub"];
+
+export interface AdLinePlacement {
+  /** Lead paragraphs under the problem grid's heading: line 1, plus anything past line 4. */
+  problemLead: string[];
+  /** The navy closing band's sub line. */
+  closingSub?: string;
+  /** One line above the three how-it-works steps. */
+  howIntro?: string;
+  /** The navy CTA band's sub line. */
+  ctaSub?: string;
+}
+
+/** Duplicates are dropped first, so no page can render the same pinned sentence twice. */
+export function placeAdLines(lines: readonly string[]): AdLinePlacement {
+  const placement: AdLinePlacement = { problemLead: [] };
+  [...new Set(lines)].forEach((line, index) => {
+    switch (AD_SLOT_FILL_ORDER[index]) {
+      case "closingSub":
+        placement.closingSub = line;
+        break;
+      case "howIntro":
+        placement.howIntro = line;
+        break;
+      case "ctaSub":
+        placement.ctaSub = line;
+        break;
+      // "problemLead" and the overflow past the fourth line both land here, so a fifth line is
+      // published rather than silently dropped.
+      default:
+        placement.problemLead.push(line);
+    }
+  });
+  return placement;
+}
+
+// ---------------------------------------------------------------------------
 // Form copy (section 6.6). Number-bearing strings are functions of the display number.
 // ---------------------------------------------------------------------------
 
 export const FORM_COPY = {
-  /** The six-step wizard on /quote. The owner rates its shape; it should not grow. */
+  /** The full booking form, components/BookingForm.tsx. Its shape is settled; it should not grow. */
   full: {
     heading: "Ask us to ring you",
     sub: `Leave your number and postcode and we'll ring you back. If water is coming through the ceiling, ring us now instead. ${PRICE_PROCESS_LINE}`,

@@ -8,6 +8,7 @@ import {
   OUT_OF_SCOPE_SENTENCE,
   PAYMENT_ANSWER,
   PAYMENT_FAQ,
+  PHONE_ANSWER,
 } from "../../lib/claims";
 
 // The I ad group lands here, and two shower-repair keywords from the R group land here as well
@@ -50,11 +51,7 @@ const bathroomPlumbing: ServiceContent = {
       lead: "None, and no extra charge at night or weekends.",
       rest: "Nothing changes without your say-so. If the job changes once the floor is up, we stop and ask you first.",
     },
-    {
-      q: "Who answers the phone?",
-      lead: "A plumber does, day or night.",
-      rest: "Not a call centre. The person who answers is the person who comes.",
-    },
+    PHONE_ANSWER,
     {
       q: "Are you insured?",
       lead: INSURED_LEAD,

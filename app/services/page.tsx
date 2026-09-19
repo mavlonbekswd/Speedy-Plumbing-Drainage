@@ -1,42 +1,45 @@
 // /services. The hub a reader lands on when they know something is wrong but not what to call it.
 //
-// It is a signpost and nothing else: two groups, one card per published leaf, and the phone
-// number for the person whose problem is not on either list. Nothing here reads the request, so
-// the page is a static file.
+// It is a signpost and nothing else: one photo card per published leaf, urgent first, and the
+// phone number for the person whose problem is not on the list. The prose it used to carry was
+// the owner's complaint of 19 September 2026 ("very text heavy, needs more images or photos"),
+// so the pictures are our own jobs and the words are the service name and one line about it.
+//
+// Nothing here reads the request, so the page is a static file.
 
 import type { Metadata } from "next";
-import { Phone, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileCallBar from "@/components/MobileCallBar";
 import Breadcrumb from "@/components/Breadcrumb";
 import TickChips from "@/components/TickChips";
-import BookingForm from "@/components/BookingForm";
-import Button from "@/components/ui/Button";
+import ServiceFAQ from "@/components/ServiceFAQ";
+import FAQSchema from "@/components/FAQSchema";
+import ClosingBand from "@/components/ClosingBand";
+import HubHero from "@/components/hub/HubHero";
+import ServicePhotoCards from "@/components/hub/ServicePhotoCards";
 import {
-  ANSWERED_LINE,
   AVAILABILITY_LINE,
-  BOOKED_WORK_LINE,
   COVERAGE_SHORT,
+  DEFAULT_CTA_BAND,
   PRICE_PROCESS_LINE,
 } from "@/lib/claims";
-import { BOOKED_SERVICES, URGENT_SERVICES, serviceHref } from "@/lib/services";
+import { SERVICES_HUB_FAQS } from "@/lib/faqs";
+import { BOOKED_SERVICES, URGENT_SERVICES } from "@/lib/services";
 import { STATIC_ROUTE_BY_PATH } from "@/lib/routes";
 import {
   CALL_HREF,
   CALL_NUMBER_DISPLAY,
   SITE_URL,
   TRADING_NAME,
-  WHATSAPP_URL,
   openGraphFor,
 } from "@/lib/site";
-import type { ServiceContent } from "@/lib/types";
 
 const PATH = "/services";
 
 const TITLE = `Plumbing & Drainage Services | ${TRADING_NAME}`;
 
-const DESCRIPTION = `Pick the page that matches your problem. Emergency and booked plumbing across ${COVERAGE_SHORT}. A plumber answers, day or night.`;
+const DESCRIPTION = `Pick the service for your problem. Emergency and booked plumbing across ${COVERAGE_SHORT}. A plumber answers, day or night.`;
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -51,174 +54,70 @@ function publishedHref(path: string): string | undefined {
   return STATIC_ROUTE_BY_PATH[path]?.published ? path : undefined;
 }
 
-/**
- * One group of cards. Renders nothing at all when the group is empty: a heading over an empty
- * grid is what a route list looks like mid-build, and the flags flip one page at a time.
- */
-function ServiceGroup({
-  heading,
-  sub,
-  services,
-  tinted,
-}: {
-  heading: string;
-  sub: string;
-  services: readonly ServiceContent[];
-  tinted: boolean;
-}) {
-  if (services.length === 0) return null;
+/** Urgent first: the person who cannot wait is the person this list is for. */
+const SERVICES_IN_ORDER = [...URGENT_SERVICES, ...BOOKED_SERVICES];
 
-  return (
-    <section className={tinted ? "border-t border-line bg-paper-2" : "bg-paper"}>
-      <div className="mx-auto max-w-content px-5 py-20 sm:px-8 md:py-28">
-        <h2 className="font-display text-[clamp(28px,3.4vw,42px)] font-extrabold leading-[1.05] text-brand">
-          {heading}
-        </h2>
-        <p className="mt-4 max-w-[58ch] text-[16.5px] leading-[1.6] text-slate">{sub}</p>
-
-        <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => (
-            <li key={service.slug}>
-              <a
-                href={serviceHref(service.slug)}
-                data-cta="nav"
-                data-cta-location="services_hub_cards"
-                data-cta-variant="text_link"
-                className="lift press flex h-full flex-col rounded-card border border-line bg-white p-6 shadow-card hover:border-tint-soft"
-              >
-                <h3 className="font-display text-[19px] font-bold leading-snug text-brand">
-                  {service.navLabel}
-                </h3>
-                <p className="mt-2 max-w-[62ch] text-[15px] leading-[1.7] text-slate">
-                  {service.cardBlurb}
-                </p>
-                <span className="mt-4 text-[14.5px] font-semibold text-tint underline underline-offset-4">
-                  Read this page
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-}
 
 export default function ServicesHubPage() {
   return (
     <div className="has-callbar">
+      <FAQSchema faqs={SERVICES_HUB_FAQS} />
       <Header />
 
       <main id="main" tabIndex={-1} className="outline-none">
-        <section className="bg-paper">
-          <div className="mx-auto max-w-content px-5 pb-16 pt-10 sm:px-8 lg:px-12 lg:pb-20 lg:pt-14">
-            <Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Services" }]} className="mb-8" />
-
-            <h1 className="max-w-[22ch] text-pretty font-display text-[clamp(34px,4.6vw,60px)] font-extrabold leading-[1.02] text-brand">
-              Pick the page that matches your problem.
-            </h1>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button
-                as="a"
-                href={CALL_HREF}
-                variant="primary"
-                size="xl"
-                className="nums w-full sm:w-auto"
-                data-cta="phone"
-                data-cta-location="services_hub"
-                data-cta-variant="primary_button"
-              >
-                <Phone size={20} weight="fill" aria-hidden />
-                Call {CALL_NUMBER_DISPLAY}
-              </Button>
-              <Button
-                as="a"
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="whatsapp"
-                size="xl"
-                className="w-full sm:w-auto"
-                data-cta="whatsapp"
-                data-cta-location="services_hub"
-                data-cta-variant="secondary_button"
-              >
-                <WhatsappLogo size={22} weight="fill" aria-hidden />
-                WhatsApp us
-              </Button>
-            </div>
-
-            <div className="mt-8 flex max-w-[58ch] flex-col gap-2 text-[16.5px] leading-[1.6] text-slate">
-              <p>{PRICE_PROCESS_LINE}</p>
-              <p>{ANSWERED_LINE}</p>
-              <p>{AVAILABILITY_LINE}</p>
-            </div>
-          </div>
-        </section>
+        <HubHero
+          image="services"
+          crumbs={<Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Services" }]} />}
+          eyebrow="What we do"
+          h1="Pick the service for your problem."
+          facts={[PRICE_PROCESS_LINE, AVAILABILITY_LINE]}
+          ctaLocation="services_hub"
+        />
 
         <TickChips guaranteeHref={publishedHref("/guarantee")} />
 
-        <ServiceGroup
-          heading="Needs someone now"
-          sub="Water is moving and it should not be. Ring first, read second."
-          services={URGENT_SERVICES}
-          tinted={false}
+        <ServicePhotoCards
+          services={SERVICES_IN_ORDER}
+          eyebrow="Every job we take"
+          heading="Emergencies first, then booked work."
         />
 
-        <ServiceGroup
-          heading="Booked for a time that suits you"
-          sub={BOOKED_WORK_LINE}
-          services={BOOKED_SERVICES}
-          tinted
-        />
-
-        <section className="border-t border-line bg-paper">
-          <div className="mx-auto max-w-content px-5 py-20 sm:px-8 md:py-28">
-            <div className="rounded-card border border-line bg-white p-6 shadow-card sm:p-8">
-              <h2 className="font-display text-[clamp(26px,3vw,36px)] font-extrabold leading-[1.05] text-brand">
-                Not sure which it is?
-              </h2>
-              <p className="mt-3 max-w-[62ch] text-[16.5px] leading-[1.6] text-slate">
-                Ring and describe it. A plumber answers, day or night, and tells you which page it
-                is, or just books it.
-              </p>
-
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                <Button
-                  as="a"
-                  href={CALL_HREF}
-                  variant="primary"
-                  size="lg"
-                  className="nums w-full sm:w-auto"
-                  data-cta="phone"
-                  data-cta-location="services_hub_help"
-                  data-cta-variant="primary_button"
-                >
-                  <Phone size={20} weight="fill" aria-hidden />
-                  Call {CALL_NUMBER_DISPLAY}
-                </Button>
-                <Button
-                  as="a"
-                  href={WHATSAPP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  variant="whatsapp"
-                  size="lg"
-                  className="w-full sm:w-auto"
-                  data-cta="whatsapp"
-                  data-cta-location="services_hub_help"
-                  data-cta-variant="secondary_button"
-                >
-                  <WhatsappLogo size={20} weight="fill" aria-hidden />
-                  WhatsApp us
-                </Button>
-              </div>
-            </div>
+        {/* The one line for the reader whose problem is on neither card. It sends them to the
+            phone, because describing it out loud takes ten seconds and reading nine cards does
+            not. The callback link is third, after the number, as it is everywhere else. */}
+        <section className="border-t border-line bg-paper-2">
+          <div className="mx-auto max-w-content px-5 py-10 sm:px-8 md:py-12">
+            <p className="mx-auto max-w-[62ch] text-center text-[16.5px] leading-[1.6] text-slate">
+              Not sure which one? Ring{" "}
+              <a
+                href={CALL_HREF}
+                data-cta="phone"
+                data-cta-location="services_hub_help"
+                data-cta-variant="text_link"
+                className="nums font-semibold text-brand underline underline-offset-4"
+              >
+                {CALL_NUMBER_DISPLAY}
+              </a>{" "}
+              and say what is happening. Or{" "}
+              <a
+                href="/contact#book"
+                data-cta="book_anchor"
+                data-cta-location="services_hub_help"
+                data-cta-variant="text_link"
+                className="font-semibold text-brand underline underline-offset-4"
+              >
+                ask us to ring you
+              </a>
+              .
+            </p>
           </div>
         </section>
 
-        <BookingForm heading="Ask us to ring you" formId="services_booking" />
+        <div id="faq">
+          <ServiceFAQ faqs={SERVICES_HUB_FAQS} />
+        </div>
+
+        <ClosingBand heading={DEFAULT_CTA_BAND.heading} sub={DEFAULT_CTA_BAND.sub} />
       </main>
 
       <Footer />

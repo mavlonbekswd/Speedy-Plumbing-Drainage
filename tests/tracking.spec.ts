@@ -136,12 +136,18 @@ test.describe("pageviews", () => {
     );
 
     const rec = await land(page, "/");
-    const target = paths[0];
-    const link = page.locator(`a[href="${target}"]`).first();
-    test.skip(
-      (await link.count()) === 0,
-      `no internal <a href="${target}"> on the home page to click yet`,
-    );
+    // The first published path with a link a visitor can actually see. `:visible` matters: the
+    // first /services link in the DOM sits in the closed Services drop-down, which is in the
+    // HTML for crawlers and cannot be clicked until it is opened.
+    let link = page.locator("a[href='/__none__']");
+    for (const candidate of paths) {
+      const visible = page.locator(`a[href="${candidate}"]:visible`).first();
+      if ((await visible.count()) > 0) {
+        link = visible;
+        break;
+      }
+    }
+    test.skip((await link.count()) === 0, "no visible internal link on the home page to click yet");
 
     await link.click();
     await expect
@@ -320,7 +326,7 @@ test.describe("page context", () => {
   }) => {
     // An unmapped value fires nothing. That is the safe failure and also a
     // silent one: the CTA looks tracked and reports zero for ever.
-    const targets = ["/", "/services/emergency-plumbing", "/quote"].filter(isPublished);
+    const targets = ["/", "/services/emergency-plumbing", "/contact"].filter(isPublished);
     expect(targets.length, "no page to sweep").toBeGreaterThan(0);
 
     for (const path of targets) {

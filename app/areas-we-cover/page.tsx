@@ -1,41 +1,47 @@
 // /areas-we-cover. The coverage index, and the only page on the site that links to the organic
 // town pages, so those links are built from the data rather than hand-listed.
 //
-// Nothing here prints a place name that is not a town leaf or a district that is not in
-// lib/coverage.ts, because a page that claims a district the ad account excludes puts the site
-// and the account in contradiction. Nothing reads the request, so the page is a static file.
+// Owner, 19 September 2026: no postcode district is printed anywhere on this page. The districts
+// are still the truth behind it, and the checker under the hero is where a customer meets them:
+// they type their own postcode once and get a yes or no. What the page shows is towns.
+//
+// Nothing here prints a place name that is not a town leaf, because a page that claims a place
+// the ad account excludes puts the site and the account in contradiction. Nothing reads the
+// request, so the page is a static file.
 
 import type { Metadata } from "next";
-import { Phone, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileCallBar from "@/components/MobileCallBar";
 import Breadcrumb from "@/components/Breadcrumb";
 import PostcodeCheck from "@/components/PostcodeCheck";
 import BookingForm from "@/components/BookingForm";
-import Button from "@/components/ui/Button";
+import ProofStrip from "@/components/ProofStrip";
+import ServiceFAQ from "@/components/ServiceFAQ";
+import FAQSchema from "@/components/FAQSchema";
+import ClosingBand from "@/components/ClosingBand";
+import SectionHeading from "@/components/ui/SectionHeading";
+import HubHero from "@/components/hub/HubHero";
+import CountyTownCards from "@/components/hub/CountyTownCards";
 import {
   ARRIVAL_LINE,
   AVAILABILITY_LINE,
   COVERAGE_LINE,
+  DEFAULT_CTA_BAND,
+  FORM_COPY,
   PRICE_PROCESS_LINE,
 } from "@/lib/claims";
-import { COUNTY_ORDER, TOWNS, TOWNS_BY_COUNTY, placeOf, townHref } from "@/lib/towns";
-import {
-  CALL_HREF,
-  CALL_NUMBER_DISPLAY,
-  SITE_URL,
-  TRADING_NAME,
-  WHATSAPP_URL,
-  openGraphFor,
-} from "@/lib/site";
+import { AREAS_FAQS } from "@/lib/faqs";
+import { FEATURED_PHOTO_SLUGS } from "@/lib/media";
+import { TOWNS, placeOf, townHref } from "@/lib/towns";
+import { SITE_URL, TRADING_NAME, openGraphFor } from "@/lib/site";
 
 const PATH = "/areas-we-cover";
 
 const TITLE = `Areas We Cover | Plumber and Drains | ${TRADING_NAME}`;
 
 const DESCRIPTION =
-  "The towns we work in, with the postcode districts beside each one. Check your postcode and get a straight yes or no, then ring a plumber.";
+  "The towns we work in, county by county, each with its own page. Check your postcode for a straight yes or no, then ring a plumber.";
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -45,154 +51,66 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
 };
 
-/** Counties with at least one published Tier 1 town, in the fixed order. */
-const COUNTIES_WITH_TOWNS = COUNTY_ORDER.filter((county) => TOWNS_BY_COUNTY[county].length > 0);
-
 /**
  * The organic pages. They are reachable from here and from nowhere else, so the list is derived
  * and the group appears the day a flag flips rather than the day someone remembers this file.
+ * Their own districts are excluded in the ad account, so each one is named by its placeLabel
+ * ("the villages around Peterborough") and never as a town we cover.
  */
 const ORGANIC_TOWNS = TOWNS.filter((town) => town.tier === "organic" && town.published);
 
-function joinWithAnd(items: readonly string[]): string {
-  if (items.length === 0) return "";
-  if (items.length === 1) return items[0];
-  return `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
-}
+/** Three of our own jobs, enough to break the list up without turning the page into a gallery. */
+const AREA_PHOTOS = FEATURED_PHOTO_SLUGS.slice(0, 3);
 
 export default function AreasWeCoverPage() {
   return (
     <div className="has-callbar">
+      <FAQSchema faqs={AREAS_FAQS} />
       <Header />
 
       <main id="main" tabIndex={-1} className="outline-none">
-        <section className="bg-paper">
-          <div className="mx-auto max-w-content px-5 pb-16 pt-10 sm:px-8 lg:px-12 lg:pb-20 lg:pt-14">
-            <Breadcrumb
-              items={[{ name: "Home", href: "/" }, { name: "Areas we cover" }]}
-              className="mb-8"
-            />
+        <HubHero
+          image="areas"
+          crumbs={
+            <Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Areas we cover" }]} />
+          }
+          eyebrow="Where we work"
+          h1="Areas we cover."
+          facts={[PRICE_PROCESS_LINE, ARRIVAL_LINE, AVAILABILITY_LINE]}
+          sub={COVERAGE_LINE}
+          ctaLocation="areas_index"
+        />
 
-            <div className="grid gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
-              <div>
-                <h1 className="max-w-[20ch] text-pretty font-display text-[clamp(34px,4.6vw,60px)] font-extrabold leading-[1.02] text-brand">
-                  Areas we cover.
-                </h1>
-
-                <p className="mt-6 max-w-[58ch] text-[16.5px] leading-[1.6] text-slate">
-                  {COVERAGE_LINE}
-                </p>
-
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <Button
-                    as="a"
-                    href={CALL_HREF}
-                    variant="primary"
-                    size="xl"
-                    className="nums w-full sm:w-auto"
-                    data-cta="phone"
-                    data-cta-location="areas_index"
-                    data-cta-variant="primary_button"
-                  >
-                    <Phone size={20} weight="fill" aria-hidden />
-                    Call {CALL_NUMBER_DISPLAY}
-                  </Button>
-                  <Button
-                    as="a"
-                    href={WHATSAPP_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    variant="whatsapp"
-                    size="xl"
-                    className="w-full sm:w-auto"
-                    data-cta="whatsapp"
-                    data-cta-location="areas_index"
-                    data-cta-variant="secondary_button"
-                  >
-                    <WhatsappLogo size={22} weight="fill" aria-hidden />
-                    WhatsApp us
-                  </Button>
-                </div>
-
-                <div className="mt-8 flex max-w-[58ch] flex-col gap-2 text-[16.5px] leading-[1.6] text-slate">
-                  <p>{PRICE_PROCESS_LINE}</p>
-                  <p>{ARRIVAL_LINE}</p>
-                  <p>{AVAILABILITY_LINE}</p>
-                </div>
-              </div>
-
-              <div className="lg:pt-2">
-                <PostcodeCheck />
-              </div>
+        {/* Directly under the hero, because it is the question this page exists to answer and
+            the only place a postcode belongs: the customer types their own and gets a verdict. */}
+        <section className="border-t border-line bg-paper-2">
+          <div className="mx-auto max-w-content px-5 py-12 sm:px-8 md:py-14">
+            <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16">
+              <SectionHeading
+                eyebrow="One check"
+                title="Do we cover you?"
+                sub="Type your postcode and get a straight yes or no."
+              />
+              <PostcodeCheck />
             </div>
           </div>
         </section>
 
-        {COUNTIES_WITH_TOWNS.length > 0 && (
-          <section className="border-t border-line bg-paper-2">
-            <div className="mx-auto max-w-content px-5 py-20 sm:px-8 md:py-28">
-              <h2 className="font-display text-[clamp(28px,3.4vw,42px)] font-extrabold leading-[1.05] text-brand">
-                The towns we work in.
-              </h2>
-              <p className="mt-4 max-w-[58ch] text-[16.5px] leading-[1.6] text-slate">
-                Each town has its own page, and the postcode districts we work in are beside it. If
-                yours is not listed, the postcode check above still answers you.
+        <CountyTownCards eyebrow="Town by town" heading="The towns we work in.">
+          {ORGANIC_TOWNS.length > 0 && (
+            <div className="mt-10 border-t border-line pt-8">
+              <p className="max-w-[62ch] text-[15px] leading-[1.7] text-slate">
+                We work in the villages around these three towns, not in the town centres.
               </p>
-
-              <div className="mt-10 flex flex-col gap-10">
-                {COUNTIES_WITH_TOWNS.map((county) => (
-                  <div key={county}>
-                    <h3 className="font-display text-[19px] font-bold leading-snug text-brand">
-                      {county}
-                    </h3>
-                    <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                      {TOWNS_BY_COUNTY[county].map((town) => (
-                        <li
-                          key={town.slug}
-                          className="rounded-card border border-line bg-white p-5 shadow-card"
-                        >
-                          <a
-                            href={townHref(town.slug)}
-                            data-cta="nav"
-                            data-cta-location="areas_index_towns"
-                            data-cta-variant="text_link"
-                            className="text-[16px] font-semibold text-brand underline underline-offset-4 hover:text-tint"
-                          >
-                            {town.name}
-                          </a>
-                          <p className="nums mt-2 text-[14.5px] leading-[1.6] text-slate">
-                            {town.postcodeDistricts.join(", ")}
-                          </p>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {ORGANIC_TOWNS.length > 0 && (
-          <section className="bg-paper">
-            <div className="mx-auto max-w-content px-5 py-20 sm:px-8 md:py-28">
-              <h2 className="font-display text-[clamp(28px,3.4vw,42px)] font-extrabold leading-[1.05] text-brand">
-                Near {joinWithAnd(ORGANIC_TOWNS.map((town) => town.name))}
-              </h2>
-              <p className="mt-4 max-w-[58ch] text-[16.5px] leading-[1.6] text-slate">
-                We work in the districts around these towns, not in the town centres themselves. The
-                postcode check tells you for certain.
-              </p>
-
-              <ul className="mt-8 flex flex-col gap-3">
+              <ul className="mt-4 flex flex-wrap gap-2">
                 {ORGANIC_TOWNS.map((town) => (
                   <li key={town.slug}>
                     <a
                       href={townHref(town.slug)}
                       data-cta="nav"
                       data-cta-location="areas_index_organic"
-                      data-cta-variant="text_link"
-                      className="text-[16px] font-semibold text-brand underline underline-offset-4 hover:text-tint"
+                      data-cta-variant="chip"
+                      className="press inline-flex min-h-[44px] items-center rounded-chip border border-line bg-white px-4 text-[14.5px] font-semibold text-brand hover:border-tint"
                     >
                       {placeOf(town)}
                     </a>
@@ -200,10 +118,18 @@ export default function AreasWeCoverPage() {
                 ))}
               </ul>
             </div>
-          </section>
-        )}
+          )}
+        </CountyTownCards>
 
-        <BookingForm heading="Ask us to ring you" formId="areas_booking" />
+        <ProofStrip photoSlugs={AREA_PHOTOS} tinted />
+
+        <div id="faq">
+          <ServiceFAQ faqs={AREAS_FAQS} />
+        </div>
+
+        <BookingForm heading={FORM_COPY.full.heading} formId="areas_booking" />
+
+        <ClosingBand heading={DEFAULT_CTA_BAND.heading} sub={DEFAULT_CTA_BAND.sub} />
       </main>
 
       <Footer />

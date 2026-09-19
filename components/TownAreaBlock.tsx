@@ -23,7 +23,7 @@ export default function TownAreaBlock({ city, tinted = false }: Props) {
 
   return (
     <section id="areas" className={tinted ? "border-t border-line bg-paper-2" : "bg-paper"}>
-      <div className="mx-auto max-w-content px-5 py-20 sm:px-8 md:py-28">
+      <div className="mx-auto max-w-content px-5 py-14 sm:px-8 md:py-20">
         <AnimateIn>
           <SectionHeading eyebrow="Where we work" title={`Where in ${placeOf(city)} we work.`} sub={city.blurb || undefined} />
 

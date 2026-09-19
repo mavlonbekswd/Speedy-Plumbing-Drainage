@@ -12,6 +12,8 @@ interface Props {
   heading?: string;
   /** paper-2 with a hairline top, for alternating against the section above. */
   tinted?: boolean;
+  /** Shorter vertical rhythm, for the long templates. Opt-in: no other page changes height. */
+  compact?: boolean;
 }
 
 // The page's own work, photographed on the job. Every tile is first-party: the brand graphic in
@@ -19,7 +21,13 @@ interface Props {
 // of real jobs is exactly the thing this section exists to avoid.
 //
 // Portrait boxes with object-cover, so phone-shot photos of different shapes still line up.
-export default function ProofStrip({ photoSlugs, videoSlug, heading = "Recent work", tinted = true }: Props) {
+export default function ProofStrip({
+  photoSlugs,
+  videoSlug,
+  heading = "Recent work",
+  tinted = true,
+  compact = false,
+}: Props) {
   const video = videoSlug ? VIDEO_BY_SLUG[videoSlug] : undefined;
   const photos = photoSlugs
     .map((slug) => PHOTO_BY_SLUG[slug])
@@ -30,12 +38,14 @@ export default function ProofStrip({ photoSlugs, videoSlug, heading = "Recent wo
 
   return (
     <section id="work" className={tinted ? "border-t border-line bg-paper-2" : "bg-paper"}>
-      <div className="mx-auto max-w-content px-5 py-20 sm:px-8 md:py-28">
+      <div
+        className={`mx-auto max-w-content px-5 sm:px-8 ${compact ? "py-14 md:py-20" : "py-20 md:py-28"}`}
+      >
         <AnimateIn>
           <SectionHeading eyebrow="Our own jobs" title={heading} />
         </AnimateIn>
 
-        <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
+        <div className={`grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 ${compact ? "mt-8" : "mt-10"}`}>
           {video && <WorkVideo slug={video.slug} />}
           {photos.map((photo) => (
             <figure key={photo.slug} className="m-0">

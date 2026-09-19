@@ -1,7 +1,9 @@
 # Every URL site-claims-audit.py checks, one absolute www URL per line.
 # Generated from the data barrels: lib/routes.ts (static), lib/types.ts (services) and
-# lib/towns.ts (towns). /services/boiler-repairs is deliberately absent: it is held pending
-# the credential decision and has no page to audit.
+# lib/towns.ts (towns). The one service held back by the trade-qualification decision is
+# deliberately absent: it has no published page to audit.
+# The old /quote, /faqs and /reviews URLs were removed on 19 Sept 2026 (owner). They now 308
+# to /contact#book, /#faq and /#reviews, so they are not pages this audit can fetch.
 # Regenerate by hand when a route is added; the audit runs against the LIVE site, so a URL
 # listed here that has not shipped is reported as a failure, which is the point.
 https://www.speedyplumbingdrain.co.uk/
@@ -10,10 +12,7 @@ https://www.speedyplumbingdrain.co.uk/areas-we-cover
 https://www.speedyplumbingdrain.co.uk/about
 https://www.speedyplumbingdrain.co.uk/guarantee
 https://www.speedyplumbingdrain.co.uk/contact
-https://www.speedyplumbingdrain.co.uk/quote
 https://www.speedyplumbingdrain.co.uk/projects
-https://www.speedyplumbingdrain.co.uk/reviews
-https://www.speedyplumbingdrain.co.uk/faqs
 https://www.speedyplumbingdrain.co.uk/blog
 https://www.speedyplumbingdrain.co.uk/terms
 https://www.speedyplumbingdrain.co.uk/services/emergency-plumbing

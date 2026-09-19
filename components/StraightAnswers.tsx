@@ -11,6 +11,8 @@ interface Props {
   after?: { text: string; buttonLabel: string };
   /** paper-2 with a hairline top, for alternating against the section above. */
   tinted?: boolean;
+  /** Shorter vertical rhythm, for the long templates. Opt-in: no other page changes height. */
+  compact?: boolean;
 }
 
 // The questions people ring with, in the order they ask them, each answered in one bite. The
@@ -24,17 +26,20 @@ export default function StraightAnswers({
   answers,
   after,
   tinted = false,
+  compact = false,
 }: Props) {
   if (answers.length === 0) return null;
 
   return (
     <section id="answers" className={tinted ? "border-t border-line bg-paper-2" : "bg-paper"}>
-      <div className="mx-auto max-w-content px-5 py-20 sm:px-8 md:py-28">
+      <div
+        className={`mx-auto max-w-content px-5 sm:px-8 ${compact ? "py-14 md:py-20" : "py-20 md:py-28"}`}
+      >
         <AnimateIn>
           <SectionHeading eyebrow={eyebrow} title={title} />
         </AnimateIn>
 
-        <dl className="mt-10 grid gap-5 sm:grid-cols-2">
+        <dl className={`grid gap-5 sm:grid-cols-2 ${compact ? "mt-8" : "mt-10"}`}>
           {answers.map((answer, i) => (
             <AnimateIn
               key={answer.q}
@@ -50,7 +55,7 @@ export default function StraightAnswers({
         </dl>
 
         {after && (
-          <div className="mt-10 flex flex-col gap-5 sm:flex-row sm:items-center">
+          <div className={`flex flex-col gap-5 sm:flex-row sm:items-center ${compact ? "mt-8" : "mt-10"}`}>
             <p className="max-w-[52ch] text-[16.5px] leading-[1.6] text-slate">{after.text}</p>
             <Button
               as="a"

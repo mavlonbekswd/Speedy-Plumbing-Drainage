@@ -17,6 +17,9 @@ import {
 // still unbuilt renders as nothing rather than as a heading over an empty list. The town group
 // is tagged footer_areas so the report can tell "someone went looking for their town" from
 // "someone went looking for a service".
+//
+// One item carries its own data-cta: "Ask us to ring you" is an anchor into the booking form on
+// /contact, not navigation, so lib/nav marks it book_anchor and this component honours it.
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -91,7 +94,7 @@ export default function Footer() {
                         <li key={link.href}>
                           <a
                             href={link.href}
-                            data-cta="nav"
+                            data-cta={link.cta ?? "nav"}
                             data-cta-location={areas ? "footer_areas" : "footer"}
                             data-cta-variant="text_link"
                             className="text-[14px] text-white/80 hover:text-white"

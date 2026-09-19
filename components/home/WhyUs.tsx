@@ -21,7 +21,7 @@ const PRICE_LEAD = `${PRICE_NOTE.split(". ")[0]}.`;
 
 const REASONS: readonly { title: string; body: string }[] = [
   {
-    title: "A plumber answers, not a call centre",
+    title: "A local plumber, not a call centre",
     body: "The person who answers is the person who comes. Nobody sells your job on to whoever is nearest.",
   },
   {

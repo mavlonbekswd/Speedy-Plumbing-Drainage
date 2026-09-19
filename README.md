@@ -203,17 +203,36 @@ The caption rules are in that file's header and are not stylistic:
   so `provenance.townEvidenced` is unset throughout;
 - never "boiler", "gas", "central heating", "unvented", "G3" or any credential word. "Hot water
   cylinder" is allowed, because cylinders are in scope and under the guarantee;
-- an AI-made graphic sets `illustration: true`, renders with a visible "Illustration" label, and
-  never appears in a job gallery. `JOB_PHOTOS` filters it out.
+- an AI-made graphic sets `illustration: true` and never appears in a job gallery. `JOB_PHOTOS` filters it out.
 
-### Drawings and the logo
+### Generated pictures and the logo
 
-Where no photo exists (a burst pipe, a blocked drain, a camera survey) a page may show drawings.
-They live in `ILLUSTRATIONS` in `lib/media.ts`, files in `public/illustrations/`, and a service
-leaf lists them in `illustrations`. `components/IllustrationRow.tsx` renders them in their own
-row, headed "What it can look like", each with a visible "Illustration" badge. They are AI-made.
-A drawing is not a job we did, so one never goes in `proof`, on `/projects`, or into a Google
-Ads image asset.
+Two kinds of AI-generated, photorealistic picture are on the site, by the owner's instruction of
+19 Sept 2026, and neither carries a visible label:
+
+- **Header backdrops.** `HERO_IMAGES` in `lib/media.ts`, files in `public/hero/` (each with a
+  `-768.webp` sibling for phones), rendered by `components/HeroBackdrop.tsx` at 40% opacity
+  behind a page's first screen, under a paper gradient so the text contrast is unchanged. They
+  are decoration: `alt=""`, `aria-hidden`, no caption, no link. Scenes of fixtures, tools and
+  gloved hands only, never a face, because a photoreal plumber reads as a member of staff.
+- **Problem pictures.** `ILLUSTRATIONS` (the name is historical), files in `public/illustrations/`,
+  listed by a service leaf in `illustrations` and rendered by `components/IllustrationRow.tsx`
+  under the heading "What it can look like". They show the problem, never a job we did.
+
+What keeps both honest: neither ever goes in `proof`, on `/projects` or into a Google Ads image
+asset; `/projects` says every photo and clip on it is from our own jobs; and `/terms` says some
+pictures on the site are representative. `SERVICE_CARD_PHOTO` picks the one REAL job photo that
+stands for each service on a card.
+
+### Pages that were removed
+
+`/quote`, `/faqs` and `/reviews` were removed on 19 Sept 2026 and 308-redirect (in
+`next.config.ts`) to `/contact#book`, `/#faq` and `/#reviews`. The callback form lives on
+`/contact` and on every service page; each static page renders its own question set from
+`lib/faqs.ts` inside `id="faq"`. The pinned Google Ads descriptions (`adLines`) no longer sit in
+an "In plain words" box: `placeAdLines()` in `lib/claims.ts` folds each one, verbatim, into the
+problem section's lead, the closing band, the how-it-works intro and the call band, and
+`tests/ad-page-join.spec.ts` still fails the build if one goes missing.
 
 The logo (`components/Logo.tsx`, `public/brand/roadrunner*.webp`, `app/icon.png`,
 `app/apple-icon.png`) is an original drawing of a real roadrunner bird. It is deliberately not
@@ -392,8 +411,8 @@ Only what is verifiable from the code:
 - **Client components never import the content barrels.** Importing `lib/towns.ts` in the browser
   would ship all 31 town leaves, research notes and sources included, to every visitor.
   `components/PostcodeCheck.tsx` is a server wrapper that builds a district-to-town map and hands
-  it down as a prop to `PostcodeCheckClient`, and `app/quote/page.tsx` passes `QuoteWizard` its
-  `services` list as a prop for the same reason. `lib/analytics.ts` derives page context from the
+  it down as a prop to `PostcodeCheckClient`, and `components/Header.tsx` passes `HeaderClient` the
+  Services drop-down as plain `{label, href}` pairs for the same reason. `lib/analytics.ts` derives page context from the
   pathname alone for the same reason again.
 - The call link in the hero is server-rendered and carries no fade class: `animate-fade-up` sets
   opacity 0 through its backwards fill, and a call button nobody can see at 3am is not a call
@@ -500,7 +519,9 @@ added. A URL listed there that has not shipped is reported as a failure, which i
 - **There is no consent banner**, by the owner's recorded decision, and no `gtag('consent', ...)`
   call is made anywhere on the site.
 - **No reviews are claimed.** `HAS_REVIEWS` in `lib/claims.ts` is false, so no page carries a
-  review count, stars or rating schema, and `/reviews` is deliberately non-committal.
+  review count, stars, quote or rating schema. The reviews section on the home page (`/#reviews`)
+  says where reviews live and shows a Google link only once `GOOGLE_PROFILE_URL` in `lib/site.ts`
+  is filled in.
 - **No production alias redirect is registered.** `VERCEL_ALIAS_HOST` in `next.config.ts` is
   empty; set it if the project gains a production `*.vercel.app` alias.
 - **`scripts/site-urls.txt` is not generated.** It has to be edited by hand when a route ships.

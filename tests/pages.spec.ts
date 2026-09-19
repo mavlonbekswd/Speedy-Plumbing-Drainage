@@ -41,10 +41,13 @@ for (const route of allRoutes) {
       const alt = await images.nth(i).getAttribute("alt");
       expect(alt, `img #${i} on ${route} has no alt attribute`).not.toBeNull();
       if (alt === "") {
-        // An empty alt is right in exactly one place: a decorative mark inside a link or button
-        // that already has its own name (the logo). Anywhere else it hides a real picture.
-        const named = await images.nth(i).evaluate((el) => el.closest("a[aria-label], button[aria-label]") !== null);
-        expect(named, `img #${i} on ${route} has an empty alt outside a labelled link`).toBe(true);
+        // An empty alt is right in two places: a decorative mark inside a link or button that
+        // already has its own name (the logo), and a picture explicitly hidden from assistive
+        // technology (the hero backdrop). Anywhere else it hides a real picture.
+        const excused = await images
+          .nth(i)
+          .evaluate((el) => el.closest('a[aria-label], button[aria-label], [aria-hidden="true"]') !== null);
+        expect(excused, `img #${i} on ${route} has an empty alt and is neither labelled nor hidden`).toBe(true);
       }
     }
 

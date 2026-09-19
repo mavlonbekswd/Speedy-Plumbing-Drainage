@@ -90,7 +90,13 @@ export interface ServiceContent {
   afterAnswers: { text: string; buttonLabel: string };
   problems: { heading: string; sub: string; cards: ProblemCard[] };
   sections?: ContentSection[];
-  /** Verbatim pinned ad descriptions this page must render in always-visible text. */
+  /**
+   * The verbatim pinned descriptions of the ads that land here. Since 19 September 2026 they are
+   * no longer boxed under an "In plain words" heading: `placeAdLines` in lib/claims.ts folds them
+   * into ordinary page copy, one per slot, each as a single always-visible text node. Order
+   * matters, because line 1 leads the problem grid and line 2 closes the page, so a leaf listing two
+   * near-identical lines still reads as two separate sentences rather than a stutter.
+   */
   adLines: string[];
   ctaBand: { heading: string; sub: string };
   steps: [Step, Step, Step];
@@ -98,8 +104,14 @@ export interface ServiceContent {
   faqs: Faq[];
   closing: { heading: string; sub: string };
   bookingHeading: string;
-  /** Slugs of AI-made illustrations (lib/media.ts ILLUSTRATIONS), shown in their own labelled
-   *  row and never in the proof strip: a drawing is not a job we did. */
+  /**
+   * Slugs from ILLUSTRATIONS in lib/media.ts: photoreal AI pictures of the PROBLEM a customer is
+   * looking at. Since 19 September 2026 they render inside the problem section, directly under
+   * the symptom cards, headed "What it can look like" and each with the caption that names the
+   * problem. The owner removed the "Illustration" badge, so that heading and those captions are
+   * now the whole of what stops a picture of a burst pipe being read as a job we did. Never in
+   * the proof strip and never on /projects.
+   */
   illustrations?: string[];
   /** Slugs from lib/media.ts shown in this page's proof strip, in order. */
   proof: { photos: string[]; video?: string };
@@ -166,7 +178,11 @@ export interface WorkPhoto {
   };
 }
 
-/** An AI-generated drawing. Always rendered with a visible "Illustration" label. */
+/**
+ * An AI-generated picture of a problem, photoreal since 19 September 2026. It carries no badge
+ * any more: what keeps it honest is the row heading "What it can look like" and a caption that
+ * names the problem and never claims a job, a place, a date or a result.
+ */
 export interface Illustration {
   slug: string;
   file: string;

@@ -1,12 +1,11 @@
 // /blog. The index.
 //
 // It lists PUBLISHED posts only, from lib/blog.ts, so a post that is written but not signed off
-// is invisible here and 404s at its own URL. All three leaves are unpublished today, which is
-// why the empty arm below is written as carefully as the list: an index that says "coming soon"
-// and shows nothing is worse than one that says plainly there is nothing yet and gives you the
-// number instead.
+// is invisible here and 404s at its own URL. The empty arm is still written out, because the day
+// a post is pulled the index has to say plainly that there is nothing here and give the number.
 //
-// TEXT ONLY throughout the blog. The old posts' images were AI-generated and are deleted.
+// The picture behind the first screen is a HeroBackdrop: generated, decorative, no alt and no
+// caption. Our own job photographs live inside the posts themselves, not on this index.
 //
 // Static: nothing is read from the request.
 
@@ -17,14 +16,16 @@ import Footer from "@/components/Footer";
 import MobileCallBar from "@/components/MobileCallBar";
 import Breadcrumb from "@/components/Breadcrumb";
 import AnimateIn from "@/components/AnimateIn";
+import HeroBackdrop from "@/components/HeroBackdrop";
 import Button from "@/components/ui/Button";
 import { ANSWERED_LINE, PRICE_PROCESS_LINE } from "@/lib/claims";
 import { PUBLISHED_POSTS, blogHref } from "@/lib/blog";
+import { FALLBACK_HERO } from "@/lib/media";
 import { CALL_HREF, CALL_NUMBER_DISPLAY, SITE_URL, TRADING_NAME, openGraphFor } from "@/lib/site";
 
 const TITLE = `Advice from the tools | ${TRADING_NAME}`;
 const DESCRIPTION =
-  "Plain plumbing advice from the people who do the work: what to do in the first five minutes, what to stop doing, and when it is time to ring a plumber.";
+  "Burst pipes, drains that keep blocking, leaks you cannot see. What to do before anyone arrives, and when to stop trying and ring us.";
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -47,7 +48,9 @@ export default function BlogIndexPage() {
       <Header />
 
       <main id="main" tabIndex={-1} className="outline-none">
-        <section className="bg-paper">
+        <section className="relative isolate overflow-hidden bg-paper">
+          <HeroBackdrop image={FALLBACK_HERO} />
+
           <div className="mx-auto max-w-content px-5 pb-14 pt-8 sm:px-8 lg:px-12 md:pb-20 md:pt-10">
             <Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Advice" }]} className="mb-8" />
 
@@ -55,19 +58,17 @@ export default function BlogIndexPage() {
               Advice from the tools.
             </h1>
 
-            <p className="mt-5 max-w-[58ch] text-[17px] leading-[1.6] text-slate">
-              What to do before anyone arrives, and what to leave alone. Written by the plumbers who
-              go out to it.
+            <p className="mt-5 max-w-[52ch] text-[17px] leading-[1.6] text-slate">
+              What to do before anyone arrives, and what to leave alone.
             </p>
 
             <p className="mt-3 max-w-[58ch] text-[16px] leading-[1.6] text-slate">{PRICE_PROCESS_LINE}</p>
 
             {/* Only the "nothing yet" paragraph is conditional. The Call button is the page's one
-                primary action and stays put the day the first post publishes. */}
+                primary action and stays put whether or not a post is live. */}
             {PUBLISHED_POSTS.length === 0 && (
               <p className="mt-6 max-w-[58ch] text-[16.5px] leading-[1.7] text-slate">
-                There is nothing to read here yet. The first pieces are being written, and until one
-                is ready the quickest answer is the phone. {ANSWERED_LINE}
+                There is nothing to read here yet. The quickest answer is the phone. {ANSWERED_LINE}
               </p>
             )}
 
@@ -79,7 +80,7 @@ export default function BlogIndexPage() {
                 size="xl"
                 className="nums w-full sm:w-auto"
                 data-cta="phone"
-                data-cta-location="blog"
+                data-cta-location="blog_index_hero"
                 data-cta-variant="primary_button"
               >
                 <Phone size={20} weight="fill" aria-hidden />
@@ -92,7 +93,7 @@ export default function BlogIndexPage() {
         {PUBLISHED_POSTS.length > 0 && (
           <section className="border-t border-line bg-paper-2">
             <div className="mx-auto max-w-content px-5 py-16 sm:px-8 md:py-24">
-              <ul className="grid gap-5 md:grid-cols-2">
+              <ul className="grid gap-5 md:grid-cols-3">
                 {PUBLISHED_POSTS.map((post, i) => (
                   // The animated wrapper sits INSIDE the <li>: a <div> as a direct child of a
                   // <ul> is a list-structure defect axe reports.
@@ -107,7 +108,7 @@ export default function BlogIndexPage() {
                           <a
                             href={blogHref(post.slug)}
                             data-cta="nav"
-                            data-cta-location="blog"
+                            data-cta-location="blog_index_list"
                             data-cta-variant="text_link"
                             className="hover:underline underline-offset-4"
                           >

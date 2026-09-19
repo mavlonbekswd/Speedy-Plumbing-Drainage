@@ -1,8 +1,9 @@
 import type { BlogPost } from "../../lib/blog";
 
-// Rewritten from the old site's post of the same slug against the claims gate. The original's
-// "hundreds of litres an hour" is gone: it is a statistic with nothing behind it. The date is
-// the original's. `published` stays false until the copy is signed off.
+// Rewritten 19 September 2026 on the owner's note that the advice pages read like copywriting.
+// The order of the sections is the order a person standing in the water needs them: stop tap,
+// taps, electrics, then the phone. Nothing here is a claim: no minutes, no price, no credential.
+// The date and the slug are the original's.
 //
 // Each `p` holds its paragraphs separated by a blank line; app/blog/[slug]/page.tsx splits on
 // that, so no paragraph runs past three sentences on the page.
@@ -10,58 +11,50 @@ import type { BlogPost } from "../../lib/blog";
 const post: BlogPost = {
   slug: "what-to-do-burst-pipe",
   published: true,
-  title: "Burst pipe? Four things to do right now",
+  title: "Burst pipe? What to do right now",
   excerpt:
-    "A burst pipe is sudden, loud and wet, and the first five minutes decide how much of it you end up putting right. Four things to do before anyone arrives.",
+    "Where the stop tap is and which way it turns. Then the taps, the electrics, and what to leave alone until someone gets there.",
   date: "2026-09-19",
-  readingTime: "3 min read",
+  readingTime: "2 min read",
   body: [
     {
-      h: "1. Turn the water off at the stop tap",
+      h: "Turn the water off first",
       p: [
-        "Turn it clockwise until it stops. The internal stop tap is the one that matters, and in most houses it sits under the kitchen sink.",
-        "In a flat or a newer build it can be in a downstairs cupboard, in the airing cupboard, or behind a panel beside the bath. If yours will not move, forcing it is how spindles snap, and a snapped stop tap turns a leak into a bigger job.",
-        "The outside stop valve is your fallback. It sits under a small metal or plastic cover near the boundary of the property. You need a long key or a screwdriver to reach the tap inside it.",
+        "The one that matters is the internal stop tap. In most houses it sits under the kitchen sink, at the back, behind the bin and the bottles.",
+        "If it is not there, try under the stairs, a downstairs cupboard, or behind the bath panel. Older houses sometimes have it in the hall floor under a small hatch.",
+        "Turn it clockwise and keep going until it stops. If yours is a lever rather than a tap head, a quarter turn across the pipe shuts it.",
+        "A stop tap that has not moved in ten years often does not want to. Do not lean on it. Spindles snap, and then you are replacing the stop tap as well as the pipe.",
+        "There is a second one outside, under a small metal or plastic cover near the boundary. It can sit a long way down, and you may need a stop tap key to reach it.",
       ].join("\n\n"),
     },
     {
-      h: "2. Open every cold tap",
+      h: "Open the cold taps",
       p: [
-        "With the mains off, run the cold taps at every sink and basin in the house. That drains the pipework and drops the pressure, so whatever is still coming out of the split slows to a trickle.",
-        "Leave them open until the flow stops, and flush the toilets while you are there. The less water sitting in the pipes above you, the less there is to come through a ceiling while you wait.",
+        "With the mains off, open every cold tap in the house and flush the loo.",
+        "The pipes above you are still full, and that water carries on out of the split until they are empty. Open taps empty them somewhere you have chosen.",
+        "Leave them running until nothing comes out.",
       ].join("\n\n"),
     },
     {
-      h: "3. Keep water away from anything electrical",
+      h: "If water is near a light fitting",
       p: [
-        "This is the point in a burst where people get hurt. If water is running near sockets, light fittings or the consumer unit, switch off the circuits it can reach at the board.",
-        "Wet hands on an electrical fitting are the thing to avoid entirely. Water coming through a ceiling light is worse again: a ceiling holding water gets heavy, and it gives way with very little warning.",
-        "That is not a room to stand in while you make a phone call. Ring from another one.",
+        "This is the part that hurts people.",
+        "Water running near sockets or a light fitting means switching off the circuits it can reach at the board. Nothing electrical gets touched with wet hands.",
+        "Water coming through a ceiling is its own problem. A ceiling holding water gets heavy and drops with very little warning, so make the phone call from a different room.",
       ].join("\n\n"),
     },
     {
-      h: "4. Contain it, then photograph it",
+      h: "Leave the split alone",
       p: [
-        "Towels, buckets and a washing-up bowl do more in the first ten minutes than anything else you own. Lift what you can off the floor: rugs, boxes, anything with a plug on the end of it.",
-        "Then take photographs before you mop up, of the water and of what it has reached. Your insurer will want them.",
-        "A photo sent on WhatsApp also tells the plumber what the job needs before anyone sets off, so the right parts travel with the van.",
+        "Tape and a rag wrapped round a pipe under mains pressure send the water somewhere you cannot watch it. Leave the pipe as it is.",
+        "Turning the water back on to see whether it has stopped has the same problem. The pressure is back before anyone is standing there.",
+        "Put a bucket under the drip. Roll the rug up and move anything with a plug on it.",
+        "Photograph the water before you mop it up. Your insurer will ask, and a photo sent on WhatsApp tells the plumber what the job needs before the van sets off.",
       ].join("\n\n"),
     },
     {
-      h: "What to leave alone until help arrives",
-      p: [
-        "Leave the split itself alone. Tape and cloth round a pipe under mains pressure tend to send the water somewhere you cannot see. That is worse than a leak you can watch.",
-        "Turning the water back on to test it has the same problem. The pressure comes back before anyone is standing there to catch what it does.",
-        "If the burst is on a hot water pipe, leave the hot taps open too. The cylinder is otherwise still pushing water at the gap.",
-      ].join("\n\n"),
-    },
-    {
-      h: "When to ring a plumber",
-      p: [
-        "Ring as soon as the water is off, or straight away if you cannot find the stop tap at all. Say what is leaking, where it is coming through, and what you have already turned off.",
-        "A plumber answers the phone, day or night, and the person who answers is the person who comes. You get told what to do while you wait, rather than left holding.",
-        "If the water is off and the house is dry, the repair can wait for a booked time in the morning. Say so when you ring and we will book it instead.",
-      ].join("\n\n"),
+      h: "When to ring",
+      p: "Ring once the water is off, or straight away if the stop tap will not turn or you cannot find it.",
     },
   ],
 };

@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { blockThirdParties, gotoOk } from "./utils";
+import { blockThirdParties, gotoOk, serviceRoutes } from "./utils";
 
 test.use({ viewport: { width: 390, height: 844 } });
 
@@ -43,4 +43,53 @@ test.describe("the skip link", () => {
     await page.keyboard.press("Enter");
     await expect(page.locator("main#main"), "activating the skip link did not focus main").toBeFocused();
   });
+});
+
+test.describe("the Services drop-down", () => {
+  test.use({ viewport: { width: 1280, height: 800 } });
+
+  test("opens on click, lists every published service, and Escape closes it and returns focus", async ({ page }) => {
+    await page.goto("/");
+    const button = page.locator('header button[aria-controls="header-services"]');
+    const panel = page.locator("#header-services");
+
+    await expect(button).toHaveAttribute("aria-expanded", "false");
+    await expect(panel).toBeHidden();
+
+    await button.click();
+    await expect(button).toHaveAttribute("aria-expanded", "true");
+    await expect(panel).toBeVisible();
+
+    const hrefs = await panel.locator("a").evaluateAll((links) => links.map((a) => a.getAttribute("href")));
+    for (const path of serviceRoutes) expect(hrefs, `${path} is missing from the drop-down`).toContain(path);
+    expect(hrefs, "the drop-down has no link to the services page").toContain("/services");
+
+    await page.keyboard.press("Escape");
+    await expect(button).toHaveAttribute("aria-expanded", "false");
+    await expect(panel).toBeHidden();
+    await expect(button).toBeFocused();
+  });
+
+  test("a click outside closes it", async ({ page }) => {
+    await page.goto("/");
+    const button = page.locator('header button[aria-controls="header-services"]');
+    await button.click();
+    await expect(button).toHaveAttribute("aria-expanded", "true");
+    await page.locator("main").click({ position: { x: 5, y: 300 } });
+    await expect(button).toHaveAttribute("aria-expanded", "false");
+  });
+});
+
+test.describe("pages the owner removed", () => {
+  for (const [from, to] of [
+    ["/quote", "/contact"],
+    ["/faqs", "/"],
+    ["/reviews", "/"],
+  ] as const) {
+    test(`${from} redirects permanently to ${to}`, async ({ request }) => {
+      const res = await request.get(from, { maxRedirects: 0 });
+      expect(res.status()).toBe(308);
+      expect(new URL(res.headers()["location"], "http://x").pathname).toBe(to);
+    });
+  }
 });

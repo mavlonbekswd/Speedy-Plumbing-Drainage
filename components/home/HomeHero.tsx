@@ -1,16 +1,21 @@
 import { Phone, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
 import Button from "@/components/ui/Button";
 import CallbackInline from "@/components/CallbackInline";
-import { ANSWERED_LINE, COVERAGE_SHORT, PRICE_PROCESS_LINE } from "@/lib/claims";
+import HeroBackdrop from "@/components/HeroBackdrop";
+import { COVERAGE_SHORT, PRICE_PROCESS_LINE } from "@/lib/claims";
 import { CALL_HREF, CALL_NUMBER_DISPLAY, WHATSAPP_URL } from "@/lib/site";
 
 // The first screen of the home page, built to the same contract as components/ServiceHero.tsx:
-// eyebrow, H1, the two pills, then three one-line facts, with the callback card in the right
-// column from lg and below everything on a phone.
+// eyebrow, H1, the two pills, then the facts, with the callback card in the right column from lg
+// and below everything on a phone.
 //
 // Deliberately NOT geo-personalised. Reading the geo header would take the whole route off the
 // static path, and the owner's brief puts speed first on the page most visitors land on. The
 // eyebrow therefore names the footprint rather than the visitor's town.
+//
+// The photograph behind it is decoration (components/HeroBackdrop.tsx): the section is
+// `relative isolate overflow-hidden` so the backdrop's paper gradient sits under the text and
+// nothing here needs a z-index. Text stays on the gradient side; the picture fills the right.
 //
 // The call link is server-rendered, is the page's only hero telephone link, and neither it nor
 // any ancestor carries a fade class: `animate-fade-up*` sets opacity 0 through its backwards
@@ -28,16 +33,17 @@ function splitLead(line: string): { lead: string; rest: string } {
 const WHEN_LINE =
   "Emergencies same day, with you within 45 minutes. Everything else booked for a time that suits you.";
 
-// The hero carries only the first sentence of ANSWERED_LINE. The second ("The person who answers
-// is the person who comes.") is the lead line of "Why people ring us." further down: at 390x844
-// the first screen is a decision, not a page.
-const ANSWERED_LEAD = `${ANSWERED_LINE.split(". ")[0]}.`;
-
-const FACTS = [PRICE_PROCESS_LINE, WHEN_LINE, ANSWERED_LEAD];
+// Two facts, not three. The owner's review of 19 September 2026 cut the answering sentence out of
+// the first screen, and nothing was put back in its place: at 390x844 the first screen is a
+// decision (the headline, the number, WhatsApp) and every line added to it pushes the number
+// down the page.
+const FACTS = [PRICE_PROCESS_LINE, WHEN_LINE];
 
 export default function HomeHero() {
   return (
-    <section id="hero" className="bg-paper">
+    <section id="hero" className="relative isolate overflow-hidden bg-paper">
+      <HeroBackdrop image="home" />
+
       <div className="mx-auto grid max-w-content items-start gap-10 px-5 pb-14 pt-8 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:px-12 lg:pb-20 lg:pt-12">
         <div className="max-w-[38rem]">
           <p className="animate-fade-up mb-3 text-[12px] font-semibold uppercase tracking-[0.16em] text-tint">
@@ -45,7 +51,7 @@ export default function HomeHero() {
           </p>
 
           <h1 className="mb-5 text-pretty font-display text-[clamp(38px,4.6vw,62px)] font-extrabold leading-[0.98] text-brand">
-            Burst pipe or blocked drain? Ring us. A plumber picks up.
+            Burst pipe or blocked drain? Ring us. We will be with you.
           </h1>
 
           <div className="mb-3 flex flex-col gap-3 sm:flex-row">

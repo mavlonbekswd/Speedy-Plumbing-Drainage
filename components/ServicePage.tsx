@@ -1,7 +1,18 @@
 // The one template every /services/<slug> page renders. A service page is an ad landing page
-// first and a piece of reading second, so the order below is fixed: the number and the callback
-// card come before any prose, and the pinned ad lines sit in always-visible text a third of the
-// way down rather than at the foot of the page.
+// first and a piece of reading second, so the order at the top is fixed: hero, the ticks, then
+// the eight answer cards. Nothing may be inserted before them.
+//
+// Reshaped on 19 September 2026 after the owner's review ("very text heavy", "the page is very
+// long"). Three things changed and all three are template-wide, so all nine service pages moved
+// together:
+//
+//   1. the pictures come up the page. The problem illustrations now sit BESIDE the problem grid
+//      instead of a row of their own further down, and the proof strip of real job photos
+//      lands in the middle of the page rather than near the foot;
+//   2. the boxed "In plain words" card is gone. Its sentences are the pinned ad descriptions and
+//      they stay, verbatim, folded into ordinary copy by `placeAdLines` in lib/claims.ts;
+//   3. every section this template owns is rendered `compact`, which is a shorter vertical
+//      rhythm and no lost words. Other pages keep the taller one.
 //
 // A server component with no state of its own. Everything it shows comes from the leaf it is
 // handed, so a copy change is a content change and never a template change.
@@ -14,7 +25,6 @@ import ServiceHero from "@/components/ServiceHero";
 import TickChips from "@/components/TickChips";
 import StraightAnswers from "@/components/StraightAnswers";
 import ProblemGrid from "@/components/ProblemGrid";
-import PlainWords from "@/components/PlainWords";
 import ContentSections from "@/components/ContentSections";
 import CTABand from "@/components/CTABand";
 import HowItWorks from "@/components/HowItWorks";
@@ -25,7 +35,8 @@ import TownsByCounty from "@/components/TownsByCounty";
 import ServiceFAQ from "@/components/ServiceFAQ";
 import ClosingBand from "@/components/ClosingBand";
 import FAQSchema from "@/components/FAQSchema";
-import { URGENT_GRID_NOTE } from "@/lib/claims";
+import { placeAdLines, URGENT_GRID_NOTE } from "@/lib/claims";
+import { FALLBACK_HERO, HERO_IMAGE_BY_KEY, type HeroImageKey } from "@/lib/media";
 import { STATIC_ROUTE_BY_PATH } from "@/lib/routes";
 import type { ServiceContent } from "@/lib/types";
 import IllustrationRow from "@/components/IllustrationRow";
@@ -35,11 +46,27 @@ function publishedHref(path: string): string | undefined {
   return STATIC_ROUTE_BY_PATH[path]?.published ? path : undefined;
 }
 
+/**
+ * Every published slug has a hero photograph of its own. The lookup is guarded rather than cast,
+ * so a slug published before its picture exists falls back to the workbench instead of handing
+ * HeroBackdrop an undefined file and blanking the first screen.
+ */
+function heroImageFor(slug: string): HeroImageKey {
+  return Object.hasOwn(HERO_IMAGE_BY_KEY, slug) ? (slug as HeroImageKey) : FALLBACK_HERO;
+}
+
 export default function ServicePage({ data }: { data: ServiceContent }) {
   const { slug } = data;
   const urgent = data.kind === "urgent";
   const servicesHref = publishedHref("/services");
   const guaranteeHref = publishedHref("/guarantee");
+
+  // The pinned ad descriptions, placed from the data alone. Each one renders verbatim, as one
+  // text node, in markup that is always in the document: tests/ad-page-join.spec.ts.
+  const ads = placeAdLines(data.adLines);
+
+  const hasSections = Boolean(data.sections && data.sections.length > 0);
+  const hasIllustrations = Boolean(data.illustrations && data.illustrations.length > 0);
 
   return (
     <div className="has-callbar">
@@ -63,47 +90,46 @@ export default function ServicePage({ data }: { data: ServiceContent }) {
           sub={data.hero.sub}
           urgent={urgent}
           serviceOnlyLine={data.hero.serviceOnlyLine}
+          heroImage={heroImageFor(slug)}
           aside={<CallbackInline formId={`${slug}_hero`} service={slug} idPrefix={`${slug}_hero`} />}
         />
 
         <TickChips guaranteeHref={guaranteeHref} />
 
-        <StraightAnswers answers={data.answers} after={data.afterAnswers} tinted={false} />
+        <StraightAnswers answers={data.answers} after={data.afterAnswers} tinted={false} compact />
 
+        {/* The problem the reader arrived with, with a picture of it beside the cards. The lead
+            paragraphs are the page's first pinned ad line: an ad may only promise what its
+            landing page says, and this is the first place a reader is certain to pass. */}
         <ProblemGrid
           heading={data.problems.heading}
           sub={data.problems.sub}
           cards={data.problems.cards}
+          lead={ads.problemLead}
+          aside={
+            hasIllustrations ? <IllustrationRow slugs={data.illustrations!} variant="aside" /> : undefined
+          }
           note={urgent ? URGENT_GRID_NOTE : undefined}
           tinted
+          compact
         />
 
-        {/* The pinned ad descriptions, verbatim and always visible. They sit here, directly
-            under the problem grid, because an ad may only promise what its landing page says
-            and this is the last point a reader still on the page is certain to pass. */}
-        <section className="bg-paper">
-          <div className="mx-auto max-w-content px-5 py-14 sm:px-8 md:py-16">
-            <PlainWords lines={data.adLines} />
-          </div>
-        </section>
+        {/* Real jobs, at the middle of the page rather than the foot. */}
+        <ProofStrip photoSlugs={data.proof.photos} videoSlug={data.proof.video} tinted={false} compact />
 
-        {data.sections && data.sections.length > 0 && <ContentSections sections={data.sections} tinted />}
+        <CTABand heading={data.ctaBand.heading} sub={ads.ctaSub ?? data.ctaBand.sub} />
 
-        {data.illustrations && data.illustrations.length > 0 && <IllustrationRow slugs={data.illustrations} />}
+        {hasSections && <ContentSections sections={data.sections!} tinted />}
 
-        <CTABand heading={data.ctaBand.heading} sub={data.ctaBand.sub} />
-
-        <HowItWorks steps={data.steps} tinted={false} />
+        <HowItWorks steps={data.steps} intro={ads.howIntro} tinted={false} compact />
 
         <BookingForm heading={data.bookingHeading} formId={`${slug}_booking`} service={slug} />
 
-        <ProofStrip photoSlugs={data.proof.photos} videoSlug={data.proof.video} tinted={false} />
+        <TownsByCounty tinted={false} />
 
-        <TownsByCounty tinted />
+        <ServiceFAQ faqs={data.faqs} tinted />
 
-        <ServiceFAQ faqs={data.faqs} tinted={false} />
-
-        <ClosingBand heading={data.closing.heading} sub={data.closing.sub} />
+        <ClosingBand heading={data.closing.heading} sub={ads.closingSub ?? data.closing.sub} />
       </main>
 
       <Footer />

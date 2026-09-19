@@ -6,6 +6,7 @@ import {
   INSURED_LEAD,
   PAYMENT_ANSWER,
   PAYMENT_FAQ,
+  PHONE_ANSWER,
 } from "../../lib/claims";
 
 // The R ad group lands here and its 14 keywords turn on one word: tap (S-024, S-049). The old
@@ -46,11 +47,7 @@ const leakRepairs: ServiceContent = {
       lead: "None, and no extra charge at night or weekends.",
       rest: "Nothing changes without your say-so. If the leak turns out to be a bigger job once we are in, we stop and tell you.",
     },
-    {
-      q: "Who answers the phone?",
-      lead: "A plumber does, day or night.",
-      rest: "Not a call centre. The person who answers is the person who comes.",
-    },
+    PHONE_ANSWER,
     {
       q: "Are you insured?",
       lead: INSURED_LEAD,

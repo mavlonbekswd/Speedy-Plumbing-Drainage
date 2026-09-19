@@ -1,6 +1,5 @@
-// The blog barrel and its type. Three posts carried over from the old site by title only: the
-// bodies are rewritten against the claims gate before any of them publishes, which is why every
-// leaf is unpublished and empty below the title.
+// The blog barrel and its type. Three posts, all published. Their bodies were rewritten on
+// 19 Sept 2026 to read like a plumber talking, and they pass the same claims gate as every page.
 //
 // The leaves import BlogPost from here with `import type`, which TypeScript erases, so the
 // import graph has no runtime edge back into this file and no cycle.

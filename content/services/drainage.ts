@@ -7,6 +7,7 @@ import {
   OUT_OF_SCOPE_SENTENCE,
   PAYMENT_ANSWER,
   PAYMENT_FAQ,
+  PHONE_ANSWER,
 } from "../../lib/claims";
 
 // "Why does it keep happening." Drainage ad B lands here, and seven survey and repair keywords
@@ -50,11 +51,7 @@ const drainage: ServiceContent = {
       lead: "None, and no extra charge at night or weekends.",
       rest: "The survey price is the survey price. If what we find needs a different job, you hear about it before anything else happens.",
     },
-    {
-      q: "Who answers the phone?",
-      lead: "A plumber does, day or night.",
-      rest: "Not a call centre. The person who answers is the person who comes.",
-    },
+    PHONE_ANSWER,
     {
       q: "Are you insured?",
       lead: INSURED_LEAD,

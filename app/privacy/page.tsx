@@ -24,7 +24,9 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
+import HeroBackdrop from "@/components/HeroBackdrop";
 import { CLICK_ID_STORAGE_KEY } from "@/lib/clickIds";
+import { FALLBACK_HERO } from "@/lib/media";
 import { STATIC_ROUTE_BY_PATH } from "@/lib/routes";
 import {
   COMPANY_NUMBER,
@@ -84,8 +86,12 @@ export default function PrivacyPage() {
       <Header />
 
       <main id="main" tabIndex={-1} className="outline-none">
-        <section className="bg-paper">
-          <div className="mx-auto max-w-content px-5 py-16 sm:px-8 md:py-20">
+        {/* The heading block is its own section so the backdrop sits behind the first screen and
+            not behind the whole notice. Everything below it stays plain reading matter. */}
+        <section className="relative isolate overflow-hidden bg-paper">
+          <HeroBackdrop image={FALLBACK_HERO} />
+
+          <div className="mx-auto max-w-content px-5 pb-12 pt-16 sm:px-8 md:pb-14 md:pt-20">
             <Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Privacy notice" }]} className="mb-8" />
 
             <h1 className="max-w-[18ch] text-pretty font-display text-[clamp(34px,4.6vw,60px)] font-extrabold leading-[1.02] text-brand">
@@ -97,7 +103,11 @@ export default function PrivacyPage() {
               a form, and what this website records while you read it. It is written to match the site as
               it is built, not as a general statement of intent.
             </p>
+          </div>
+        </section>
 
+        <section className="bg-paper">
+          <div className="mx-auto max-w-content px-5 pb-16 sm:px-8 md:pb-20">
             <Section title="Who we are">
               <p>
                 <Lead>{REGISTERED_NAME} is the controller of your data.</Lead> It trades as {TRADING_NAME}.

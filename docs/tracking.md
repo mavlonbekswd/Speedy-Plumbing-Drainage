@@ -174,8 +174,6 @@ route this file has never heard of and does not ship the content tables to the b
 | `booking_form_success` | The API answered 2xx | `form_id`, `service`, `photo_count` (photos actually sent), `photos_dropped` when any, `http_status` |
 | `booking_form_error` | The API did not | Same set. `http_status` is 0 for a request that never completed |
 | `booking_form_abandon` | A started form left unsettled, via `visibilitychange` to hidden, `pagehide` (with `sendBeacon`) or the effect cleanup on a client-side navigation. A `settled` guard means whichever arrives first is the only one to send | `form_id`, `service` |
-| `quote_step_complete` | A step of the 6-step wizard on `/quote` is completed | `step` (1-based), `step_name` |
-| `quote_step_back` | The wizard's Back button | `step` (1-based), `step_name` |
 | `postcode_check` | The postcode checker is submitted | `result` (`covered`, `not_covered` or `invalid`), `district` when one was parsed |
 | `video_play` | A job video is played | `video_slug` |
 
@@ -214,8 +212,8 @@ the top and 1 at the bottom, which answers "which placement actually earns the c
 
 - **No event property may carry a name, a phone number, an email address, a full postcode or
   anything the customer typed as free text.** PostHog is for behaviour; the lead itself goes to
-  the business over the API route. This is stated in the headers of `lib/formTracking.ts`,
-  `components/QuoteWizard.tsx` and `components/PostcodeCheckClient.tsx`, and it is why the form
+  the business over the API route. This is stated in the headers of `lib/formTracking.ts`
+  and `components/PostcodeCheckClient.tsx`, and it is why the form
   events carry a `photo_count` and an `http_status` and nothing else.
 - **`postcode_check` sends the district only.** A full postcode identifies a household. The
   district is enough to answer "do you cover me".

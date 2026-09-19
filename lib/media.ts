@@ -13,7 +13,7 @@ import type { Illustration, WorkPhoto, WorkVideo } from "./types";
 // - Three files are crops: another firm's sticker, a supplier's phone label and an oil boiler
 //   were cut out of frame. Stills prefixed drain-jetting- and pipework-under-floor come from
 //   the owner's own video clips.
-// - van-illustration is AI-made. It renders only with a visible "Illustration" label, never in a
+// - van-illustration is AI-made. It is a brand graphic (no visible label since 19 Sept 2026, owner), never in a
 //   job gallery, and nothing in this folder goes to Google Ads as an image asset unlabelled.
 const SEPT_18 = { suppliedBy: "owner", suppliedOn: "2026-09-18", ownJob: true, consentOnFile: false } as const;
 const SEPT_19 = { suppliedBy: "owner", suppliedOn: "2026-09-19", ownJob: true, consentOnFile: false } as const;
@@ -78,24 +78,96 @@ export const FEATURED_PHOTO_SLUGS = [
   "shower-over-bath",
 ] as const;
 
-// ILLUSTRATIONS
-// AI-generated drawings (Higgsfield, 19 Sept 2026), made because the owner has no photographs of
-// an emergency or a blocked drain. They show the PROBLEM a customer is looking at, never a job
-// Speedy did, and they are drawn, flat and in the brand colours so nobody could take one for a
-// photograph. Rules: always under a visible "Illustration" label; never inside a proof strip or
-// on /projects; never a caption that claims a job, a place or a result; and never uploaded to
-// Google Ads as an image asset without an in-creative AI label (Google policy, July 2026).
-const drawn = { width: 1200, height: 904 } as const;
+// ILLUSTRATIONS (the name is historical: since 19 Sept 2026 these are photorealistic)
+// AI-generated scenes (Higgsfield), made because the owner has no photographs of an emergency or
+// a blocked drain. They show the PROBLEM a customer is looking at, never a job Speedy did. The
+// owner's instruction of 19 Sept 2026 replaced the flat drawings with realistic pictures and
+// removed the visible "Illustration" badge. What keeps them honest now:
+//  - their own row, headed "What it can look like", never a proof strip and never /projects;
+//  - a caption that names the problem and never claims a job, a place, a date or a result;
+//  - /terms says some pictures on the site are representative and that /projects is our own work;
+//  - never uploaded to Google Ads as an image asset without an in-creative AI label.
+const drawn = { width: 1168, height: 880 } as const;
 
 export const ILLUSTRATIONS: readonly Illustration[] = [
-  { slug: "burst-pipe-under-sink", file: "/illustrations/burst-pipe-under-sink.webp", ...drawn, caption: "A split pipe under the sink", alt: "Illustration of a split copper pipe spraying water under a kitchen sink, with a bucket and towels catching it" },
-  { slug: "turning-off-the-stopcock", file: "/illustrations/turning-off-the-stopcock.webp", ...drawn, caption: "Turning the water off at the stopcock", alt: "Illustration of a gloved hand turning a brass stopcock on a copper pipe to shut the water off" },
-  { slug: "water-through-the-ceiling", file: "/illustrations/water-through-the-ceiling.webp", ...drawn, caption: "Water coming through a ceiling", alt: "Illustration of a water stain on a living room ceiling dripping into a bucket on the floor" },
-  { slug: "blocked-outside-drain", file: "/illustrations/blocked-outside-drain.webp", ...drawn, caption: "A blocked outside drain backing up", alt: "Illustration of a blocked gully at the foot of a brick wall overflowing across paving slabs" },
-  { slug: "cctv-drain-survey", file: "/illustrations/cctv-drain-survey.webp", ...drawn, caption: "A camera survey of a drain run", alt: "Illustration of a drain camera reel feeding a cable into an open manhole, with a screen showing the inside of the pipe" },
-  { slug: "blocked-kitchen-sink", file: "/illustrations/blocked-kitchen-sink.webp", ...drawn, caption: "A sink that will not drain", alt: "Illustration of a kitchen sink full of murky standing water with a plunger on the worktop" },
+  { slug: "burst-pipe-under-sink", file: "/illustrations/burst-pipe-under-sink.webp", ...drawn, caption: "A split pipe under the sink", alt: "A split copper pipe spraying water under a kitchen sink, with a bucket and towels catching it" },
+  { slug: "turning-off-the-stopcock", file: "/illustrations/turning-off-the-stopcock.webp", ...drawn, caption: "Turning the water off at the stopcock", alt: "A gloved hand turning a brass stopcock on a copper pipe to shut the water off" },
+  { slug: "water-through-the-ceiling", file: "/illustrations/water-through-the-ceiling.webp", ...drawn, caption: "Water coming through a ceiling", alt: "A water stain on a living room ceiling dripping into a bucket on the floor" },
+  { slug: "blocked-outside-drain", file: "/illustrations/blocked-outside-drain.webp", ...drawn, caption: "A blocked outside drain backing up", alt: "A blocked gully at the foot of a brick wall overflowing across paving slabs" },
+  { slug: "cctv-drain-survey", file: "/illustrations/cctv-drain-survey.webp", ...drawn, caption: "A camera survey of a drain run", alt: "A drain camera reel feeding a cable into an open manhole, with a screen showing the inside of the pipe" },
+  { slug: "blocked-kitchen-sink", file: "/illustrations/blocked-kitchen-sink.webp", ...drawn, caption: "A sink that will not drain", alt: "A kitchen sink full of murky standing water with a plunger on the worktop" },
 ];
 
 export const ILLUSTRATION_BY_SLUG: Readonly<Record<string, Illustration>> = Object.fromEntries(
   ILLUSTRATIONS.map((i) => [i.slug, i]),
 );
+
+// The one job photo that stands for each service on a card (home page and /services). Chosen by
+// hand, because "the first unused photo in the service's own list" paired drain cleaning with a
+// kitchen tap. Every value is a real job photo. We hold no photograph of a macerator, so that
+// card shows a shower room, the kind of room one usually serves.
+export const SERVICE_CARD_PHOTO: Readonly<Record<string, string>> = {
+  "emergency-plumbing": "water-supply-pipe",
+  "blocked-drains": "under-sink-wastes",
+  drainage: "drain-jetting-manhole",
+  // The two drain stills come from one clip and look identical side by side, so drain cleaning
+  // shows a sink running clear instead of repeating the manhole.
+  "drain-cleaning": "kitchen-mixer-tap",
+  "leak-repairs": "pipework-under-floor",
+  "toilet-repairs": "new-toilet",
+  "bathroom-plumbing": "new-bath-white-tile",
+  "hot-water": "hot-water-system-cupboard",
+  "saniflo-and-macerators": "shower-enclosure",
+};
+
+// HERO_IMAGES
+// The photograph behind each page's first screen (components/HeroBackdrop.tsx). AI-generated
+// scenes, 19 Sept 2026: fixtures, tools and gloved hands, never a face, because a photoreal
+// "plumber" reads as a member of staff. Decorative only: no alt, no caption, no link. Never in
+// WORK_PHOTOS, a proof strip, /projects or a Google Ads image asset. A `-768.webp` sibling of
+// every file exists for phones.
+export type HeroImageKey =
+  | "home"
+  | "services"
+  | "areas"
+  | "about"
+  | "guarantee"
+  | "contact"
+  | "emergency-plumbing"
+  | "blocked-drains"
+  | "drainage"
+  | "drain-cleaning"
+  | "leak-repairs"
+  | "toilet-repairs"
+  | "bathroom-plumbing"
+  | "hot-water"
+  | "saniflo-and-macerators";
+
+export interface HeroImage {
+  key: HeroImageKey;
+  file: string;
+  width: number;
+  height: number;
+  ai: true;
+}
+
+const HERO_KEYS: readonly HeroImageKey[] = [
+  "home", "services", "areas", "about", "guarantee", "contact", "emergency-plumbing",
+  "blocked-drains", "drainage", "drain-cleaning", "leak-repairs", "toilet-repairs",
+  "bathroom-plumbing", "hot-water", "saniflo-and-macerators",
+];
+
+export const HERO_IMAGES: readonly HeroImage[] = HERO_KEYS.map((key) => ({
+  key,
+  file: `/hero/${key}.webp`,
+  width: 1440,
+  height: 806,
+  ai: true,
+}));
+
+export const HERO_IMAGE_BY_KEY = Object.fromEntries(HERO_IMAGES.map((h) => [h.key, h])) as Readonly<
+  Record<HeroImageKey, HeroImage>
+>;
+
+/** Pages with no picture of their own: /projects and /blog use the workbench, legal pages too. */
+export const FALLBACK_HERO: HeroImageKey = "services";

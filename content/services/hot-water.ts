@@ -6,6 +6,7 @@ import {
   OUT_OF_SCOPE_SENTENCE,
   PAYMENT_ANSWER,
   PAYMENT_FAQ,
+  PHONE_ANSWER,
 } from "../../lib/claims";
 
 // Eighteen live keywords point here and nothing on the old site named hot water, an immersion
@@ -53,11 +54,7 @@ const hotWater: ServiceContent = {
       lead: "None, and no extra charge at night or weekends.",
       rest: "Nothing changes without your say-so. If the job needs a part nobody expected, you hear about it first.",
     },
-    {
-      q: "Who answers the phone?",
-      lead: "A plumber does, day or night.",
-      rest: "Not a call centre. The person who answers is the person who comes.",
-    },
+    PHONE_ANSWER,
     {
       q: "Are you insured?",
       lead: INSURED_LEAD,

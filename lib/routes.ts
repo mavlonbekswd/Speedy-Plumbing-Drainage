@@ -32,19 +32,19 @@ export interface StaticRoute {
   published: boolean;
 }
 
+// /quote, /faqs and /reviews were removed on 19 Sept 2026 (owner). They are gone from this table
+// rather than flipped to published: false, so they leave the sitemap, the nav, llms.txt, the
+// middleware known-path set and the test route lists together. next.config.ts 308s the three old
+// URLs to /contact#book, /#faq and /#reviews, and a redirect runs before middleware, so dropping
+// them here does not turn them into unknown paths.
 export const STATIC_ROUTES: readonly StaticRoute[] = [
   { path: "/", pageType: "home", inSitemap: true, titleHint: "Plumbing and drainage, 24/7", published: true },
-  { path: "/services", pageType: "service_hub", inSitemap: true, titleHint: "Pick the page that matches your problem", published: true },
+  { path: "/services", pageType: "service_hub", inSitemap: true, titleHint: "Pick the service for your problem", published: true },
   { path: "/areas-we-cover", pageType: "areas_hub", inSitemap: true, titleHint: "Where we work", published: true },
   { path: "/about", pageType: "static", inSitemap: true, titleHint: "About Speedy", published: true },
-  { path: "/guarantee", pageType: "static", inSitemap: true, titleHint: "Our 12-month guarantee", published: true },
+  { path: "/guarantee", pageType: "static", inSitemap: true, titleHint: "Our 1-year guarantee", published: true },
   { path: "/contact", pageType: "static", inSitemap: true, titleHint: "Contact Speedy", published: true },
-  { path: "/quote", pageType: "quote", inSitemap: true, titleHint: "Ask us to ring you", published: true },
   { path: "/projects", pageType: "static", inSitemap: true, titleHint: "Work we have done", published: true },
-  // Deliberately non-committal: HAS_REVIEWS is false, so this page carries no count, no stars
-  // and no rating schema, and the unit that builds it decides what stands in their place.
-  { path: "/reviews", pageType: "static", inSitemap: true, titleHint: "Reviews", published: true },
-  { path: "/faqs", pageType: "static", inSitemap: true, titleHint: "Questions we get asked", published: true },
   { path: "/blog", pageType: "blog_index", inSitemap: true, titleHint: "Advice from the tools", published: true },
   // Noindex, and out of the sitemap whatever its published flag says.
   { path: "/privacy", pageType: "legal", inSitemap: false, titleHint: "Privacy notice", published: true },

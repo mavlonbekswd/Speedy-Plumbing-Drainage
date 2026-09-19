@@ -5,9 +5,16 @@
 // prerendering. This is the page most visitors land on and the owner's brief puts speed first,
 // so the eyebrow names the footprint instead and nothing here reads anything from the request.
 //
-// Section order is the order a person decides in: the number and the three facts, the four
-// figures behind them, what we fix, whether we come to you, why us, what happens when you ring,
-// what it costs, our own jobs, and then the form for somebody who would rather not call.
+// Section order is the order a person decides in: the number and two facts, the four figures
+// behind them, what we fix (with a photograph of each), whether we come to you, why us, what
+// happens when you ring, where the reviews are, the questions people ask, and then the form for
+// somebody who would rather not call.
+//
+// Cut on 19 September 2026 after the owner's review ("very text heavy", "the page is very
+// long"): the price section, whose three cards and payment paragraph said again what the hero
+// fact, the middle step of "How it works" and the price and payment questions in HOME_FAQS all
+// say; and the recent-work strip, which showed the same featured photographs the reviews block
+// now shows and is the whole of /projects. /projects is linked from the reviews block instead.
 
 import type { Metadata } from "next";
 import Header from "@/components/Header";
@@ -18,9 +25,10 @@ import StatsStrip from "@/components/home/StatsStrip";
 import ServiceCards from "@/components/home/ServiceCards";
 import WhereWeWork from "@/components/home/WhereWeWork";
 import WhyUs from "@/components/home/WhyUs";
+import Reviews from "@/components/home/Reviews";
 import HowItWorks from "@/components/HowItWorks";
-import PriceClarity from "@/components/home/PriceClarity";
-import ProofStrip from "@/components/ProofStrip";
+import ServiceFAQ from "@/components/ServiceFAQ";
+import FAQSchema from "@/components/FAQSchema";
 import BookingForm from "@/components/BookingForm";
 import {
   AVAILABILITY_LINE,
@@ -31,7 +39,7 @@ import {
   GUARANTEE_SCOPE_LINE,
   PRICE_PROCESS_LINE,
 } from "@/lib/claims";
-import { FEATURED_PHOTO_SLUGS } from "@/lib/media";
+import { HOME_FAQS } from "@/lib/faqs";
 import { SITE_URL, TRADING_NAME, openGraphFor } from "@/lib/site";
 import type { Step } from "@/lib/types";
 
@@ -85,8 +93,16 @@ export default function HomePage() {
         <WhereWeWork />
         <WhyUs />
         <HowItWorks steps={STEPS} tinted />
-        <PriceClarity />
-        <ProofStrip photoSlugs={FEATURED_PHOTO_SLUGS} videoSlug="drain-jetting" tinted />
+        <Reviews />
+
+        {/* ServiceFAQ renders its own `section#faqs`, which is not this page's to rename, so the
+            wrapper carries the `#faq` the removed /faqs route redirects to. One FAQPage block on
+            the page: app/layout.tsx emits the LocalBusiness graph and no FAQ schema of its own. */}
+        <div id="faq">
+          <ServiceFAQ faqs={HOME_FAQS} tinted />
+        </div>
+        <FAQSchema faqs={HOME_FAQS} />
+
         <BookingForm heading={FORM_COPY.full.heading} formId="home_booking" />
       </main>
 

@@ -1,12 +1,14 @@
 // /blog/<slug>. Statically generated from the published posts and nothing else.
 //
 // `dynamicParams = false` does the same job here as it does on /services/<slug>: a slug that is
-// not in the list below is a real 404 from Next rather than a 200 with an empty article. All
-// three leaves are unpublished today, so the list is empty and the route serves nothing, which
-// is the correct behaviour and not a bug.
+// not in the list below is a real 404 from Next rather than a 200 with an empty article.
 //
-// TEXT ONLY. The old posts carried AI-generated header images; those files are deleted and no
-// image goes back on a blog page.
+// PICTURES (owner, 19 September 2026). Two of them, and they are different things:
+//   - a HeroBackdrop behind the first screen, keyed per post in components/blog/postMedia.ts.
+//     Generated, decorative, no alt, no caption, never presented as our work.
+//   - one or two of OUR OWN job photographs inside the body, from lib/media.ts, with the alt and
+//     the caption that file gives them. Those are the honest answer to "too text heavy".
+// The AI-generated header images the old site used are still deleted and are not coming back.
 //
 // `params` is a Promise in Next 15 and is awaited. Nothing else is read from the request.
 
@@ -18,8 +20,11 @@ import Footer from "@/components/Footer";
 import MobileCallBar from "@/components/MobileCallBar";
 import Breadcrumb from "@/components/Breadcrumb";
 import CTABand from "@/components/CTABand";
+import HeroBackdrop from "@/components/HeroBackdrop";
 import JsonLd from "@/components/JsonLd";
 import Button from "@/components/ui/Button";
+import PostBody from "@/components/blog/PostBody";
+import { heroForPost } from "@/components/blog/postMedia";
 import { DEFAULT_CTA_BAND, PRICE_PROCESS_LINE } from "@/lib/claims";
 import { PUBLISHED_POSTS, blogHref, type BlogPost } from "@/lib/blog";
 import { STATIC_ROUTE_BY_PATH } from "@/lib/routes";
@@ -67,14 +72,6 @@ export async function generateMetadata({
   };
 }
 
-/** A section's `p` holds its paragraphs separated by a blank line, so each stays its own <p>. */
-function paragraphsOf(text: string): string[] {
-  return text
-    .split(/\n\s*\n/)
-    .map((part) => part.trim())
-    .filter(Boolean);
-}
-
 function readableDate(iso: string): string {
   const date = new Date(`${iso}T00:00:00Z`);
   if (Number.isNaN(date.getTime())) return "";
@@ -108,7 +105,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
       <main id="main" tabIndex={-1} className="outline-none">
         <article>
-          <section className="bg-paper">
+          <section className="relative isolate overflow-hidden bg-paper">
+            <HeroBackdrop image={heroForPost(post.slug)} />
+
             <div className="mx-auto max-w-content px-5 pb-10 pt-8 sm:px-8 lg:px-12 md:pb-14 md:pt-10">
               <Breadcrumb
                 items={[{ name: "Home", href: "/" }, { name: "Advice", href: blogIndexHref }, { name: post.title }]}
@@ -136,7 +135,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   size="xl"
                   className="nums w-full sm:w-auto"
                   data-cta="phone"
-                  data-cta-location="blog"
+                  data-cta-location="blog_post_hero"
                   data-cta-variant="primary_button"
                 >
                   <Phone size={20} weight="fill" aria-hidden />
@@ -148,22 +147,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
           <section className="border-t border-line bg-paper-2">
             <div className="mx-auto max-w-content px-5 py-16 sm:px-8 md:py-24">
-              <div className="flex max-w-[66ch] flex-col gap-10">
-                {post.body.map((block) => (
-                  <div key={block.h} className="flex flex-col gap-4">
-                    <h2 className="font-display text-[clamp(22px,2.4vw,30px)] font-extrabold leading-[1.15] text-brand">
-                      {block.h}
-                    </h2>
-                    {paragraphsOf(block.p).map((paragraph) => (
-                      <p key={paragraph} className="text-[16.5px] leading-[1.75] text-slate">
-                        {paragraph}
-                      </p>
-                    ))}
-                  </div>
-                ))}
+              <PostBody slug={post.slug} body={post.body} />
 
-                <p className="text-[16px] leading-[1.7] text-slate">{PRICE_PROCESS_LINE}</p>
-              </div>
+              <p className="mt-10 max-w-[66ch] text-[16px] leading-[1.7] text-slate">{PRICE_PROCESS_LINE}</p>
             </div>
           </section>
         </article>

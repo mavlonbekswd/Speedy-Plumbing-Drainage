@@ -39,7 +39,7 @@ export default function WorkVideo({ slug, className = "" }: { slug: string; clas
               alt={video.caption}
               width={video.width}
               height={video.height}
-              sizes="(max-width: 767px) 50vw, 33vw"
+              sizes="(max-width: 767px) 50vw, (max-width: 1023px) 33vw, 25vw"
               loading="lazy"
               className="h-full w-full object-cover"
             />

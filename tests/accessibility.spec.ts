@@ -10,14 +10,15 @@ import { blockThirdParties, gotoOk, serviceRoutes, staticRoutes, townRoutes } fr
 // contributes no scan instead of a red one. The 404 is scanned unconditionally, because it is
 // the one page nobody remembers to look at and the one page a broken link sends people to.
 
-const OTHER_STATIC = staticRoutes.find((path) => path !== "/" && path !== "/quote");
+const OTHER_STATIC = staticRoutes.find((path) => path !== "/");
 
 const SAMPLES: { label: string; path: string }[] = [
   { label: "home", path: "/" },
   ...(serviceRoutes.length > 0 ? [{ label: `service template (${serviceRoutes[0]})`, path: serviceRoutes[0] }] : []),
   ...(townRoutes.length > 0 ? [{ label: `town template (${townRoutes[0]})`, path: townRoutes[0] }] : []),
   ...(OTHER_STATIC ? [{ label: `static template (${OTHER_STATIC})`, path: OTHER_STATIC }] : []),
-  ...(STATIC_ROUTE_BY_PATH["/quote"].published ? [{ label: "quote form", path: "/quote" }] : []),
+  // /contact carries the one full form outside a service page, so it gets its own scan.
+  ...(STATIC_ROUTE_BY_PATH["/contact"]?.published ? [{ label: "contact form", path: "/contact" }] : []),
 ];
 
 async function scan(page: import("@playwright/test").Page, label: string, path: string) {
