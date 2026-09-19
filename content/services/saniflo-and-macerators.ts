@@ -71,7 +71,7 @@ const sanifloAndMacerators: ServiceContent = {
     buttonLabel: "Book a callback",
   },
   problems: {
-    heading: "What goes wrong with these units",
+    heading: "What goes wrong with these units.",
     sub: "Start with what you can hear or see. Open one for what we do about it.",
     cards: [
       {
@@ -149,7 +149,7 @@ const sanifloAndMacerators: ServiceContent = {
     heading: "Want your macerator looked at?",
     sub: "We answer our own phone, and nothing starts until you say yes.",
   },
-  bookingHeading: "Ask us to ring you",
+  bookingHeading: "Ask us to ring you.",
   proof: {
     photos: ["new-toilet", "under-sink-wastes", "bath-taps-swap", "shower-enclosure", "washing-machine"],
     video: "toilet-flush-test",

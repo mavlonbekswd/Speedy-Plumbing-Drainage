@@ -6,9 +6,10 @@
 // AI-made brand graphic filtered out; a drawing in a gallery of real jobs is the one thing this
 // page exists to avoid. For the same reason NOTHING from ILLUSTRATIONS ever appears here.
 //
-// The one generated picture on the page is the HeroBackdrop behind the first screen. It is
-// decoration at 40% opacity with no alt and no caption, it sits above the sentence that says
-// every photo and clip BELOW is ours, and it is never presented as work.
+// The one generated picture on the page is the HeroBackdrop behind the first screen, drawn by
+// the shared components/static/StaticHero.tsx. It is decoration at 50% opacity with no alt and
+// no caption, it sits above the sentence that says every photo and clip BELOW is ours, and it is
+// never presented as work.
 //
 // Nothing is sliced, capped or featured: all 23 JOB_PHOTOS and all 6 WORK_VIDEOS render, grouped
 // by their own `group` value. GROUPS below covers every MediaGroup except "brand", which only
@@ -23,20 +24,18 @@
 
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Phone, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileCallBar from "@/components/MobileCallBar";
 import Breadcrumb from "@/components/Breadcrumb";
 import CTABand from "@/components/CTABand";
-import HeroBackdrop from "@/components/HeroBackdrop";
+import StaticHero from "@/components/static/StaticHero";
 import WorkVideo from "@/components/WorkVideo";
 import AnimateIn from "@/components/AnimateIn";
-import Button from "@/components/ui/Button";
 import { DEFAULT_CTA_BAND } from "@/lib/claims";
 import { FALLBACK_HERO, JOB_PHOTOS, WORK_VIDEOS } from "@/lib/media";
 import type { MediaGroup } from "@/lib/types";
-import { CALL_HREF, CALL_NUMBER_DISPLAY, SITE_URL, TRADING_NAME, WHATSAPP_URL, openGraphFor } from "@/lib/site";
+import { SITE_URL, TRADING_NAME, openGraphFor } from "@/lib/site";
 
 const TITLE = `Recent work | ${TRADING_NAME}`;
 const DESCRIPTION =
@@ -77,7 +76,7 @@ function Chip({ href, children }: { href: string; children: React.ReactNode }) {
       data-cta="nav"
       data-cta-location="projects_groups"
       data-cta-variant="chip"
-      className="inline-flex min-h-[44px] items-center rounded-chip border border-line bg-white px-4 text-[14.5px] font-semibold text-brand hover:border-tint-soft hover:text-tint"
+      className="press inline-flex min-h-[44px] items-center rounded-chip border border-line bg-white px-4 text-[15px] font-semibold text-brand hover:border-tint"
     >
       {children}
     </a>
@@ -88,7 +87,7 @@ function GroupHeading({ id, children }: { id: string; children: React.ReactNode 
   return (
     <h2
       id={id}
-      className={`${ANCHOR} font-display text-[clamp(24px,2.8vw,34px)] font-extrabold leading-[1.05] text-brand`}
+      className={`${ANCHOR} font-display text-[clamp(22px,2.4vw,30px)] font-extrabold leading-[1.15] text-brand`}
     >
       {children}
     </h2>
@@ -107,56 +106,20 @@ export default function ProjectsPage() {
       <Header />
 
       <main id="main" tabIndex={-1} className="outline-none">
-        <section className="relative isolate overflow-hidden bg-paper">
-          <HeroBackdrop image={FALLBACK_HERO} />
-
-          <div className="mx-auto max-w-content px-5 pb-12 pt-8 sm:px-8 lg:px-12 md:pb-14 md:pt-10">
-            <Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Recent work" }]} className="mb-8" />
-
-            <h1 className="max-w-[16ch] text-pretty font-display text-[clamp(34px,4.6vw,60px)] font-extrabold leading-[1.02] text-brand">
-              Recent work.
-            </h1>
-
-            <p className="mt-5 max-w-[58ch] text-[17px] leading-[1.6] text-slate">
-              Every photo and clip on this page is from our own jobs.
-            </p>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button
-                as="a"
-                href={CALL_HREF}
-                variant="primary"
-                size="xl"
-                className="nums w-full sm:w-auto"
-                data-cta="phone"
-                data-cta-location="projects_hero"
-                data-cta-variant="primary_button"
-              >
-                <Phone size={20} weight="fill" aria-hidden />
-                Call {CALL_NUMBER_DISPLAY}
-              </Button>
-              <Button
-                as="a"
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="whatsapp"
-                size="xl"
-                className="w-full sm:w-auto"
-                data-cta="whatsapp"
-                data-cta-location="projects_hero"
-                data-cta-variant="secondary_button"
-              >
-                <WhatsappLogo size={22} weight="fill" aria-hidden />
-                WhatsApp us
-              </Button>
-            </div>
-          </div>
-        </section>
+        {/* No `facts`: /projects is one of the two routes tests/excluded-copy.spec.ts holds the
+            price-process line OFF, and the shared hero only prints facts it is given. */}
+        <StaticHero
+          image={FALLBACK_HERO}
+          crumbs={<Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Recent work" }]} />}
+          eyebrow="Our own jobs"
+          h1="Recent work."
+          sub="Every photo and clip on this page is from our own jobs."
+          ctaLocation="projects_hero"
+        />
 
         {/* Jump list. Plain anchors, no client state: it works before any script runs. */}
         <nav aria-label="Jump to a kind of job" className="border-t border-line bg-paper-2">
-          <div className="mx-auto max-w-content px-5 py-5 sm:px-8">
+          <div className="mx-auto max-w-content px-5 py-10 sm:px-8 md:py-12">
             <div className="flex flex-wrap gap-2">
               <Chip href={`#${CLIPS_ID}`}>Clips</Chip>
               {groups.map(({ group, label }) => (
@@ -169,7 +132,7 @@ export default function ProjectsPage() {
         </nav>
 
         <section className="bg-paper">
-          <div className="mx-auto max-w-content px-5 py-14 sm:px-8 md:py-16">
+          <div className="mx-auto max-w-content px-5 py-14 sm:px-8 md:py-20">
             <GroupHeading id={CLIPS_ID}>Clips</GroupHeading>
 
             <div className={`mt-6 ${GRID}`}>

@@ -75,7 +75,7 @@ const emergencyPlumbing: ServiceContent = {
     buttonLabel: "Book a callback",
   },
   problems: {
-    heading: "What we're called out for",
+    heading: "What we're called out for.",
     sub: "Start with what you can see. Open one for what we do about it.",
     cards: [
       {
@@ -152,7 +152,7 @@ const emergencyPlumbing: ServiceContent = {
     heading: "Need an emergency plumber now?",
     sub: "We answer our own phone, and nothing starts until you say yes.",
   },
-  bookingHeading: "Ask us to ring you",
+  bookingHeading: "Ask us to ring you.",
   illustrations: ["burst-pipe-under-sink", "turning-off-the-stopcock", "water-through-the-ceiling"],
   proof: {
     photos: ["under-sink-wastes", "water-supply-pipe", "outside-tap", "kitchen-mixer-tap", "new-toilet"],

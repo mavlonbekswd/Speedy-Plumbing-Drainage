@@ -84,7 +84,7 @@ export default function AreasWeCoverPage() {
         {/* Directly under the hero, because it is the question this page exists to answer and
             the only place a postcode belongs: the customer types their own and gets a verdict. */}
         <section className="border-t border-line bg-paper-2">
-          <div className="mx-auto max-w-content px-5 py-12 sm:px-8 md:py-14">
+          <div className="mx-auto max-w-content px-5 py-10 sm:px-8 md:py-12">
             <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16">
               <SectionHeading
                 eyebrow="One check"
@@ -110,7 +110,7 @@ export default function AreasWeCoverPage() {
                       data-cta="nav"
                       data-cta-location="areas_index_organic"
                       data-cta-variant="chip"
-                      className="press inline-flex min-h-[44px] items-center rounded-chip border border-line bg-white px-4 text-[14.5px] font-semibold text-brand hover:border-tint"
+                      className="press inline-flex min-h-[44px] items-center rounded-chip border border-line bg-white px-4 text-[15px] font-semibold text-brand hover:border-tint"
                     >
                       {placeOf(town)}
                     </a>

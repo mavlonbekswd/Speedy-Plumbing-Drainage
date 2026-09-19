@@ -95,7 +95,7 @@ export default function CallbackInline({
 
       {state !== "success" && (
         <>
-          <p className="font-display text-[20px] font-bold leading-tight text-brand">{title}</p>
+          <p className="font-display text-[19px] font-bold leading-snug text-brand">{title}</p>
           <p className="mb-4 mt-1 text-[14.5px] leading-[1.5] text-slate">{FORM_COPY.inline.sub}</p>
 
           <form

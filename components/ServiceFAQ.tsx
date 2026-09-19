@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Minus, Plus } from "@phosphor-icons/react/dist/ssr";
 import AnimateIn from "@/components/AnimateIn";
 import SectionHeading from "@/components/ui/SectionHeading";
+import { ACCORDION_ROW, ACCORDION_TITLE, accordionControl } from "@/components/ui/accordion";
 import type { Faq } from "@/lib/types";
 
 interface Props {
@@ -22,7 +23,7 @@ export default function ServiceFAQ({ faqs, heading = "Questions people ask us.",
 
   return (
     <section id="faqs" className={tinted ? "border-t border-line bg-paper-2" : "bg-paper"}>
-      <div className="mx-auto max-w-content px-5 py-20 sm:px-8 md:py-28">
+      <div className="mx-auto max-w-content px-5 py-14 sm:px-8 md:py-20">
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
           <AnimateIn>
             <SectionHeading eyebrow="Good to know" title={heading} />
@@ -42,20 +43,17 @@ export default function ServiceFAQ({ faqs, heading = "Questions people ask us.",
                     onClick={() => setOpen(on ? -1 : i)}
                     aria-expanded={on}
                     aria-controls={bodyId}
-                    className="flex w-full items-center justify-between gap-5 rounded-card px-5 py-5 text-left sm:px-6"
+                    className={ACCORDION_ROW}
                   >
-                    <span className="font-display text-[17px] font-bold leading-snug text-brand">{faq.q}</span>
-                    <span
-                      className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-pill ${on ? "bg-brand text-cta" : "bg-paper-2 text-brand"}`}
-                      aria-hidden
-                    >
+                    <span className={ACCORDION_TITLE}>{faq.q}</span>
+                    <span className={accordionControl(on)} aria-hidden>
                       {on ? <Minus size={15} weight="bold" /> : <Plus size={15} weight="bold" />}
                     </span>
                   </button>
                   <p
                     id={bodyId}
                     hidden={!on}
-                    className="-mt-1 max-w-[62ch] px-5 pb-6 text-[15px] leading-[1.7] text-slate sm:px-6"
+                    className="-mt-1 max-w-[62ch] px-5 pb-5 text-[15px] leading-[1.7] text-slate sm:px-6"
                   >
                     {faq.a}
                   </p>

@@ -7,12 +7,14 @@ interface Props {
   city: City;
   /** paper-2 with a hairline top, for alternating against the section above. */
   tinted?: boolean;
+  /** Shorter vertical rhythm on a phone, for the town template. Opt-in: the default is unchanged. */
+  compact?: boolean;
 }
 
 // Where in this town we work. Scannable first: the postcode districts, then the area names, then
 // the two sourced notes. Every name here is verified in the town leaf against a source, and it
 // all renders as plain DOM so a crawler and a text audit see the same words the reader does.
-export default function TownAreaBlock({ city, tinted = false }: Props) {
+export default function TownAreaBlock({ city, tinted = false, compact = false }: Props) {
   const nearby = (city.nearbyTowns ?? [])
     .map((slug) => TOWN_BY_SLUG[slug])
     // Tier 1 only. The heading over these chips says "Also covering", and the organic towns
@@ -23,7 +25,9 @@ export default function TownAreaBlock({ city, tinted = false }: Props) {
 
   return (
     <section id="areas" className={tinted ? "border-t border-line bg-paper-2" : "bg-paper"}>
-      <div className="mx-auto max-w-content px-5 py-14 sm:px-8 md:py-20">
+      <div
+        className={`mx-auto max-w-content px-5 sm:px-8 ${compact ? "py-10 sm:py-14 md:py-20" : "py-14 md:py-20"}`}
+      >
         <AnimateIn>
           <SectionHeading eyebrow="Where we work" title={`Where in ${placeOf(city)} we work.`} sub={city.blurb || undefined} />
 
@@ -61,7 +65,7 @@ export default function TownAreaBlock({ city, tinted = false }: Props) {
                     data-cta="nav"
                     data-cta-location="nearby_areas"
                     data-cta-variant="chip"
-                    className="press inline-flex min-h-[44px] items-center rounded-chip border border-line bg-white px-4 text-[14.5px] font-semibold text-brand hover:border-tint"
+                    className="press inline-flex min-h-[44px] items-center rounded-chip border border-line bg-white px-4 text-[15px] font-semibold text-brand hover:border-tint"
                   >
                     {town.name}
                   </a>

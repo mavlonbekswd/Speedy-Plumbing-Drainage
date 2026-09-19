@@ -5,6 +5,8 @@ interface Props {
   sections: readonly ContentSection[];
   /** paper-2 with a hairline top, for alternating against the section above. */
   tinted?: boolean;
+  /** Shorter vertical rhythm on a phone, for the long templates. Opt-in: the default is unchanged. */
+  compact?: boolean;
 }
 
 // Long-form answers that a page owes its reader in full: the radiator leak, the dripping tap.
@@ -14,17 +16,19 @@ interface Props {
 // Heading left, prose right from lg. The owner's complaint on 19 September 2026 was length, and
 // the same words in two columns end about a third shorter on a desktop screen without a single
 // sentence being cut. On a phone it stacks and nothing changes.
-export default function ContentSections({ sections, tinted = false }: Props) {
+export default function ContentSections({ sections, tinted = false, compact = false }: Props) {
   if (sections.length === 0) return null;
 
   return (
     <div className={tinted ? "border-t border-line bg-paper-2" : "bg-paper"}>
-      <div className="mx-auto max-w-content px-5 py-14 sm:px-8 md:py-20">
-        <div className="flex flex-col gap-10 md:gap-12">
+      <div
+        className={`mx-auto max-w-content px-5 sm:px-8 ${compact ? "py-10 sm:py-14 md:py-20" : "py-14 md:py-20"}`}
+      >
+        <div className={`flex flex-col md:gap-12 ${compact ? "gap-8 sm:gap-10" : "gap-10"}`}>
           {sections.map((section, i) => (
             <AnimateIn key={section.id} delay={i * 60}>
               <section id={section.id} className="grid gap-4 lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
-                <h2 className="text-pretty font-display text-[clamp(22px,2.6vw,30px)] font-extrabold leading-[1.1] text-brand">
+                <h2 className="text-pretty font-display text-[clamp(22px,2.4vw,30px)] font-extrabold leading-[1.15] text-brand">
                   {section.heading}
                 </h2>
                 <div>

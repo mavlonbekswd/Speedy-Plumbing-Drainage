@@ -167,6 +167,7 @@ route this file has never heard of and does not ship the content tables to the b
 | `whatsapp_click` | `data-cta="whatsapp"` clicked | The CTA property set below |
 | `book_anchor_click` | `data-cta="book_anchor"` clicked | The CTA property set below |
 | `nav_click` | `data-cta="nav"` clicked | The CTA property set below |
+| `menu_toggle` | `data-cta="menu"` clicked: the burger, the desktop Services drop-down button and the mobile Services row, all of which open or close a menu and navigate nowhere | The CTA property set below |
 | `email_click` | `data-cta="email"` clicked | The CTA property set below |
 | `first_interaction` | The first `pointerdown`, `keydown` or `scroll` of a pageview, once per pageview, reset on every client-side navigation | `seconds_since_load`, `interaction_type` |
 | `booking_form_start` | First focus inside a booking form | `form_id`, `service` when known |
@@ -176,6 +177,11 @@ route this file has never heard of and does not ship the content tables to the b
 | `booking_form_abandon` | A started form left unsettled, via `visibilitychange` to hidden, `pagehide` (with `sendBeacon`) or the effect cleanup on a client-side navigation. A `settled` guard means whichever arrives first is the only one to send | `form_id`, `service` |
 | `postcode_check` | The postcode checker is submitted | `result` (`covered`, `not_covered` or `invalid`), `district` when one was parsed |
 | `video_play` | A job video is played | `video_slug` |
+
+`menu_toggle` exists because a menu opening is not a navigation: those three buttons used to carry
+`data-cta="nav"`, so every visitor who merely opened the burger or the Services drop-down was
+counted in `nav_click` and inflated the one report the business uses to see which pages people go
+to.
 
 A filled honeypot short-circuits everything: no event is tracked, nobody is identified, nothing is
 posted, no conversion is reported, and the caller gets the ordinary success shape so the page
@@ -190,7 +196,7 @@ component just to own an `onClick`.
 
 | Attribute | Meaning |
 | --- | --- |
-| `data-cta` | Required. One of the keys of `CTA_EVENTS`: `phone`, `whatsapp`, `book_anchor`, `nav`, `email` |
+| `data-cta` | Required. One of the keys of `CTA_EVENTS`: `phone`, `whatsapp`, `book_anchor`, `nav`, `menu`, `email` |
 | `data-cta-location` | Where it sits: `header`, `hero`, `footer`, `sticky_bar`, `postcode_check` and so on |
 | `data-cta-variant` | `text_link`, `icon_button`, `primary_button`, `secondary_button` |
 | `data-cta-position` | Numeric, where a CTA repeats down a page |

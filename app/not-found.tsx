@@ -23,14 +23,14 @@ export default function NotFound() {
       <Header />
 
       <main id="main" tabIndex={-1} className="bg-paper">
-        <div className="mx-auto max-w-content px-5 pb-20 pt-16 sm:px-8 md:pb-28 md:pt-24">
-          <p className="mb-4 text-[12px] font-semibold uppercase tracking-[0.16em] text-tint">Error 404</p>
+        <div className="mx-auto max-w-content px-5 pb-14 pt-8 sm:px-8 lg:pb-20 lg:pt-12">
+          <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.16em] text-tint">Error 404</p>
 
-          <h1 className="mb-4 max-w-[18ch] font-display text-[clamp(34px,4.6vw,60px)] font-extrabold leading-[1.02] text-brand">
+          <h1 className="mb-5 max-w-[20ch] text-pretty font-display text-[clamp(34px,4.6vw,60px)] font-extrabold leading-[1.02] text-brand">
             We could not find that page.
           </h1>
 
-          <p className="mb-8 max-w-[52ch] text-[17px] leading-[1.6] text-slate">
+          <p className="mb-8 max-w-[48ch] text-[16px] leading-[1.6] text-slate">
             The link is old or mistyped. Ring us and tell us what is happening. {PRICE_PROCESS_LINE}
           </p>
 
@@ -68,7 +68,9 @@ export default function NotFound() {
 
           {PUBLISHED_SERVICES.length > 0 && (
             <nav aria-label="Services">
-              <h2 className="mb-4 font-display text-[19px] font-bold text-brand">What we do</h2>
+              <h2 className="mb-6 font-display text-[clamp(22px,2.4vw,30px)] font-extrabold leading-[1.15] text-brand">
+                What we do
+              </h2>
               <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {PUBLISHED_SERVICES.map((service) => (
                   <li key={service.slug}>
@@ -77,7 +79,7 @@ export default function NotFound() {
                       data-cta="nav"
                       data-cta-location="not_found"
                       data-cta-variant="secondary_button"
-                      className="lift flex items-center justify-between gap-3 rounded-card border border-line bg-white p-5 font-display text-[17px] font-bold text-brand shadow-card"
+                      className="lift press flex items-center justify-between gap-3 rounded-card border border-line bg-white p-6 font-display text-[19px] font-bold leading-snug text-brand shadow-card"
                     >
                       {service.navLabel}
                       <ArrowRight size={16} weight="bold" aria-hidden />

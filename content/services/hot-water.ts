@@ -77,7 +77,7 @@ const hotWater: ServiceContent = {
     buttonLabel: "Book a callback",
   },
   problems: {
-    heading: "What we get called out to",
+    heading: "What we get called out to.",
     sub: "Start with what you can see. Open one for what we do about it.",
     cards: [
       {
@@ -185,7 +185,7 @@ const hotWater: ServiceContent = {
     heading: "Want your hot water sorted?",
     sub: "We answer our own phone, and nothing starts until you say yes.",
   },
-  bookingHeading: "Ask us to ring you",
+  bookingHeading: "Ask us to ring you.",
   proof: {
     photos: [
       "hot-water-system-cupboard",

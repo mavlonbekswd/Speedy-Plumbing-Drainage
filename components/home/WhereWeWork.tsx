@@ -21,7 +21,7 @@ export default function WhereWeWork() {
 
   return (
     <section id="areas" className="bg-brand">
-      <div className="mx-auto grid max-w-content items-start gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16 md:py-24">
+      <div className="mx-auto grid max-w-content items-start gap-12 px-5 py-14 sm:px-8 md:py-20 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
         <AnimateIn>
           <SectionHeading eyebrow="Where we work" title="Where we work." sub={COVERAGE_LINE} dark />
 
@@ -35,7 +35,8 @@ export default function WhereWeWork() {
               <div className="mt-6 flex flex-col gap-5">
                 {counties.map((county) => (
                   <div key={county}>
-                    <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/70">
+                    {/* The county label, the same 13px uppercase label the other town lists use. */}
+                    <p className="mb-2 text-[13px] font-semibold uppercase tracking-[0.16em] text-white/70">
                       {county}
                     </p>
                     <ul className="flex flex-wrap gap-2">

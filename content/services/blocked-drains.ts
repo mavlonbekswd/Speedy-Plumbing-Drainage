@@ -76,7 +76,7 @@ const blockedDrains: ServiceContent = {
     buttonLabel: "Book a callback",
   },
   problems: {
-    heading: "What we get called out to unblock",
+    heading: "What we get called out to unblock.",
     sub: "Start with what you can see. Open one for what we do on arrival.",
     cards: [
       {
@@ -146,7 +146,7 @@ const blockedDrains: ServiceContent = {
     heading: "Need a drain unblocked now?",
     sub: "We answer our own phone, and nothing starts until you say yes.",
   },
-  bookingHeading: "Ask us to ring you",
+  bookingHeading: "Ask us to ring you.",
   illustrations: ["blocked-outside-drain", "blocked-kitchen-sink"],
   proof: {
     photos: ["drain-jetting-manhole", "drain-jetting-hose", "under-sink-wastes", "water-supply-pipe", "outside-tap"],

@@ -36,7 +36,7 @@ const REASONS: readonly { title: string; body: string }[] = [
 export default function WhyUs() {
   return (
     <section id="why-us" className="bg-paper">
-      <div className="mx-auto max-w-content px-5 py-20 sm:px-8 md:py-28">
+      <div className="mx-auto max-w-content px-5 py-14 sm:px-8 md:py-20">
         <AnimateIn>
           <SectionHeading eyebrow="Why us" title="Why people ring us." />
         </AnimateIn>
@@ -45,7 +45,7 @@ export default function WhyUs() {
           {REASONS.map((reason, i) => (
             <AnimateIn key={reason.title} delay={i * 80} className="h-full">
               <div className="flex h-full flex-col gap-2 rounded-card border border-line bg-white p-6 shadow-card">
-                <h3 className="font-display text-[19px] font-bold leading-tight text-brand">{reason.title}</h3>
+                <h3 className="font-display text-[19px] font-bold leading-snug text-brand">{reason.title}</h3>
                 <p className="text-[14.5px] leading-[1.6] text-slate">{reason.body}</p>
               </div>
             </AnimateIn>

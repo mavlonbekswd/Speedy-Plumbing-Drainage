@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { Phone, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
 import Button from "@/components/ui/Button";
 import HeroBackdrop from "@/components/HeroBackdrop";
-import { BOOKED_WORK_LINE, PRICE_PROCESS_LINE, SAME_DAY_LINE } from "@/lib/claims";
+import { BOOKED_WORK_LINE, FREE_WHATSAPP_LINE, PRICE_PROCESS_LINE, SAME_DAY_LINE } from "@/lib/claims";
 import type { HeroImageKey } from "@/lib/media";
 import { CALL_HREF, CALL_NUMBER_DISPLAY, WHATSAPP_URL } from "@/lib/site";
 
@@ -15,9 +15,22 @@ interface Props {
   sub: string;
   /** Urgent pages carry the same-day line; booked pages carry the appointment line instead. */
   urgent: boolean;
+  /**
+   * A service page for work you book a time for, rather than an emergency: a tap, a toilet, a
+   * bathroom, hot water, a macerator. Owner review, 19 September 2026: somebody booking a tap
+   * would rather send a picture and be told the price than ring and describe it. So on these
+   * pages, and ONLY these, the WhatsApp button says what it does and FREE_WHATSAPP_LINE reads
+   * directly under the buttons.
+   *
+   * The call still comes first in DOM order and is still the primary button: that is a contract
+   * (tests/town-headline.spec.ts wants the telephone link before any form), not a preference.
+   * Urgent service pages and every town page are untouched. There the call IS the action, and
+   * their first screen is measured against a 60-word budget this line would spend.
+   */
+  booked?: boolean;
   /** A released line shown on the service page only, never on a town page. */
   serviceOnlyLine?: string;
-  /** The decorative photograph behind the first screen, at 40% opacity. Never captioned. */
+  /** The decorative photograph behind the first screen, at 50% opacity. Never captioned. */
   heroImage?: HeroImageKey;
   /** The callback card. Right column from lg, below everything on a phone, and after the
    *  telephone link in DOM order: no form may precede the number a caller is looking for. */
@@ -41,7 +54,7 @@ function splitLead(line: string): { lead: string; rest: string } {
 // any ancestor is animated: the fade classes go on text elements only, and the H1 is left alone
 // as well so the largest paint is not delayed by half a second for a flourish.
 //
-// A photograph sits behind all of it at 40% opacity (owner, 19 September 2026) with a paper
+// A photograph sits behind all of it at 50% opacity (owner, 19 September 2026) with a paper
 // gradient under the text, which is why the section is `relative isolate overflow-hidden`. The
 // picture is decoration: no alt, no caption, and the callback card stays opaque white over it.
 export default function ServiceHero({
@@ -51,27 +64,33 @@ export default function ServiceHero({
   h1Bottom,
   sub,
   urgent,
+  booked = false,
   serviceOnlyLine,
   heroImage,
   aside,
 }: Props) {
-  // Two facts, not three. The owner removed "A plumber answers the phone, day or night." from
+  // Two facts on an urgent page, not three. The owner removed "A plumber answers the phone, day or night." from
   // every hero on 19 September 2026; it and its second sentence now render together in answer
   // card 4 (PHONE_ANSWER), which is always in the document and never collapsed. At 390x844 the
   // first screen is a decision, not a page: hero copy is budgeted at 60 words
   // (tests/town-headline.spec.ts), and this change spends less of it.
-  const facts = [PRICE_PROCESS_LINE, urgent ? SAME_DAY_LINE : BOOKED_WORK_LINE];
+  //
+  // On a booked page a third line joins them, first, so it sits directly under the button it
+  // belongs to. It adds nothing to either page the first-screen budget is measured on, and it
+  // takes nothing away: PRICE_PROCESS_LINE and the appointment line both stay.
+  const facts = booked
+    ? [FREE_WHATSAPP_LINE, PRICE_PROCESS_LINE, BOOKED_WORK_LINE]
+    : [PRICE_PROCESS_LINE, urgent ? SAME_DAY_LINE : BOOKED_WORK_LINE];
 
   return (
     <section id="hero" className="relative isolate overflow-hidden bg-paper">
       {heroImage && <HeroBackdrop image={heroImage} />}
-      <div className="mx-auto grid max-w-content items-start gap-10 px-5 pb-14 pt-8 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:px-12 lg:pb-20 lg:pt-12">
+      <div className="mx-auto grid max-w-content items-start gap-10 px-5 pb-14 pt-8 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:pb-20 lg:pt-12">
         <div className="max-w-[38rem]">
           {crumbs && <div className="mb-5">{crumbs}</div>}
 
-          <p
-            className={`animate-fade-up mb-3 font-semibold uppercase tracking-[0.16em] text-tint ${urgent ? "text-[11px]" : "text-[12px]"}`}
-          >
+          {/* One eyebrow size everywhere, urgent or booked: 12px. The urgent pages ran 11px. */}
+          <p className="animate-fade-up mb-3 text-[12px] font-semibold uppercase tracking-[0.16em] text-tint">
             {eyebrow}
           </p>
 
@@ -93,13 +112,15 @@ export default function ServiceHero({
             </p>
           )}
 
-          <div className="mb-3 flex flex-col gap-3 sm:flex-row">
+          {/* The booked label is longer, so the pair stays stacked until md rather than sm: two
+              pills side by side at 640px would need more room than a 640px screen has. */}
+          <div className={`mb-3 flex flex-col gap-3 ${booked ? "md:flex-row" : "sm:flex-row"}`}>
             <Button
               as="a"
               href={CALL_HREF}
               variant="primary"
               size="xl"
-              className="nums w-full sm:w-auto"
+              className={`nums w-full ${booked ? "md:w-auto" : "sm:w-auto"}`}
               data-cta="phone"
               data-cta-location="hero"
               data-cta-variant="primary_button"
@@ -114,13 +135,15 @@ export default function ServiceHero({
               rel="noopener noreferrer"
               variant="whatsapp"
               size="xl"
-              className="w-full sm:w-auto"
+              // The booked label is long enough to overflow a narrow phone against the pill's
+              // default `whitespace-nowrap`, so on those pages it is allowed to wrap instead.
+              className={`w-full ${booked ? "!whitespace-normal text-center md:w-auto" : "sm:w-auto"}`}
               data-cta="whatsapp"
               data-cta-location="hero"
               data-cta-variant="secondary_button"
             >
               <WhatsappLogo size={22} weight="fill" aria-hidden />
-              WhatsApp us
+              {booked ? "Send a photo for a quote" : "WhatsApp us"}
             </Button>
           </div>
 

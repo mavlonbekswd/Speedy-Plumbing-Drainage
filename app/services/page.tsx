@@ -1,9 +1,13 @@
 // /services. The hub a reader lands on when they know something is wrong but not what to call it.
 //
-// It is a signpost and nothing else: one photo card per published leaf, urgent first, and the
-// phone number for the person whose problem is not on the list. The prose it used to carry was
-// the owner's complaint of 19 September 2026 ("very text heavy, needs more images or photos"),
-// so the pictures are our own jobs and the words are the service name and one line about it.
+// It is a signpost: one photo card per published leaf, urgent first, and the phone number for
+// the person whose problem is not on the list. The prose it used to carry was the owner's
+// complaint of 19 September 2026 ("very text heavy, needs more images or photos"), so the
+// pictures are our own jobs and the words are the service name and one line about it.
+//
+// The one form on the page is the callback card in the hero aside, the same card the home page
+// and every service page carry, so the three page types a visitor actually lands on offer the
+// same three ways to reach us. It sits after the telephone link in DOM order.
 //
 // Nothing here reads the request, so the page is a static file.
 
@@ -16,6 +20,7 @@ import TickChips from "@/components/TickChips";
 import ServiceFAQ from "@/components/ServiceFAQ";
 import FAQSchema from "@/components/FAQSchema";
 import ClosingBand from "@/components/ClosingBand";
+import CallbackInline from "@/components/CallbackInline";
 import HubHero from "@/components/hub/HubHero";
 import ServicePhotoCards from "@/components/hub/ServicePhotoCards";
 import {
@@ -72,9 +77,13 @@ export default function ServicesHubPage() {
           h1="Pick the service for your problem."
           facts={[PRICE_PROCESS_LINE, AVAILABILITY_LINE]}
           ctaLocation="services_hub"
+          // The same card the home page and every service page carry, so the three page types a
+          // visitor actually lands on offer the same third option. It sits after the telephone
+          // link in DOM order and has no `service`: this hub covers all of them.
+          aside={<CallbackInline formId="services_hero" idPrefix="services_hero" />}
         />
 
-        <TickChips guaranteeHref={publishedHref("/guarantee")} />
+        <TickChips part="figures" />
 
         <ServicePhotoCards
           services={SERVICES_IN_ORDER}
@@ -116,6 +125,8 @@ export default function ServicesHubPage() {
         <div id="faq">
           <ServiceFAQ faqs={SERVICES_HUB_FAQS} />
         </div>
+
+        <TickChips part="ticks" guaranteeHref={publishedHref("/guarantee")} />
 
         <ClosingBand heading={DEFAULT_CTA_BAND.heading} sub={DEFAULT_CTA_BAND.sub} />
       </main>

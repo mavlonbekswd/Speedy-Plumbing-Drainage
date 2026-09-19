@@ -3,19 +3,20 @@ import AnimateIn from "@/components/AnimateIn";
 import Button from "@/components/ui/Button";
 import { CALL_HREF, CALL_NUMBER_DISPLAY, WHATSAPP_URL } from "@/lib/site";
 
-// The last thing above the footer. Same band as CTABand, shorter, so a reader who has scrolled
-// the whole page ends on the action rather than on a list of towns.
+// The last thing above the footer. The SAME band as CTABand, to the pixel: same 64px rhythm, same
+// 38px heading, same pair of buttons. They were 64px/38px and 56px/34px on the same page until
+// 19 September 2026, which read as two designs for one role.
 export default function ClosingBand({ heading, sub }: { heading: string; sub: string }) {
   return (
     <section className="bg-brand">
-      <div className="mx-auto max-w-content px-5 py-12 sm:px-8 md:py-14">
+      <div className="mx-auto max-w-content px-5 py-14 sm:px-8 md:py-16">
         <AnimateIn>
-          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
             <div>
-              <h2 className="text-pretty font-display text-[clamp(24px,2.8vw,34px)] font-extrabold leading-[1.05] text-white">
+              <h2 className="text-pretty font-display text-[clamp(26px,3.2vw,38px)] font-extrabold leading-[1.05] text-white">
                 {heading}
               </h2>
-              <p className="mt-2 max-w-[48ch] text-[15.5px] leading-[1.6] text-white/80">{sub}</p>
+              <p className="mt-2 max-w-[48ch] text-[16px] leading-[1.6] text-white/80">{sub}</p>
             </div>
 
             <div className="flex flex-shrink-0 flex-col gap-3 sm:flex-row sm:items-center">

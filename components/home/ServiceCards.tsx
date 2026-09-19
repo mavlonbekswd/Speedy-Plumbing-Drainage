@@ -2,7 +2,7 @@ import Image from "next/image";
 import AnimateIn from "@/components/AnimateIn";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { BOOKED_SERVICES, URGENT_SERVICES, serviceHref } from "@/lib/services";
-import { PHOTO_BY_SLUG, SERVICE_CARD_PHOTO } from "@/lib/media";
+import { PHOTO_BY_SLUG, SERVICE_CARD_IMAGE, SERVICE_CARD_PHOTO, type CardImage } from "@/lib/media";
 import type { WorkPhoto } from "@/lib/types";
 
 // One card per published service, urgent first, because the person who cannot wait is the
@@ -26,7 +26,9 @@ export default function ServiceCards() {
   // Services share proof photos, so the first unused slug is preferred over the first slug: nine
   // cards showing the same open manhole twice reads as one photograph, not as nine jobs.
   const used = new Set<string>();
-  const cards = services.map((service) => {
+  const cards = services.map((service): { service: (typeof services)[number]; photo: CardImage | undefined } => {
+    const made = SERVICE_CARD_IMAGE[service.slug];
+    if (made) return { service, photo: made };
     const picked = SERVICE_CARD_PHOTO[service.slug];
     const slug =
       (picked && PHOTO_BY_SLUG[picked] ? picked : undefined) ??
@@ -42,7 +44,7 @@ export default function ServiceCards() {
 
   return (
     <section id="services" className="bg-paper">
-      <div className="mx-auto max-w-content px-5 py-20 sm:px-8 md:py-28">
+      <div className="mx-auto max-w-content px-5 py-14 sm:px-8 md:py-20">
         <AnimateIn>
           <SectionHeading eyebrow="What we do" title="What do you need fixed?" />
         </AnimateIn>
@@ -66,7 +68,7 @@ export default function ServiceCards() {
                 )}
 
                 <div className="flex flex-1 flex-col gap-2 p-6">
-                  <h3 className="font-display text-[19px] font-bold leading-tight text-brand">
+                  <h3 className="font-display text-[19px] font-bold leading-snug text-brand">
                     <a
                       href={serviceHref(service.slug)}
                       data-cta="nav"

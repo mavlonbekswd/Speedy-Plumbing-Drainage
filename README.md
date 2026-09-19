@@ -68,6 +68,19 @@ only place in the repository where the full set of names is listed with what eac
 `VERCEL_ENV` is set by the platform, not by you. `app/robots.ts` and `lib/telegram.ts` both read
 it.
 
+### Local development never reports
+
+`next dev` reads `.env.local`, which holds the production PostHog key and Google ids. `lib/devSilence.ts`
+turns all measurement off in development, so a local click cannot land in the live PostHog project
+or the live Ads account. Set `NEXT_PUBLIC_TRACK_IN_DEV=1` to switch it back on deliberately. A
+production build is never silenced.
+
+### Vercel project settings
+
+`vercel.json` pins `framework: nextjs`, the build command and the output directory. The Vercel
+project was created for the previous Vite build of this site, and a project that still expects a
+`dist` folder fails every deployment of this one.
+
 ### Legacy names still accepted
 
 The production Vercel project still carries the variable names from the previous build of this
@@ -211,11 +224,11 @@ Two kinds of AI-generated, photorealistic picture are on the site, by the owner'
 19 Sept 2026, and neither carries a visible label:
 
 - **Header backdrops.** `HERO_IMAGES` in `lib/media.ts`, files in `public/hero/` (each with a
-  `-768.webp` sibling for phones), rendered by `components/HeroBackdrop.tsx` at 40% opacity
+  `-768.webp` sibling for phones), rendered by `components/HeroBackdrop.tsx` at 50% opacity
   behind a page's first screen, under a paper gradient so the text contrast is unchanged. They
   are decoration: `alt=""`, `aria-hidden`, no caption, no link. Scenes of fixtures, tools and
   gloved hands only, never a face, because a photoreal plumber reads as a member of staff.
-- **Problem pictures.** `ILLUSTRATIONS` (the name is historical), files in `public/illustrations/`,
+- **Problem pictures.** `ILLUSTRATIONS` (the name is historical), files in `public/scenes/`,
   listed by a service leaf in `illustrations` and rendered by `components/IllustrationRow.tsx`
   under the heading "What it can look like". They show the problem, never a job we did.
 

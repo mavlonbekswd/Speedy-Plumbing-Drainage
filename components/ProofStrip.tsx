@@ -12,7 +12,14 @@ interface Props {
   heading?: string;
   /** paper-2 with a hairline top, for alternating against the section above. */
   tinted?: boolean;
-  /** Shorter vertical rhythm, for the long templates. Opt-in: no other page changes height. */
+  /**
+   * Shorter vertical rhythm, for the long templates. Opt-in: no other page changes height.
+   *
+   * From 19 September 2026 it also drops the phone grid to THREE columns instead of two. Six
+   * portrait tiles two-up measured about 1,300px on a 390px screen; three-up is two rows instead
+   * of three and the pictures still read, because what a thumbnail has to say here is "this is a
+   * real job", not "read the pipework". The clip keeps its place at the head of the grid.
+   */
   compact?: boolean;
 }
 
@@ -24,7 +31,7 @@ interface Props {
 export default function ProofStrip({
   photoSlugs,
   videoSlug,
-  heading = "Recent work",
+  heading = "Recent work.",
   tinted = true,
   compact = false,
 }: Props) {
@@ -39,14 +46,31 @@ export default function ProofStrip({
   return (
     <section id="work" className={tinted ? "border-t border-line bg-paper-2" : "bg-paper"}>
       <div
-        className={`mx-auto max-w-content px-5 sm:px-8 ${compact ? "py-14 md:py-20" : "py-20 md:py-28"}`}
+        className={`mx-auto max-w-content px-5 sm:px-8 ${compact ? "py-10 sm:py-14 md:py-20" : "py-14 md:py-20"}`}
       >
         <AnimateIn>
           <SectionHeading eyebrow="Our own jobs" title={heading} />
         </AnimateIn>
 
-        <div className={`grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 ${compact ? "mt-8" : "mt-10"}`}>
-          {video && <WorkVideo slug={video.slug} />}
+        <div
+          className={
+            compact
+              ? "mt-6 grid grid-cols-3 gap-2 sm:mt-8 sm:gap-3 md:grid-cols-3 md:gap-4"
+              : "mt-10 grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4"
+          }
+        >
+          {/* The clip's own caption type is set inside WorkVideo, so the compact size is handed
+              down as a class rather than a prop: this component does not own that file. */}
+          {video && (
+            <WorkVideo
+              slug={video.slug}
+              className={
+                compact
+                  ? "[&_figcaption]:mt-1.5 [&_figcaption]:text-[11.5px] sm:[&_figcaption]:mt-2 sm:[&_figcaption]:text-[13.5px]"
+                  : ""
+              }
+            />
+          )}
           {photos.map((photo) => (
             <figure key={photo.slug} className="m-0">
               <div className="relative aspect-[3/4] overflow-hidden rounded-card border border-line bg-paper-2">
@@ -55,12 +79,18 @@ export default function ProofStrip({
                   alt={photo.alt}
                   width={photo.width}
                   height={photo.height}
-                  sizes="(max-width: 767px) 50vw, 33vw"
+                  sizes={compact ? "33vw" : "(max-width: 767px) 50vw, 33vw"}
                   loading="lazy"
                   className="h-full w-full object-cover"
                 />
               </div>
-              <figcaption className="mt-2 text-[13.5px] leading-snug text-slate">{photo.caption}</figcaption>
+              <figcaption
+                className={`leading-snug text-slate ${
+                  compact ? "mt-1.5 text-[11.5px] sm:mt-2 sm:text-[13.5px]" : "mt-2 text-[13.5px]"
+                }`}
+              >
+                {photo.caption}
+              </figcaption>
             </figure>
           ))}
         </div>

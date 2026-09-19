@@ -15,6 +15,7 @@
 // production.
 
 import { toE164Uk } from "@/lib/phone";
+import { DEV_SILENT } from "@/lib/devSilence";
 
 declare global {
   interface Window {
@@ -26,7 +27,7 @@ declare global {
 // Read as literal process.env.NEXT_PUBLIC_* expressions. Next inlines only
 // literal reads into the browser bundle; a dynamic process.env[name] lookup
 // comes back undefined on the client, so nothing here may be indexed.
-const RAW_GADS_ID = process.env.NEXT_PUBLIC_GADS_ID;
+const RAW_GADS_ID = DEV_SILENT ? undefined : process.env.NEXT_PUBLIC_GADS_ID;
 const RAW_GA4_ID = process.env.NEXT_PUBLIC_GA4_ID;
 const RAW_LABEL_BOOKING = process.env.NEXT_PUBLIC_GADS_LABEL_BOOKING;
 const RAW_LABEL_PHONE_TAP = process.env.NEXT_PUBLIC_GADS_LABEL_PHONE_TAP;

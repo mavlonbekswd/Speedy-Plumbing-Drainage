@@ -6,6 +6,12 @@ import { Minus, Plus } from "@phosphor-icons/react/dist/ssr";
 import AnimateIn from "@/components/AnimateIn";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
+import {
+  ACCORDION_ROW,
+  ACCORDION_ROW_COMPACT,
+  ACCORDION_TITLE,
+  accordionControl,
+} from "@/components/ui/accordion";
 import type { ProblemCard } from "@/lib/types";
 
 interface Props {
@@ -26,7 +32,11 @@ interface Props {
   id?: string;
   /** paper-2 with a hairline top, for alternating against the section above. */
   tinted?: boolean;
-  /** Shorter vertical rhythm, for the long templates. Opt-in: no other page changes height. */
+  /**
+   * Shorter vertical rhythm, for the long templates. Opt-in: no other page changes height.
+   * From 19 September 2026 the phone measure is tighter still: less section padding, a smaller
+   * card rail and smaller card type. No card is removed and no body is unmounted.
+   */
   compact?: boolean;
 }
 
@@ -78,7 +88,7 @@ export default function ProblemGrid({
   return (
     <section id={id} className={tinted ? "border-t border-line bg-paper-2" : "bg-paper"}>
       <div
-        className={`mx-auto max-w-content px-5 sm:px-8 ${compact ? "py-14 md:py-20" : "py-20 md:py-28"}`}
+        className={`mx-auto max-w-content px-5 sm:px-8 ${compact ? "py-10 sm:py-14 md:py-20" : "py-14 md:py-20"}`}
       >
         <AnimateIn>
           {/* When a lead is passed, the sub moves below it and sits directly above the cards:
@@ -103,10 +113,12 @@ export default function ProblemGrid({
           </div>
         )}
 
-        <div className={hasLead ? "mt-8" : "mt-10"}>
+        <div className={compact ? (hasLead ? "mt-6 sm:mt-8" : "mt-8 sm:mt-10") : hasLead ? "mt-8" : "mt-10"}>
           {hasLead && sub && <p className="mb-4 text-[14.5px] leading-[1.6] text-steel">{sub}</p>}
 
-          <div className="grid items-start gap-3 md:grid-cols-2 md:gap-4">
+          <div
+            className={`grid items-start md:grid-cols-2 md:gap-4 ${compact ? "gap-2.5 sm:gap-3" : "gap-3"}`}
+          >
             {cards.map((card, i) => {
               const on = open === i;
               const cardId = ids[i];
@@ -121,20 +133,21 @@ export default function ProblemGrid({
                     onClick={() => setOpen(on ? -1 : i)}
                     aria-expanded={on}
                     aria-controls={`${cardId}-body`}
-                    className="flex w-full items-center justify-between gap-4 rounded-card px-5 py-4 text-left"
+                    className={compact ? ACCORDION_ROW_COMPACT : ACCORDION_ROW}
                   >
-                    <span className="font-display text-[17px] font-bold leading-snug text-brand">{card.title}</span>
-                    <span
-                      className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-pill ${on ? "bg-brand text-cta" : "bg-paper-2 text-brand"}`}
-                      aria-hidden
-                    >
+                    <span className={ACCORDION_TITLE}>{card.title}</span>
+                    <span className={accordionControl(on)} aria-hidden>
                       {on ? <Minus size={15} weight="bold" /> : <Plus size={15} weight="bold" />}
                     </span>
                   </button>
                   <p
                     id={`${cardId}-body`}
                     hidden={!on}
-                    className="-mt-1 max-w-[62ch] px-5 pb-5 text-[14.5px] leading-[1.65] text-slate"
+                    className={`-mt-1 max-w-[62ch] text-slate ${
+                      compact
+                        ? "px-4 pb-4 text-[13.5px] leading-[1.6] sm:px-6 sm:pb-5 sm:text-[15px] sm:leading-[1.7]"
+                        : "px-5 pb-5 text-[15px] leading-[1.7] sm:px-6"
+                    }`}
                   >
                     {card.body}
                   </p>
@@ -156,7 +169,7 @@ export default function ProblemGrid({
                 as="a"
                 href="#book"
                 variant="dark"
-                size="md"
+                size="lg"
                 className="flex-shrink-0"
                 data-cta="book_anchor"
                 data-cta-location="problem_grid"

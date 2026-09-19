@@ -74,7 +74,7 @@ const drainCleaning: ServiceContent = {
     buttonLabel: "Book a callback",
   },
   problems: {
-    heading: "What a drain clean deals with",
+    heading: "What a drain clean deals with.",
     sub: "Tell us what your drains are doing. Open one for what we do about it.",
     cards: [
       {
@@ -168,7 +168,7 @@ const drainCleaning: ServiceContent = {
     heading: "Want your drains cleaned and written up?",
     sub: "We answer our own phone, and nothing starts until you say yes.",
   },
-  bookingHeading: "Ask us to ring you",
+  bookingHeading: "Ask us to ring you.",
   illustrations: ["cctv-drain-survey", "blocked-kitchen-sink"],
   proof: {
     photos: ["drain-jetting-hose", "drain-jetting-manhole", "under-sink-wastes", "kitchen-mixer-tap", "outside-tap"],

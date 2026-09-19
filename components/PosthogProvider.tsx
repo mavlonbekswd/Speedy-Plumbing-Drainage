@@ -6,13 +6,14 @@ import { handleDelegatedClick, installFirstInteractionTracking } from "@/lib/ana
 import { captureClickIds } from "@/lib/clickIds";
 import { customerE164 } from "@/lib/gtag";
 import { setPosthog, whenPosthog } from "@/lib/posthogClient";
+import { DEV_SILENT } from "@/lib/devSilence";
 
 // Every visitor is tracked from arrival, with no consent gate anywhere in this
 // file: that is the owner's recorded decision for this site.
 //
 // Requests go to the same-origin /ingest proxy configured in next.config.ts,
 // so the host is not read here.
-const POSTHOG_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY;
+const POSTHOG_KEY = DEV_SILENT ? undefined : process.env.NEXT_PUBLIC_POSTHOG_KEY;
 
 export const posthogEnabled = Boolean(POSTHOG_KEY);
 

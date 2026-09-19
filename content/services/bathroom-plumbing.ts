@@ -74,7 +74,7 @@ const bathroomPlumbing: ServiceContent = {
     buttonLabel: "Book a callback",
   },
   problems: {
-    heading: "What we get called out to do",
+    heading: "What we get called out to do.",
     sub: "Start with what you want doing. Open one for how it is done.",
     cards: [
       {
@@ -177,7 +177,7 @@ const bathroomPlumbing: ServiceContent = {
     heading: "Planning a bathroom, or stuck with a shower?",
     sub: "We answer our own phone, and nothing starts until you say yes.",
   },
-  bookingHeading: "Ask us to ring you",
+  bookingHeading: "Ask us to ring you.",
   proof: {
     photos: ["new-bath-white-tile", "shower-over-bath", "bath-shower-grey-tile", "shower-enclosure", "bath-taps-swap"],
     video: "bathroom-refit",

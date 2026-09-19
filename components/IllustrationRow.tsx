@@ -62,8 +62,11 @@ export default function IllustrationRow({
       aria-labelledby="illustrations-heading"
       className={tinted ? "border-t border-line bg-paper-2" : "bg-paper"}
     >
-      <div className="mx-auto max-w-content px-5 py-14 sm:px-8 md:py-16">
-        <h2 id="illustrations-heading" className="font-display text-[clamp(22px,2.6vw,30px)] font-extrabold leading-[1.1] text-brand">
+      <div className="mx-auto max-w-content px-5 py-14 sm:px-8 md:py-20">
+        <h2
+          id="illustrations-heading"
+          className="text-pretty font-display text-[clamp(22px,2.4vw,30px)] font-extrabold leading-[1.15] text-brand"
+        >
           {heading}
         </h2>
         <ul className={`mt-6 grid gap-2.5 sm:gap-5 ${items.length >= 3 ? "grid-cols-3" : "grid-cols-2"}`}>

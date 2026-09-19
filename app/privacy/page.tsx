@@ -24,7 +24,7 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
-import HeroBackdrop from "@/components/HeroBackdrop";
+import StaticHero from "@/components/static/StaticHero";
 import { CLICK_ID_STORAGE_KEY } from "@/lib/clickIds";
 import { FALLBACK_HERO } from "@/lib/media";
 import { STATIC_ROUTE_BY_PATH } from "@/lib/routes";
@@ -63,7 +63,7 @@ function publishedHref(path: string): string | undefined {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="border-t border-line py-10">
+    <section className="border-t border-line py-10 first:border-t-0">
       <h2 className="font-display text-[clamp(22px,2.4vw,30px)] font-extrabold leading-[1.15] text-brand">
         {title}
       </h2>
@@ -86,33 +86,39 @@ export default function PrivacyPage() {
       <Header />
 
       <main id="main" tabIndex={-1} className="outline-none">
-        {/* The heading block is its own section so the backdrop sits behind the first screen and
-            not behind the whole notice. Everything below it stays plain reading matter. */}
-        <section className="relative isolate overflow-hidden bg-paper">
-          <HeroBackdrop image={FALLBACK_HERO} />
+        {/* The heading block is the shared hero, so the backdrop sits behind the first screen and
+            not behind the whole notice. Everything below it stays plain reading matter.
 
-          <div className="mx-auto max-w-content px-5 pb-12 pt-16 sm:px-8 md:pb-14 md:pt-20">
-            <Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Privacy notice" }]} className="mb-8" />
+            Both button flags are off, deliberately. This page has no call bar and no primary
+            action for the same reason it carries no price-process line: a legal notice is
+            reading matter, not a landing page. */}
+        <StaticHero
+          image={FALLBACK_HERO}
+          crumbs={<Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Privacy notice" }]} />}
+          eyebrow="Legal"
+          h1="Privacy notice."
+          ctaLocation="privacy_page"
+          showCall={false}
+          showWhatsApp={false}
+          sub={
+            <>
+              <p className="text-[14px] font-medium text-steel">Last updated: {LAST_UPDATED}</p>
+              <p>
+                This page says what happens to your details when you ring us, send us a message or fill in
+                a form, and what this website records while you read it. It is written to match the site as
+                it is built, not as a general statement of intent.
+              </p>
+            </>
+          }
+        />
 
-            <h1 className="max-w-[18ch] text-pretty font-display text-[clamp(34px,4.6vw,60px)] font-extrabold leading-[1.02] text-brand">
-              Privacy notice.
-            </h1>
-            <p className="mt-5 text-[14px] font-medium text-steel">Last updated: {LAST_UPDATED}</p>
-            <p className="mt-6 max-w-[64ch] text-[16.5px] leading-[1.65] text-slate">
-              This page says what happens to your details when you ring us, send us a message or fill in
-              a form, and what this website records while you read it. It is written to match the site as
-              it is built, not as a general statement of intent.
-            </p>
-          </div>
-        </section>
-
-        <section className="bg-paper">
-          <div className="mx-auto max-w-content px-5 pb-16 sm:px-8 md:pb-20">
+        <section className="border-t border-line bg-paper-2">
+          <div className="mx-auto max-w-content px-5 pb-14 sm:px-8 md:pb-20">
             <Section title="Who we are">
               <p>
                 <Lead>{REGISTERED_NAME} is the controller of your data.</Lead> It trades as {TRADING_NAME}.
               </p>
-              <ul className="flex list-none flex-col gap-1 rounded-card border border-line bg-white p-5 text-[15.5px] text-ink">
+              <ul className="flex list-none flex-col gap-1 rounded-card border border-line bg-white p-6 text-[15.5px] text-ink shadow-card">
                 <li>Registered in England and Wales, company number {COMPANY_NUMBER}.</li>
                 <li>Registered office: {REGISTERED_OFFICE}.</li>
                 <li>

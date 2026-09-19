@@ -1,6 +1,7 @@
 import { HERO_IMAGE_BY_KEY, type HeroImageKey } from "@/lib/media";
 
-// The photograph behind a page's first screen, at 40% opacity (owner, 19 Sept 2026).
+// The photograph behind a page's first screen, at 50% opacity (owner, 19 Sept 2026; first 40%,
+// then raised to 50% the same day).
 //
 // Rules this component exists to keep:
 //  - It is decoration. `alt=""` plus `aria-hidden`, so a screen reader never meets it and nothing
@@ -29,7 +30,7 @@ export default function HeroBackdrop({ image, dark = false }: { image: HeroImage
         height={hero.height}
         fetchPriority="high"
         decoding="async"
-        className="h-full w-full object-cover object-right opacity-40"
+        className="h-full w-full object-cover object-right opacity-50"
       />
       <div
         className={

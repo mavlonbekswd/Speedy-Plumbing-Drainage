@@ -42,12 +42,12 @@ const PHONE_TAP_LABEL = "phone_tap_label_test";
 const PHONE_CALL_LABEL = "phone_call_label_test";
 const WHATSAPP_LABEL = "whatsapp_label_test";
 
-/** The five keys of CTA_EVENTS in lib/analytics.ts. Hard-coded rather than
+/** The six keys of CTA_EVENTS in lib/analytics.ts. Hard-coded rather than
  *  imported because that module pulls in posthog-js and an "@/" alias, neither
  *  of which belongs in a Playwright process; a value rendered in markup that is
  *  missing here fires nothing at all, which is exactly the silent failure this
  *  sweep exists to catch. */
-const CTA_KEYS = ["phone", "whatsapp", "book_anchor", "nav", "email"] as const;
+const CTA_KEYS = ["phone", "whatsapp", "book_anchor", "nav", "menu", "email"] as const;
 
 const TYPED = {
   name: "Jane Smith",
@@ -353,6 +353,39 @@ test.describe("page context", () => {
         ).not.toBe("");
       }
     }
+  });
+});
+
+// ─── Opening a menu is not a navigation ──────────────────────────────────────
+
+test.describe("menus versus navigations", () => {
+  // The desktop drop-down is in the HTML at every width, for crawlers, but is only visible
+  // and clickable above the 768px nav breakpoint.
+  test.use({ viewport: { width: 1280, height: 800 } });
+
+  test("the desktop Services button reports a menu_toggle and never a nav_click", async ({
+    page,
+  }) => {
+    // The button opens a panel and goes nowhere. Counting it as a navigation
+    // inflated nav_click, which is the report the business reads to see which
+    // pages people actually go to.
+    const rec = await land(page, "/");
+    const button = page.locator('header button[aria-controls="header-services"]');
+    test.skip((await button.count()) === 0, "the header has no Services drop-down button yet");
+
+    await button.click();
+
+    const ev = await rec.waitFor("menu_toggle");
+    expect(ev.properties.cta).toBe("menu");
+    expect(ev.properties.cta_location, "cta_location is missing").toBeTruthy();
+
+    // Negative assertion, so a fixed moment rather than a wait for something:
+    // posthog-js batches, and nav_click would arrive in the same flush.
+    await settle(page, 800);
+    expect(
+      rec.named("nav_click"),
+      "opening the Services menu was still counted as a navigation",
+    ).toHaveLength(0);
   });
 });
 

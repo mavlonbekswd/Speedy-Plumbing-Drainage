@@ -90,12 +90,12 @@ export const FEATURED_PHOTO_SLUGS = [
 const drawn = { width: 1168, height: 880 } as const;
 
 export const ILLUSTRATIONS: readonly Illustration[] = [
-  { slug: "burst-pipe-under-sink", file: "/illustrations/burst-pipe-under-sink.webp", ...drawn, caption: "A split pipe under the sink", alt: "A split copper pipe spraying water under a kitchen sink, with a bucket and towels catching it" },
-  { slug: "turning-off-the-stopcock", file: "/illustrations/turning-off-the-stopcock.webp", ...drawn, caption: "Turning the water off at the stopcock", alt: "A gloved hand turning a brass stopcock on a copper pipe to shut the water off" },
-  { slug: "water-through-the-ceiling", file: "/illustrations/water-through-the-ceiling.webp", ...drawn, caption: "Water coming through a ceiling", alt: "A water stain on a living room ceiling dripping into a bucket on the floor" },
-  { slug: "blocked-outside-drain", file: "/illustrations/blocked-outside-drain.webp", ...drawn, caption: "A blocked outside drain backing up", alt: "A blocked gully at the foot of a brick wall overflowing across paving slabs" },
-  { slug: "cctv-drain-survey", file: "/illustrations/cctv-drain-survey.webp", ...drawn, caption: "A camera survey of a drain run", alt: "A drain camera reel feeding a cable into an open manhole, with a screen showing the inside of the pipe" },
-  { slug: "blocked-kitchen-sink", file: "/illustrations/blocked-kitchen-sink.webp", ...drawn, caption: "A sink that will not drain", alt: "A kitchen sink full of murky standing water with a plunger on the worktop" },
+  { slug: "burst-pipe-under-sink", file: "/scenes/burst-pipe-under-sink.webp", ...drawn, caption: "A split pipe under the sink", alt: "A split copper pipe spraying water under a kitchen sink, with a bucket and towels catching it" },
+  { slug: "turning-off-the-stopcock", file: "/scenes/turning-off-the-stopcock.webp", ...drawn, caption: "Turning the water off at the stopcock", alt: "A gloved hand turning a brass stopcock on a copper pipe to shut the water off" },
+  { slug: "water-through-the-ceiling", file: "/scenes/water-through-the-ceiling.webp", ...drawn, caption: "Water coming through a ceiling", alt: "A water stain on a living room ceiling dripping into a bucket on the floor" },
+  { slug: "blocked-outside-drain", file: "/scenes/blocked-outside-drain.webp", ...drawn, caption: "A blocked outside drain backing up", alt: "A blocked gully at the foot of a brick wall overflowing across paving slabs" },
+  { slug: "cctv-drain-survey", file: "/scenes/cctv-drain-survey.webp", ...drawn, caption: "A camera survey of a drain run", alt: "A drain camera reel feeding a cable into an open manhole, with a screen showing the inside of the pipe" },
+  { slug: "blocked-kitchen-sink", file: "/scenes/blocked-kitchen-sink.webp", ...drawn, caption: "A sink that will not drain", alt: "A kitchen sink full of murky standing water with a plunger on the worktop" },
 ];
 
 export const ILLUSTRATION_BY_SLUG: Readonly<Record<string, Illustration>> = Object.fromEntries(
@@ -118,6 +118,34 @@ export const SERVICE_CARD_PHOTO: Readonly<Record<string, string>> = {
   "bathroom-plumbing": "new-bath-white-tile",
   "hot-water": "hot-water-system-cupboard",
   "saniflo-and-macerators": "shower-enclosure",
+};
+
+// SERVICE_CARD_IMAGE
+// The picture on each "What we do" card (home page and /services). AI-generated realistic scenes,
+// 19 Sept 2026, on the owner's instruction: the cards introduce a service, they are not the work
+// page and make no claim that the picture is a job of ours. Gloved hands and fixtures only, never
+// a face. Same rules as every generated picture: never in a proof strip, never on /projects,
+// never a Google Ads image asset. The alt text describes the scene and claims nothing.
+export interface CardImage {
+  slug: string;
+  file: string;
+  width: number;
+  height: number;
+  alt: string;
+}
+
+const card = (slug: string, alt: string): CardImage => ({ slug, file: `/cards/${slug}.webp`, width: 960, height: 723, alt });
+
+export const SERVICE_CARD_IMAGE: Readonly<Record<string, CardImage>> = {
+  "emergency-plumbing": card("emergency-plumbing", "A split copper pipe spraying water under a sink while a gloved hand closes the valve"),
+  "blocked-drains": card("blocked-drains", "Drain rods being worked into a blocked outside gully beside a brick wall"),
+  drainage: card("drainage", "A drain camera cable feeding into an open inspection chamber, with the pipe shown on a monitor"),
+  "drain-cleaning": card("drain-cleaning", "A jetting hose flushing a drain channel through an open manhole"),
+  "leak-repairs": card("leak-repairs", "Gloved hands tightening a new fitting on a copper pipe under lifted floorboards"),
+  "toilet-repairs": card("toilet-repairs", "Gloved hands fitting a fill valve inside an open toilet cistern"),
+  "bathroom-plumbing": card("bathroom-plumbing", "Gloved hands fitting a mixer tap to a new basin in a tiled bathroom"),
+  "hot-water": card("hot-water", "Gloved hands working on the immersion heater at the top of a hot water cylinder"),
+  "saniflo-and-macerators": card("saniflo-and-macerators", "Gloved hands working on an open macerator unit behind a toilet"),
 };
 
 // HERO_IMAGES

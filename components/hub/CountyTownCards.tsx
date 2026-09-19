@@ -31,7 +31,7 @@ export default function CountyTownCards({ eyebrow, heading, tinted = false, chil
 
   return (
     <section id="areas" className={tinted ? "border-t border-line bg-paper-2" : "bg-paper"}>
-      <div className="mx-auto max-w-content px-5 py-16 sm:px-8 md:py-20">
+      <div className="mx-auto max-w-content px-5 py-14 sm:px-8 md:py-20">
         <AnimateIn>
           <SectionHeading eyebrow={eyebrow} title={heading} />
         </AnimateIn>
@@ -42,7 +42,7 @@ export default function CountyTownCards({ eyebrow, heading, tinted = false, chil
             return (
               <li key={county}>
                 <AnimateIn delay={i * 60} className="h-full">
-                  <div className="flex h-full flex-col rounded-card border border-line bg-white p-5 shadow-card sm:p-6">
+                  <div className="flex h-full flex-col rounded-card border border-line bg-white p-6 shadow-card">
                     <h3 className="font-display text-[19px] font-bold leading-snug text-brand">{county}</h3>
                     <p className="nums mt-1 text-[13px] font-semibold uppercase tracking-[0.12em] text-steel">
                       {towns.length} {towns.length === 1 ? "town" : "towns"}
@@ -56,7 +56,7 @@ export default function CountyTownCards({ eyebrow, heading, tinted = false, chil
                             data-cta="nav"
                             data-cta-location="areas_index_towns"
                             data-cta-variant="chip"
-                            className="press inline-flex min-h-[44px] items-center rounded-chip border border-line bg-paper px-4 text-[14.5px] font-semibold text-brand hover:border-tint"
+                            className="press inline-flex min-h-[44px] items-center rounded-chip border border-line bg-paper px-4 text-[15px] font-semibold text-brand hover:border-tint"
                           >
                             {town.name}
                           </a>

@@ -102,6 +102,9 @@ export const CTA_EVENTS = {
   whatsapp: "whatsapp_click",
   book_anchor: "book_anchor_click",
   nav: "nav_click",
+  // Opening or closing a menu is not a navigation. Kept out of nav_click so
+  // that event stays a count of pages people actually went to.
+  menu: "menu_toggle",
   email: "email_click",
 } as const;
 

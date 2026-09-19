@@ -44,7 +44,7 @@ export default function HomeHero() {
     <section id="hero" className="relative isolate overflow-hidden bg-paper">
       <HeroBackdrop image="home" />
 
-      <div className="mx-auto grid max-w-content items-start gap-10 px-5 pb-14 pt-8 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:px-12 lg:pb-20 lg:pt-12">
+      <div className="mx-auto grid max-w-content items-start gap-10 px-5 pb-14 pt-8 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:pb-20 lg:pt-12">
         <div className="max-w-[38rem]">
           <p className="animate-fade-up mb-3 text-[12px] font-semibold uppercase tracking-[0.16em] text-tint">
             Plumbing and drainage across {COVERAGE_SHORT}

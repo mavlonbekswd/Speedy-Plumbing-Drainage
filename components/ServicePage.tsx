@@ -89,12 +89,16 @@ export default function ServicePage({ data }: { data: ServiceContent }) {
           h1Bottom={data.hero.h1Bottom}
           sub={data.hero.sub}
           urgent={urgent}
+          // Booked work gets a second first action: send a picture and be quoted. The call button
+          // keeps its place and its primary styling; only the WhatsApp label and one fact line
+          // change, and only on the five pages where the job is not an emergency.
+          booked={data.kind === "booked"}
           serviceOnlyLine={data.hero.serviceOnlyLine}
           heroImage={heroImageFor(slug)}
           aside={<CallbackInline formId={`${slug}_hero`} service={slug} idPrefix={`${slug}_hero`} />}
         />
 
-        <TickChips guaranteeHref={guaranteeHref} />
+        <TickChips part="figures" />
 
         <StraightAnswers answers={data.answers} after={data.afterAnswers} tinted={false} compact />
 
@@ -117,15 +121,21 @@ export default function ServicePage({ data }: { data: ServiceContent }) {
         {/* Real jobs, at the middle of the page rather than the foot. */}
         <ProofStrip photoSlugs={data.proof.photos} videoSlug={data.proof.video} tinted={false} compact />
 
+        {/* The tick points, the price sentence and the guarantee scope: the reassurance, placed
+            directly before the page asks for the call. */}
+        <TickChips part="ticks" guaranteeHref={guaranteeHref} />
+
         <CTABand heading={data.ctaBand.heading} sub={ads.ctaSub ?? data.ctaBand.sub} />
 
-        {hasSections && <ContentSections sections={data.sections!} tinted />}
+        {hasSections && <ContentSections sections={data.sections!} tinted compact />}
 
         <HowItWorks steps={data.steps} intro={ads.howIntro} tinted={false} compact />
 
         <BookingForm heading={data.bookingHeading} formId={`${slug}_booking`} service={slug} />
 
-        <TownsByCounty tinted={false} />
+        {/* Collapsed behind one tap on an ad landing page. Every town anchor is still in the
+            served HTML, which is where the link graph is measured from. */}
+        <TownsByCounty tinted={false} collapsible />
 
         <ServiceFAQ faqs={data.faqs} tinted />
 

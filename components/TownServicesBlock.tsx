@@ -1,4 +1,5 @@
 import AnimateIn from "@/components/AnimateIn";
+import SectionHeading from "@/components/ui/SectionHeading";
 import { serviceHref } from "@/lib/services";
 import type { City, ServiceContent, ServiceSlug } from "@/lib/types";
 import { placeOf } from "@/lib/towns";
@@ -18,6 +19,8 @@ interface Props {
   drainLines: readonly string[];
   /** paper-2 with a hairline top, for alternating against the section above. */
   tinted?: boolean;
+  /** Shorter vertical rhythm on a phone, for the town template. Opt-in: the default is unchanged. */
+  compact?: boolean;
 }
 
 /** ServiceContent carries no group field, so the drains set is named here and nowhere else. */
@@ -44,6 +47,7 @@ export default function TownServicesBlock({
   emergencyLines,
   drainLines,
   tinted = true,
+  compact = false,
 }: Props) {
   const shown = services.filter((service) => service.published);
   if (shown.length === 0) return null;
@@ -73,14 +77,16 @@ export default function TownServicesBlock({
 
   return (
     <section id="more-in-town" className={tinted ? "border-t border-line bg-paper-2" : "bg-paper"}>
-      <div className="mx-auto max-w-content px-5 py-14 sm:px-8 md:py-20">
+      <div
+        className={`mx-auto max-w-content px-5 sm:px-8 ${compact ? "py-10 sm:py-14 md:py-20" : "py-14 md:py-20"}`}
+      >
         <AnimateIn>
-          <h2 className="text-pretty font-display text-[clamp(24px,2.8vw,34px)] font-extrabold leading-[1.1] text-brand">
-            More plumbing in {place}
-          </h2>
+          {/* This opens a section of its own, with its own id and background, so it takes the
+              section-heading style: eyebrow, and a title that ends in a full stop. */}
+          <SectionHeading eyebrow="More of what we do" title={`More plumbing in ${place}.`} />
         </AnimateIn>
 
-        <div className="mt-8 flex flex-col gap-10">
+        <div className={`flex flex-col ${compact ? "mt-6 gap-8 sm:mt-8 sm:gap-10" : "mt-8 gap-10"}`}>
           {groups.map((group) => {
             // The first line leads the group and the second closes it, with the cards between
             // them. Anything beyond two joins the closing lines, so no pinned line is dropped.
@@ -107,9 +113,9 @@ export default function TownServicesBlock({
                         <li key={service.slug} className="h-full">
                           <AnimateIn
                             delay={i * 60}
-                            className="flex h-full flex-col rounded-card border border-line bg-white p-5 shadow-card"
+                            className="flex h-full flex-col rounded-card border border-line bg-white p-6 shadow-card"
                           >
-                            <h4 className="font-display text-[17px] font-bold leading-snug">
+                            <h4 className="font-display text-[19px] font-bold leading-snug">
                               <a
                                 href={serviceHref(service.slug)}
                                 data-cta="nav"

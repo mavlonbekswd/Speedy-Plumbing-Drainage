@@ -34,6 +34,11 @@ const FOCUS_ORDER = ["phone", "postcode", "name"] as const;
 
 export interface BookingFormProps {
   heading: string;
+  /**
+   * The section eyebrow. Every section heading on the site carries one, and this section had
+   * none: "Callback" is what the form does and what the buttons that point at #book say.
+   */
+  eyebrow?: string;
   sub?: string;
   /** `home_booking`, `${slug}_booking`, `area_${town}_booking`, `contact_booking`. */
   formId: string;
@@ -47,14 +52,22 @@ export interface BookingFormProps {
    * Left out, the component renders exactly what it always has.
    */
   embedded?: boolean;
+  /**
+   * paper-2 with a hairline top, for alternating against the section above, exactly as every
+   * other section component takes it. The default is what this section has always been; the home
+   * page turns it off because the FAQ section directly above it is tinted.
+   */
+  tinted?: boolean;
 }
 
 export default function BookingForm({
   heading,
+  eyebrow = "Callback",
   sub = FORM_COPY.full.sub,
   formId,
   service,
   embedded = false,
+  tinted = true,
 }: BookingFormProps) {
   const [state, setState] = useState<FormState>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -231,16 +244,19 @@ export default function BookingForm({
   if (embedded) {
     return (
       <section id="book">
-        <SectionHeading title={heading} sub={sub} />
+        <SectionHeading eyebrow={eyebrow} title={heading} sub={sub} />
         <div className="mt-6">{card}</div>
       </section>
     );
   }
 
   return (
-    <section id="book" className="border-t border-line bg-paper-2 py-20 md:py-28">
+    <section
+      id="book"
+      className={`py-14 md:py-20 ${tinted ? "border-t border-line bg-paper-2" : "bg-paper"}`}
+    >
       <div className="mx-auto grid max-w-content gap-10 px-5 sm:px-8 md:grid-cols-[1fr_1.15fr] md:gap-16">
-        <SectionHeading title={heading} sub={sub} />
+        <SectionHeading eyebrow={eyebrow} title={heading} sub={sub} />
 
         {card}
       </div>

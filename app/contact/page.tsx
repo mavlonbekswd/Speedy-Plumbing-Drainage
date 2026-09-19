@@ -19,8 +19,9 @@ import Breadcrumb from "@/components/Breadcrumb";
 import BookingForm from "@/components/BookingForm";
 import ServiceFAQ from "@/components/ServiceFAQ";
 import FAQSchema from "@/components/FAQSchema";
-import HeroBackdrop from "@/components/HeroBackdrop";
+import StaticHero from "@/components/static/StaticHero";
 import Button from "@/components/ui/Button";
+import SectionHeading from "@/components/ui/SectionHeading";
 import { AVAILABILITY_LINE, COVERAGE_SHORT, FREE_WHATSAPP_LINE } from "@/lib/claims";
 import { CONTACT_FAQS } from "@/lib/faqs";
 import {
@@ -57,37 +58,34 @@ export default function ContactPage() {
       <Header />
 
       <main id="main" tabIndex={-1} className="outline-none">
-        <section className="relative isolate overflow-hidden bg-paper">
-          <HeroBackdrop image="contact" />
-          <div className="mx-auto max-w-content px-5 pb-10 pt-8 sm:px-8 lg:px-12 md:pb-14 md:pt-10">
-            <Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Contact" }]} className="mb-8" />
-
-            <h1 className="max-w-[16ch] text-pretty font-display text-[clamp(34px,4.6vw,60px)] font-extrabold leading-[1.02] text-brand">
-              Contact Speedy.
-            </h1>
-
-            <p className="mt-5 max-w-[50ch] text-[17px] leading-[1.6] text-slate">
-              Ring us, message us on WhatsApp, or leave your number and we will ring you back.
-            </p>
-          </div>
-        </section>
+        {/* No hero buttons, on purpose: the details block immediately below carries the Call pill,
+            the WhatsApp pill and the email address, and a second set here would put the same
+            action on the screen twice before a visitor has read a line. */}
+        <StaticHero
+          image="contact"
+          crumbs={<Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Contact" }]} />}
+          eyebrow="Get in touch"
+          h1="Contact Speedy."
+          sub="Ring us, message us on WhatsApp, or leave your number and we will ring you back."
+          ctaLocation="contact_hero"
+          showCall={false}
+          showWhatsApp={false}
+        />
 
         {/* One block, two columns from lg. The details are first in the markup, so on a phone the
             number is above the form and nothing pushes it down. */}
         <section className="border-t border-line bg-paper-2">
           <div className="mx-auto max-w-content px-5 py-14 sm:px-8 md:py-20">
             <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
-              <div className="flex flex-col gap-6 rounded-card border border-line bg-white p-6 shadow-card sm:p-8">
-                <h2 className="font-display text-[clamp(24px,2.6vw,30px)] font-extrabold leading-[1.1] text-brand">
-                  Speak to a plumber
-                </h2>
+              <div className="flex flex-col gap-6 rounded-card border border-line bg-white p-6 shadow-card">
+                <SectionHeading eyebrow="How to reach us" title="Speak to a plumber." />
 
                 <div className="flex flex-col gap-3">
                   <Button
                     as="a"
                     href={CALL_HREF}
                     variant="primary"
-                    size="xl"
+                    size="lg"
                     className="nums w-full"
                     data-cta="phone"
                     data-cta-location="contact_details"
@@ -146,7 +144,7 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              <BookingForm heading="Ask us to ring you" formId="contact_booking" embedded />
+              <BookingForm heading="Ask us to ring you." formId="contact_booking" embedded />
             </div>
           </div>
         </section>

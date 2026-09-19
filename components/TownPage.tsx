@@ -122,7 +122,7 @@ export default function TownPage({ city, lead }: { city: City; lead: ServiceCont
           }
         />
 
-        <TickChips guaranteeHref={guaranteeHref} />
+        <TickChips part="figures" />
 
         <StraightAnswers answers={answers} after={lead.afterAnswers} tinted={false} compact />
 
@@ -135,7 +135,7 @@ export default function TownPage({ city, lead }: { city: City; lead: ServiceCont
           compact
         />
 
-        <TownAreaBlock city={city} tinted={false} />
+        <TownAreaBlock city={city} tinted={false} compact />
 
         {/* Real jobs, at the middle of the page rather than the foot. */}
         <ProofStrip photoSlugs={lead.proof.photos} videoSlug={lead.proof.video} tinted compact />
@@ -149,14 +149,17 @@ export default function TownPage({ city, lead }: { city: City; lead: ServiceCont
           emergencyLines={TOWN_EMERGENCY_LINES}
           drainLines={TOWN_DRAIN_LINES}
           tinted={false}
+          compact
         />
+
+        <TickChips part="ticks" guaranteeHref={guaranteeHref} />
 
         <CTABand {...TOWN_CTA_BAND(place)} />
 
         <HowItWorks steps={lead.steps} tinted={false} compact />
 
         <BookingForm
-          heading={`Book a plumber in ${place}`}
+          heading={`Book a plumber in ${place}.`}
           formId={`area_${city.slug}_booking`}
           service={lead.slug}
         />

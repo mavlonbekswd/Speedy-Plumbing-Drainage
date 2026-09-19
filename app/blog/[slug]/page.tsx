@@ -14,28 +14,19 @@
 
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { Phone } from "@phosphor-icons/react/dist/ssr";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileCallBar from "@/components/MobileCallBar";
 import Breadcrumb from "@/components/Breadcrumb";
 import CTABand from "@/components/CTABand";
-import HeroBackdrop from "@/components/HeroBackdrop";
+import StaticHero from "@/components/static/StaticHero";
 import JsonLd from "@/components/JsonLd";
-import Button from "@/components/ui/Button";
 import PostBody from "@/components/blog/PostBody";
 import { heroForPost } from "@/components/blog/postMedia";
 import { DEFAULT_CTA_BAND, PRICE_PROCESS_LINE } from "@/lib/claims";
 import { PUBLISHED_POSTS, blogHref, type BlogPost } from "@/lib/blog";
 import { STATIC_ROUTE_BY_PATH } from "@/lib/routes";
-import {
-  CALL_HREF,
-  CALL_NUMBER_DISPLAY,
-  SITE_URL,
-  TRADING_NAME,
-  CONTENT_LAST_MODIFIED,
-  openGraphFor,
-} from "@/lib/site";
+import { SITE_URL, TRADING_NAME, CONTENT_LAST_MODIFIED, openGraphFor } from "@/lib/site";
 
 export const dynamicParams = false;
 
@@ -105,48 +96,28 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
       <main id="main" tabIndex={-1} className="outline-none">
         <article>
-          <section className="relative isolate overflow-hidden bg-paper">
-            <HeroBackdrop image={heroForPost(post.slug)} />
-
-            <div className="mx-auto max-w-content px-5 pb-10 pt-8 sm:px-8 lg:px-12 md:pb-14 md:pt-10">
+          {/* The post's date and reading time ARE its eyebrow: a blog post is the one page here
+              whose H1 is a title rather than a sentence, so the label above it is the stamp. */}
+          <StaticHero
+            image={heroForPost(post.slug)}
+            crumbs={
               <Breadcrumb
                 items={[{ name: "Home", href: "/" }, { name: "Advice", href: blogIndexHref }, { name: post.title }]}
-                className="mb-8"
               />
-
-              <p className="mb-4 text-[12px] font-semibold uppercase tracking-[0.16em] text-tint">
+            }
+            eyebrow={
+              <>
                 <span className="nums">{readableDate(post.date)}</span>
                 {post.readingTime ? ` · ${post.readingTime}` : ""}
-              </p>
-
-              <h1 className="max-w-[20ch] text-pretty font-display text-[clamp(34px,4.6vw,60px)] font-extrabold leading-[1.02] text-brand">
-                {post.title}
-              </h1>
-
-              {post.excerpt && (
-                <p className="mt-5 max-w-[58ch] text-[17px] leading-[1.6] text-slate">{post.excerpt}</p>
-              )}
-
-              <div className="mt-8">
-                <Button
-                  as="a"
-                  href={CALL_HREF}
-                  variant="primary"
-                  size="xl"
-                  className="nums w-full sm:w-auto"
-                  data-cta="phone"
-                  data-cta-location="blog_post_hero"
-                  data-cta-variant="primary_button"
-                >
-                  <Phone size={20} weight="fill" aria-hidden />
-                  Call {CALL_NUMBER_DISPLAY}
-                </Button>
-              </div>
-            </div>
-          </section>
+              </>
+            }
+            h1={post.title}
+            sub={post.excerpt || undefined}
+            ctaLocation="blog_post_hero"
+          />
 
           <section className="border-t border-line bg-paper-2">
-            <div className="mx-auto max-w-content px-5 py-16 sm:px-8 md:py-24">
+            <div className="mx-auto max-w-content px-5 py-14 sm:px-8 md:py-20">
               <PostBody slug={post.slug} body={post.body} />
 
               <p className="mt-10 max-w-[66ch] text-[16px] leading-[1.7] text-slate">{PRICE_PROCESS_LINE}</p>

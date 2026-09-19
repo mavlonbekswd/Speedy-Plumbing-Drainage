@@ -2,7 +2,7 @@ import Image from "next/image";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import AnimateIn from "@/components/AnimateIn";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { PHOTO_BY_SLUG, SERVICE_CARD_PHOTO } from "@/lib/media";
+import { PHOTO_BY_SLUG, SERVICE_CARD_IMAGE, SERVICE_CARD_PHOTO, type CardImage } from "@/lib/media";
 import { serviceHref } from "@/lib/services";
 import type { ServiceContent, WorkPhoto } from "@/lib/types";
 
@@ -24,7 +24,9 @@ interface Props {
   heading: string;
 }
 
-function pickPhoto(service: ServiceContent, used: Set<string>): WorkPhoto | undefined {
+function pickPhoto(service: ServiceContent, used: Set<string>): CardImage | undefined {
+  const made = SERVICE_CARD_IMAGE[service.slug];
+  if (made) return made;
   const own = service.proof.photos.filter((slug) => {
     const photo = PHOTO_BY_SLUG[slug];
     return Boolean(photo) && !photo.illustration;
@@ -44,7 +46,7 @@ export default function ServicePhotoCards({ services, eyebrow, heading }: Props)
 
   return (
     <section id="services" className="bg-paper">
-      <div className="mx-auto max-w-content px-5 py-16 sm:px-8 md:py-20">
+      <div className="mx-auto max-w-content px-5 py-14 sm:px-8 md:py-20">
         <AnimateIn>
           <SectionHeading eyebrow={eyebrow} title={heading} />
         </AnimateIn>
@@ -74,8 +76,8 @@ export default function ServicePhotoCards({ services, eyebrow, heading }: Props)
                     </div>
                   )}
 
-                  <div className="flex flex-1 flex-col p-5 sm:p-6">
-                    <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-tint">
+                  <div className="flex flex-1 flex-col p-6">
+                    <p className="mb-2 text-[12px] font-semibold uppercase tracking-[0.16em] text-tint">
                       {service.kind === "urgent" ? "Emergency" : "Booked visit"}
                     </p>
 

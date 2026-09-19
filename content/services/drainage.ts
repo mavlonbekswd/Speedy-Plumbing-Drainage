@@ -168,7 +168,7 @@ const drainage: ServiceContent = {
     heading: "Want the cause, not another clearance?",
     sub: "We answer our own phone, and nothing starts until you say yes.",
   },
-  bookingHeading: "Ask us to ring you",
+  bookingHeading: "Ask us to ring you.",
   illustrations: ["cctv-drain-survey", "blocked-outside-drain"],
   proof: {
     photos: ["drain-jetting-manhole", "under-sink-wastes", "drain-jetting-hose", "outside-tap", "water-supply-pipe"],

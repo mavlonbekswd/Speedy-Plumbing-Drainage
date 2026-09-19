@@ -12,19 +12,18 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import type { ReactNode } from "react";
-import { Phone, ShieldCheck, Buildings, SealCheck, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
+import { ShieldCheck, Buildings, SealCheck } from "@phosphor-icons/react/dist/ssr";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileCallBar from "@/components/MobileCallBar";
 import Breadcrumb from "@/components/Breadcrumb";
 import CTABand from "@/components/CTABand";
 import AnimateIn from "@/components/AnimateIn";
-import HeroBackdrop from "@/components/HeroBackdrop";
+import StaticHero from "@/components/static/StaticHero";
 import ServiceFAQ from "@/components/ServiceFAQ";
 import FAQSchema from "@/components/FAQSchema";
 import JobPhotoRow from "@/components/static/JobPhotoRow";
 import SectionHeading from "@/components/ui/SectionHeading";
-import Button from "@/components/ui/Button";
 import {
   ARRIVAL_LINE,
   AVAILABILITY_LINE,
@@ -41,13 +40,10 @@ import { ABOUT_FAQS } from "@/lib/faqs";
 import { PHOTO_BY_SLUG } from "@/lib/media";
 import { STATIC_ROUTE_BY_PATH } from "@/lib/routes";
 import {
-  CALL_HREF,
-  CALL_NUMBER_DISPLAY,
   COMPANY_NUMBER,
   REGISTERED_NAME,
   SITE_URL,
   TRADING_NAME,
-  WHATSAPP_URL,
   openGraphFor,
 } from "@/lib/site";
 
@@ -156,67 +152,30 @@ export default function AboutPage() {
       <Header />
 
       <main id="main" tabIndex={-1} className="outline-none">
-        <section className="relative isolate overflow-hidden bg-paper">
-          <HeroBackdrop image="about" />
-          <div className="mx-auto max-w-content px-5 pb-14 pt-8 sm:px-8 lg:px-12 md:pb-20 md:pt-10">
-            <Breadcrumb items={[{ name: "Home", href: "/" }, { name: "About" }]} className="mb-8" />
-
-            <p className="mb-4 text-[12px] font-semibold uppercase tracking-[0.16em] text-tint">
-              About {TRADING_NAME}
-            </p>
-
-            <h1 className="max-w-[16ch] text-pretty font-display text-[clamp(34px,4.6vw,60px)] font-extrabold leading-[1.02] text-brand">
-              Efficient service
-            </h1>
-
-            <p className="mt-5 max-w-[46ch] text-[17px] leading-[1.6] text-slate">{AVAILABILITY_LINE}</p>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Button
-                as="a"
-                href={CALL_HREF}
-                variant="primary"
-                size="xl"
-                className="nums w-full sm:w-auto"
-                data-cta="phone"
-                data-cta-location="about_hero"
-                data-cta-variant="primary_button"
-              >
-                <Phone size={20} weight="fill" aria-hidden />
-                Call {CALL_NUMBER_DISPLAY}
-              </Button>
-              <Button
-                as="a"
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="whatsapp"
-                size="xl"
-                className="w-full sm:w-auto"
-                data-cta="whatsapp"
-                data-cta-location="about_hero"
-                data-cta-variant="secondary_button"
-              >
-                <WhatsappLogo size={22} weight="fill" aria-hidden />
-                WhatsApp us
-              </Button>
-              <a
-                href="/contact#book"
-                data-cta="book_anchor"
-                data-cta-location="about_hero"
-                data-cta-variant="text_link"
-                className="inline-flex min-h-[44px] items-center text-[15.5px] font-semibold text-brand underline underline-offset-4 hover:text-tint"
-              >
-                Ask us to ring you
-              </a>
-            </div>
-          </div>
-        </section>
+        {/* The callback link is the third action, under the two pills, as it is on /guarantee. */}
+        <StaticHero
+          image="about"
+          crumbs={<Breadcrumb items={[{ name: "Home", href: "/" }, { name: "About" }]} />}
+          eyebrow={`About ${TRADING_NAME}`}
+          h1="Efficient service."
+          sub={AVAILABILITY_LINE}
+          ctaLocation="about_hero"
+        >
+          <a
+            href="/contact#book"
+            data-cta="book_anchor"
+            data-cta-location="about_hero"
+            data-cta-variant="text_link"
+            className="inline-flex min-h-[44px] items-center text-[15.5px] font-semibold text-brand underline underline-offset-4 hover:text-tint"
+          >
+            Ask us to ring you
+          </a>
+        </StaticHero>
 
         <section className="border-t border-line bg-paper-2">
-          <div className="mx-auto grid max-w-content items-center gap-10 px-5 py-16 sm:px-8 md:grid-cols-2 md:gap-14 md:py-20">
+          <div className="mx-auto grid max-w-content items-center gap-10 px-5 py-14 sm:px-8 md:grid-cols-2 md:gap-14 md:py-20">
             <AnimateIn>
-              <SectionHeading eyebrow="Who you are ringing" title="Local Plumber" />
+              <SectionHeading eyebrow="Who you are ringing" title="Local Plumber." />
               <div className="mt-5 flex max-w-[58ch] flex-col gap-4 text-[16.5px] leading-[1.7] text-slate">
                 {LOCAL_PLUMBER_PARAGRAPHS.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
@@ -241,7 +200,7 @@ export default function AboutPage() {
         </section>
 
         <section className="bg-paper">
-          <div className="mx-auto max-w-content px-5 py-16 sm:px-8 md:py-20">
+          <div className="mx-auto max-w-content px-5 py-14 sm:px-8 md:py-20">
             <AnimateIn>
               <SectionHeading
                 eyebrow="What you can hold us to"
@@ -254,7 +213,7 @@ export default function AboutPage() {
               {HOLD_US_TO.map((item, i) => (
                 <AnimateIn key={item.title} delay={i * 70} className="h-full">
                   <div className="flex h-full flex-col gap-2 rounded-card border border-line bg-white p-6 shadow-card">
-                    <h3 className="font-display text-[19px] font-bold leading-tight text-brand">{item.title}</h3>
+                    <h3 className="font-display text-[19px] font-bold leading-snug text-brand">{item.title}</h3>
                     <p className="max-w-[46ch] text-[15px] leading-[1.65] text-slate">{item.body}</p>
                   </div>
                 </AnimateIn>
@@ -264,7 +223,7 @@ export default function AboutPage() {
         </section>
 
         <section className="border-t border-line bg-paper-2">
-          <div className="mx-auto max-w-content px-5 py-16 sm:px-8 md:py-20">
+          <div className="mx-auto max-w-content px-5 py-14 sm:px-8 md:py-20">
             <AnimateIn>
               <SectionHeading eyebrow="What we can stand behind" title="What we can put in writing." />
             </AnimateIn>
@@ -274,7 +233,7 @@ export default function AboutPage() {
                 <AnimateIn key={item.title} delay={i * 80} className="h-full">
                   <div className="flex h-full flex-col gap-2 rounded-card border border-line bg-white p-6 shadow-card">
                     {item.icon}
-                    <h3 className="font-display text-[18px] font-bold leading-tight text-brand">{item.title}</h3>
+                    <h3 className="font-display text-[19px] font-bold leading-snug text-brand">{item.title}</h3>
                     <p className="max-w-[46ch] text-[15px] leading-[1.65] text-slate">{item.body}</p>
                   </div>
                 </AnimateIn>

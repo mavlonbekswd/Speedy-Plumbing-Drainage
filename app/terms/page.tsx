@@ -11,13 +11,11 @@
 // scope, PAYMENT_ANSWER) so that a change of fact is a change in one file.
 
 import type { Metadata } from "next";
-import { Phone, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileCallBar from "@/components/MobileCallBar";
 import Breadcrumb from "@/components/Breadcrumb";
-import HeroBackdrop from "@/components/HeroBackdrop";
-import Button from "@/components/ui/Button";
+import StaticHero from "@/components/static/StaticHero";
 import { FALLBACK_HERO } from "@/lib/media";
 import {
   ANSWERED_LINE,
@@ -36,7 +34,6 @@ import {
   REGISTERED_OFFICE,
   SITE_URL,
   TRADING_NAME,
-  WHATSAPP_URL,
   openGraphFor,
 } from "@/lib/site";
 
@@ -63,7 +60,7 @@ function publishedHref(path: string): string | undefined {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="border-t border-line py-10">
+    <section className="border-t border-line py-10 first:border-t-0">
       <h2 className="font-display text-[clamp(22px,2.4vw,30px)] font-extrabold leading-[1.15] text-brand">
         {title}
       </h2>
@@ -88,58 +85,27 @@ export default function TermsPage() {
       <Header />
 
       <main id="main" tabIndex={-1} className="outline-none">
-        {/* The heading block is its own section so the backdrop sits behind the first screen and
+        {/* The heading block is the shared hero, so the backdrop sits behind the first screen and
             not behind three hundred lines of legal text. Everything below it stays plain. */}
-        <section className="relative isolate overflow-hidden bg-paper">
-          <HeroBackdrop image={FALLBACK_HERO} />
+        <StaticHero
+          image={FALLBACK_HERO}
+          crumbs={<Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Website terms" }]} />}
+          eyebrow="Legal"
+          h1="Website terms."
+          ctaLocation="terms_page"
+          sub={
+            <>
+              <p className="text-[14px] font-medium text-steel">Last updated: {LAST_UPDATED}</p>
+              <p>
+                These terms cover your use of this website. They do not set the terms of a plumbing job. The
+                terms of any job are agreed with you directly, before work starts.
+              </p>
+            </>
+          }
+        />
 
-          <div className="mx-auto max-w-content px-5 pb-12 pt-16 sm:px-8 md:pb-14 md:pt-20">
-            <Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Website terms" }]} className="mb-8" />
-
-            <h1 className="max-w-[18ch] text-pretty font-display text-[clamp(34px,4.6vw,60px)] font-extrabold leading-[1.02] text-brand">
-              Website terms.
-            </h1>
-            <p className="mt-5 text-[14px] font-medium text-steel">Last updated: {LAST_UPDATED}</p>
-            <p className="mt-6 max-w-[64ch] text-[16.5px] leading-[1.65] text-slate">
-              These terms cover your use of this website. They do not set the terms of a plumbing job. The
-              terms of any job are agreed with you directly, before work starts.
-            </p>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button
-                as="a"
-                href={CALL_HREF}
-                variant="primary"
-                size="lg"
-                className="nums w-full sm:w-auto"
-                data-cta="phone"
-                data-cta-location="terms_page"
-                data-cta-variant="primary_button"
-              >
-                <Phone size={18} weight="fill" aria-hidden />
-                Call {CALL_NUMBER_DISPLAY}
-              </Button>
-              <Button
-                as="a"
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="whatsapp"
-                size="lg"
-                className="w-full sm:w-auto"
-                data-cta="whatsapp"
-                data-cta-location="terms_page"
-                data-cta-variant="secondary_button"
-              >
-                <WhatsappLogo size={20} weight="fill" aria-hidden />
-                WhatsApp us
-              </Button>
-            </div>
-          </div>
-        </section>
-
-        <section className="bg-paper">
-          <div className="mx-auto max-w-content px-5 pb-16 sm:px-8 md:pb-20">
+        <section className="border-t border-line bg-paper-2">
+          <div className="mx-auto max-w-content px-5 pb-14 sm:px-8 md:pb-20">
             <Section title="Who runs this site">
               <p>
                 <Lead>This site is run by {REGISTERED_NAME}, which trades as {TRADING_NAME}.</Lead> It is

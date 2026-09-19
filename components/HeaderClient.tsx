@@ -168,7 +168,7 @@ export default function HeaderClient({
                       onClick={() => setServicesOpen((value) => !value)}
                       aria-expanded={servicesOpen}
                       aria-controls="header-services"
-                      data-cta="nav"
+                      data-cta="menu"
                       data-cta-location="header"
                       data-cta-variant="text_link"
                       className="press inline-flex items-center gap-1.5 text-[14.5px] font-semibold text-brand hover:text-tint"
@@ -278,7 +278,7 @@ export default function HeaderClient({
             aria-expanded={open}
             aria-controls="header-menu"
             aria-label={open ? "Close menu" : "Open menu"}
-            data-cta="nav"
+            data-cta="menu"
             data-cta-location="header"
             data-cta-variant="icon_button"
             className="press inline-flex h-11 w-11 items-center justify-center rounded-chip border border-line text-brand md:hidden"
@@ -307,7 +307,7 @@ export default function HeaderClient({
                         onClick={() => setMobileServicesOpen((value) => !value)}
                         aria-expanded={mobileServicesOpen}
                         aria-controls="header-menu-services"
-                        data-cta="nav"
+                        data-cta="menu"
                         data-cta-location="header_mobile_menu"
                         data-cta-variant="text_link"
                         className="flex min-h-[52px] w-full items-center justify-between gap-3 text-left text-[17px] font-semibold text-brand"

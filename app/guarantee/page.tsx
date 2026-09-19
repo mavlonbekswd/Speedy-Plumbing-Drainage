@@ -10,7 +10,6 @@
 // nowhere as a date or a deadline.
 
 import type { Metadata } from "next";
-import { Phone } from "@phosphor-icons/react/dist/ssr";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileCallBar from "@/components/MobileCallBar";
@@ -19,12 +18,11 @@ import CTABand from "@/components/CTABand";
 import ServiceFAQ from "@/components/ServiceFAQ";
 import FAQSchema from "@/components/FAQSchema";
 import HowItWorks from "@/components/HowItWorks";
-import HeroBackdrop from "@/components/HeroBackdrop";
+import StaticHero from "@/components/static/StaticHero";
 import AnimateIn from "@/components/AnimateIn";
 import CoverList, { type CoverItem } from "@/components/static/CoverList";
 import JobPhotoRow from "@/components/static/JobPhotoRow";
 import SectionHeading from "@/components/ui/SectionHeading";
-import Button from "@/components/ui/Button";
 import {
   DEFAULT_CTA_BAND,
   GUARANTEE_LINE,
@@ -34,7 +32,7 @@ import {
 } from "@/lib/claims";
 import { GUARANTEE_FAQS } from "@/lib/faqs";
 import type { Step } from "@/lib/types";
-import { CALL_HREF, CALL_NUMBER_DISPLAY, SITE_URL, TRADING_NAME, openGraphFor } from "@/lib/site";
+import { SITE_URL, TRADING_NAME, openGraphFor } from "@/lib/site";
 
 const TITLE = `Our 1-year workmanship guarantee | ${TRADING_NAME}`;
 const DESCRIPTION =
@@ -88,61 +86,41 @@ export default function GuaranteePage() {
       <Header />
 
       <main id="main" tabIndex={-1} className="outline-none">
-        <section className="relative isolate overflow-hidden bg-paper">
-          <HeroBackdrop image="guarantee" />
-          <div className="mx-auto max-w-content px-5 pb-14 pt-8 sm:px-8 lg:px-12 md:pb-20 md:pt-10">
-            <Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Guarantee" }]} className="mb-8" />
-
-            <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
-              <div>
-                <p className="mb-4 text-[12px] font-semibold uppercase tracking-[0.16em] text-tint">Our guarantee</p>
-
-                <h1 className="max-w-[16ch] text-pretty font-display text-[clamp(34px,4.6vw,60px)] font-extrabold leading-[1.02] text-brand">
-                  Our 1-year guarantee.
-                </h1>
-
-                <p className="mt-5 max-w-[54ch] text-[17px] leading-[1.6] text-slate">
-                  <strong className="font-semibold text-ink">{GUARANTEE_LINE}</strong> {GUARANTEE_SCOPE_LINE}
-                </p>
-
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-                  <Button
-                    as="a"
-                    href={CALL_HREF}
-                    variant="primary"
-                    size="xl"
-                    className="nums w-full sm:w-auto"
-                    data-cta="phone"
-                    data-cta-location="guarantee_hero"
-                    data-cta-variant="primary_button"
-                  >
-                    <Phone size={20} weight="fill" aria-hidden />
-                    Call {CALL_NUMBER_DISPLAY}
-                  </Button>
-                  <a
-                    href="/contact#book"
-                    data-cta="book_anchor"
-                    data-cta-location="guarantee_hero"
-                    data-cta-variant="text_link"
-                    className="inline-flex min-h-[44px] items-center text-[15.5px] font-semibold text-brand underline underline-offset-4 hover:text-tint"
-                  >
-                    Ask us to ring you
-                  </a>
-                </div>
-              </div>
-
-              <div className="rounded-card border border-line bg-white p-8 text-center shadow-card">
-                <p className="nums font-display text-[clamp(54px,9vw,92px)] font-extrabold leading-[0.9] text-brand">
-                  1 year
-                </p>
-                <p className="mt-3 text-[16.5px] font-semibold leading-snug text-slate">on our workmanship</p>
-              </div>
+        {/* The figure card is the hero's right column, where a service page puts its callback
+            card: the same slot, so the page reads as the rest of the site. */}
+        <StaticHero
+          image="guarantee"
+          crumbs={<Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Guarantee" }]} />}
+          eyebrow="Our guarantee"
+          h1="Our 1-year guarantee."
+          ctaLocation="guarantee_hero"
+          sub={
+            <p>
+              <strong className="font-semibold text-ink">{GUARANTEE_LINE}</strong> {GUARANTEE_SCOPE_LINE}
+            </p>
+          }
+          aside={
+            <div className="rounded-card border border-line bg-white p-8 text-center shadow-card">
+              <p className="nums font-display text-[clamp(54px,9vw,92px)] font-extrabold leading-[0.9] text-brand">
+                1 year
+              </p>
+              <p className="mt-3 text-[16.5px] font-semibold leading-snug text-slate">on our workmanship</p>
             </div>
-          </div>
-        </section>
+          }
+        >
+          <a
+            href="/contact#book"
+            data-cta="book_anchor"
+            data-cta-location="guarantee_hero"
+            data-cta-variant="text_link"
+            className="inline-flex min-h-[44px] items-center text-[15.5px] font-semibold text-brand underline underline-offset-4 hover:text-tint"
+          >
+            Ask us to ring you
+          </a>
+        </StaticHero>
 
         <section className="border-t border-line bg-paper-2">
-          <div className="mx-auto max-w-content px-5 py-16 sm:px-8 md:py-20">
+          <div className="mx-auto max-w-content px-5 py-14 sm:px-8 md:py-20">
             <AnimateIn>
               <SectionHeading eyebrow="The scope" title="What it covers, and what it does not." />
             </AnimateIn>

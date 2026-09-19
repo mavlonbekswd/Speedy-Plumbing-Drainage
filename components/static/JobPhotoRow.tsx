@@ -22,7 +22,7 @@ export default function JobPhotoRow({ slugs, eyebrow = "Our own jobs", heading, 
 
   return (
     <section className={tinted ? "border-t border-line bg-paper-2" : "bg-paper"}>
-      <div className="mx-auto max-w-content px-5 py-16 sm:px-8 md:py-20">
+      <div className="mx-auto max-w-content px-5 py-14 sm:px-8 md:py-20">
         <AnimateIn>
           <SectionHeading eyebrow={eyebrow} title={heading} />
         </AnimateIn>

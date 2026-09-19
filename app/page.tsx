@@ -21,7 +21,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileCallBar from "@/components/MobileCallBar";
 import HomeHero from "@/components/home/HomeHero";
-import StatsStrip from "@/components/home/StatsStrip";
+import TickChips from "@/components/TickChips";
 import ServiceCards from "@/components/home/ServiceCards";
 import WhereWeWork from "@/components/home/WhereWeWork";
 import WhyUs from "@/components/home/WhyUs";
@@ -40,6 +40,7 @@ import {
   PRICE_PROCESS_LINE,
 } from "@/lib/claims";
 import { HOME_FAQS } from "@/lib/faqs";
+import { STATIC_ROUTE_BY_PATH } from "@/lib/routes";
 import { SITE_URL, TRADING_NAME, openGraphFor } from "@/lib/site";
 import type { Step } from "@/lib/types";
 
@@ -82,14 +83,19 @@ const STEPS: [Step, Step, Step] = [
 ];
 
 export default function HomePage() {
+  // The guarantee sentence in the strip links to /guarantee wherever it renders, and only when
+  // that page is live: a link to an unpublished route is a 404.
+  const guaranteeHref = STATIC_ROUTE_BY_PATH["/guarantee"]?.published ? "/guarantee" : undefined;
+
   return (
     <div className="has-callbar">
       <Header />
 
       <main id="main" tabIndex={-1} className="outline-none">
         <HomeHero />
-        <StatsStrip />
+        <TickChips part="figures" />
         <ServiceCards />
+        <TickChips part="ticks" guaranteeHref={guaranteeHref} />
         <WhereWeWork />
         <WhyUs />
         <HowItWorks steps={STEPS} tinted />
@@ -103,7 +109,9 @@ export default function HomePage() {
         </div>
         <FAQSchema faqs={HOME_FAQS} />
 
-        <BookingForm heading={FORM_COPY.full.heading} formId="home_booking" />
+        {/* Untinted: the FAQ section directly above it is the tinted one, and two paper-2 bands
+            in a row read as one very long section. */}
+        <BookingForm heading={FORM_COPY.full.heading} formId="home_booking" tinted={false} />
       </main>
 
       <Footer />

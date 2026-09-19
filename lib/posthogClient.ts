@@ -1,11 +1,12 @@
 import type { PostHog } from "posthog-js";
+import { DEV_SILENT } from "./devSilence";
 
 // posthog-js is the largest script on the site, so it is loaded on demand after hydration
 // (components/PosthogProvider.tsx) instead of being bundled into every page that tracks an event.
 // This module is the seam: callers hand over work, and it runs at once if the client is up or
 // waits in a short queue until it is. Nothing here imports posthog-js at runtime.
 
-const ENABLED = Boolean(process.env.NEXT_PUBLIC_POSTHOG_KEY);
+const ENABLED = Boolean(process.env.NEXT_PUBLIC_POSTHOG_KEY) && !DEV_SILENT;
 
 // A tap on the call button can land before the client has loaded. Those few events are held and
 // replayed in order; the cap stops a page that never loads it from holding on to memory.

@@ -70,7 +70,7 @@ const leakRepairs: ServiceContent = {
     buttonLabel: "Book a callback",
   },
   problems: {
-    heading: "What we get called out to fix",
+    heading: "What we get called out to fix.",
     sub: "Start with what you can see. Open one for what we do about it.",
     cards: [
       {
@@ -168,7 +168,7 @@ const leakRepairs: ServiceContent = {
     heading: "Got a leak, or a tap that will not stop?",
     sub: "We answer our own phone, and nothing starts until you say yes.",
   },
-  bookingHeading: "Ask us to ring you",
+  bookingHeading: "Ask us to ring you.",
   proof: {
     photos: ["kitchen-mixer-tap", "outside-tap", "under-sink-wastes", "water-supply-pipe", "bath-taps-swap"],
     video: "pipework-under-floor",

@@ -288,7 +288,8 @@ export function placeAdLines(lines: readonly string[]): AdLinePlacement {
 export const FORM_COPY = {
   /** The full booking form, components/BookingForm.tsx. Its shape is settled; it should not grow. */
   full: {
-    heading: "Ask us to ring you",
+    /** A section heading: it ends in a full stop. The SUBMIT label below is a button and does not. */
+    heading: "Ask us to ring you.",
     sub: `Leave your number and postcode and we'll ring you back. If water is coming through the ceiling, ring us now instead. ${PRICE_PROCESS_LINE}`,
     phoneLabel: "Phone number (required)",
     postcodeLabel: "Postcode (required)",
@@ -306,7 +307,10 @@ export const FORM_COPY = {
     error: (displayNumber: string) =>
       `Something went wrong sending your request. Please try again, or call us on ${displayNumber}.`,
   },
-  /** The card beside the hero on desktop and inside sections lower down. */
+  /**
+   * The card beside the hero on desktop and inside sections lower down. Its heading is a CARD
+   * title rather than a section heading, so it takes no full stop.
+   */
   inline: {
     heading: "Let us call you",
     sub: "Leave your number. We'll ring you back.",
