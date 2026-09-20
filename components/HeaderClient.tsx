@@ -221,11 +221,11 @@ export default function HeaderClient({
 
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-paper/90 backdrop-blur-[12px]">
-      <div className="mx-auto flex h-16 max-w-content items-center justify-between gap-6 px-5 sm:px-8">
+      <div className="mx-auto flex h-16 max-w-content items-center justify-between gap-4 px-5 sm:px-8 xl:gap-6">
         <Logo ctaLocation="header" />
 
         {links.length > 0 && (
-          <nav aria-label="Primary" className="hidden items-center gap-7 md:flex">
+          <nav aria-label="Primary" className="hidden items-center gap-7 xl:flex">
             {links.map((link) => {
               // The hub link becomes the drop-down, in place, so the nav keeps its order.
               if (services && link.href === services.hub.href) {
@@ -366,7 +366,7 @@ export default function HeaderClient({
             data-cta="menu"
             data-cta-location="header"
             data-cta-variant="icon_button"
-            className="press inline-flex h-11 w-11 items-center justify-center rounded-chip border border-line text-brand md:hidden"
+            className="press inline-flex h-11 w-11 items-center justify-center rounded-chip border border-line text-brand xl:hidden"
           >
             {open ? <X size={22} weight="bold" aria-hidden /> : <List size={22} weight="bold" aria-hidden />}
           </button>
@@ -377,7 +377,7 @@ export default function HeaderClient({
         <div
           id="header-menu"
           ref={panelRef}
-          className="max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-line bg-paper px-5 pb-8 pt-5 sm:px-8 md:hidden"
+          className="max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-line bg-paper px-5 pb-8 pt-5 sm:px-8 xl:hidden"
         >
           {links.length > 0 && (
             <nav aria-label="Menu" className="flex flex-col">
