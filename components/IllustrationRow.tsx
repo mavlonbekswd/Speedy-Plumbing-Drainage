@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ZoomableImage from "@/components/ZoomableImage";
 import { ILLUSTRATION_BY_SLUG } from "@/lib/media";
 
 // Pictures of the PROBLEM, from ILLUSTRATIONS in lib/media.ts. They are AI-generated scenes,
@@ -37,17 +38,19 @@ export default function IllustrationRow({
           {items.map((item) => (
             <li key={item.slug}>
               <figure>
-                <div className="overflow-hidden rounded-card border border-line bg-white">
-                  <Image
-                    src={item.file}
-                    alt={item.alt}
-                    width={item.width}
-                    height={item.height}
-                    sizes="(max-width: 639px) 50vw, 33vw"
-                    loading="lazy"
-                    className="h-auto w-full"
-                  />
-                </div>
+                <ZoomableImage src={item.file} alt={item.alt} caption={item.caption} location="scene_row">
+                  <div className="overflow-hidden rounded-card border border-line bg-white">
+                    <Image
+                      src={item.file}
+                      alt={item.alt}
+                      width={item.width}
+                      height={item.height}
+                      sizes="(max-width: 639px) 50vw, 33vw"
+                      loading="lazy"
+                      className="h-auto w-full"
+                    />
+                  </div>
+                </ZoomableImage>
                 <figcaption className="mt-2 text-[13.5px] leading-[1.5] text-slate">{item.caption}</figcaption>
               </figure>
             </li>
@@ -73,17 +76,19 @@ export default function IllustrationRow({
           {items.map((item) => (
             <li key={item.slug}>
               <figure>
-                <div className="overflow-hidden rounded-card border border-line bg-white">
-                  <Image
-                    src={item.file}
-                    alt={item.alt}
-                    width={item.width}
-                    height={item.height}
-                    sizes="(max-width: 639px) 50vw, 33vw"
-                    loading="lazy"
-                    className="h-auto w-full"
-                  />
-                </div>
+                <ZoomableImage src={item.file} alt={item.alt} caption={item.caption} location="scene_row">
+                  <div className="overflow-hidden rounded-card border border-line bg-white">
+                    <Image
+                      src={item.file}
+                      alt={item.alt}
+                      width={item.width}
+                      height={item.height}
+                      sizes="(max-width: 639px) 50vw, 33vw"
+                      loading="lazy"
+                      className="h-auto w-full"
+                    />
+                  </div>
+                </ZoomableImage>
                 <figcaption className="mt-2 text-[14px] leading-[1.5] text-slate">{item.caption}</figcaption>
               </figure>
             </li>

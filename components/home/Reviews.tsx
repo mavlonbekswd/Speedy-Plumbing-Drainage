@@ -2,6 +2,7 @@ import Image from "next/image";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import AnimateIn from "@/components/AnimateIn";
 import SectionHeading from "@/components/ui/SectionHeading";
+import ZoomableImage from "@/components/ZoomableImage";
 import { HAS_REVIEWS } from "@/lib/claims";
 import { FEATURED_PHOTO_SLUGS, PHOTO_BY_SLUG } from "@/lib/media";
 import { STATIC_ROUTE_BY_PATH } from "@/lib/routes";
@@ -74,17 +75,24 @@ export default function Reviews() {
             <div className="grid grid-cols-3 gap-3 md:gap-4">
               {PHOTOS.map((photo) => (
                 <figure key={photo.slug} className="m-0">
-                  <div className="relative aspect-[3/4] overflow-hidden rounded-card border border-line bg-paper-2">
-                    <Image
-                      src={photo.file}
-                      alt={photo.alt}
-                      width={photo.width}
-                      height={photo.height}
-                      sizes="(max-width: 767px) 33vw, 20vw"
-                      loading="lazy"
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
+                  <ZoomableImage
+                    src={photo.file}
+                    alt={photo.alt}
+                    caption={photo.caption}
+                    location="home_reviews"
+                  >
+                    <div className="relative aspect-[3/4] overflow-hidden rounded-card border border-line bg-paper-2">
+                      <Image
+                        src={photo.file}
+                        alt={photo.alt}
+                        width={photo.width}
+                        height={photo.height}
+                        sizes="(max-width: 767px) 33vw, 20vw"
+                        loading="lazy"
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                  </ZoomableImage>
                   <figcaption className="mt-2 text-[13px] leading-snug text-slate">{photo.caption}</figcaption>
                 </figure>
               ))}

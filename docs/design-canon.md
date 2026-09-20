@@ -46,6 +46,14 @@ All buttons go through `components/ui/Button.tsx`. Roles and their one style:
 ### Cards
 `rounded-card border border-line bg-white shadow-card`, padding `p-6` (24px); `p-8` only for a form card or the big figure card. Measured drift: town-page service cards use 20px padding. Make them 24px. Photo tiles: `rounded-card border border-line`, no shadow.
 
+### Enlargeable photos
+
+A photo tile that carries a picture worth looking closely at is wrapped in `components/ZoomableImage.tsx`, which is a server component: a button around the picture only, never around the caption, with `cursor-zoom-in`, the sitewide `:focus-visible` outline and no visual of its own, so the tile keeps exactly the border and rounded corners it had. `components/PhotoLightbox.tsx` is mounted once in `app/layout.tsx` and is the only client component involved; it opens a native `<dialog>` with a `bg-ink/85` backdrop, the caption at 14px, and a 44px close button in the top right. Escape, the close button and a click on the backdrop all close it, and focus goes back to the tile.
+
+**These enlarge:** the photo tiles in `ProofStrip` (not the clip beside them), both variants of `IllustrationRow`, `static/JobPhotoRow`, the three pictures in `home/Reviews`, the in-article photographs in `blog/PostBody`, and every photo tile on `/projects`.
+
+**These never do:** hero backdrops (`components/HeroBackdrop.tsx`, decoration at 50% opacity), the service cards on the home page and `/services` (the whole card is already one link), the logo, video posters and clips (`components/WorkVideo.tsx` owns its own play control), and the van graphic on `/about`, which is the brand illustration rather than a job.
+
 ### Section rhythm
 One vertical padding for every content section on every page: `py-14 md:py-20` (56px phone, 80px desktop). Measured drift on desktop: 80px (26 sections), 112px (20 sections: the default in shared components, used by home, FAQ, booking form, how-it-works), 96px (blog), 64px (/projects clips). Make them all 80px on desktop: change the DEFAULT in the shared section components from `py-20 md:py-28` to `py-14 md:py-20`. Keep the existing phone-only tightening the two ad templates get through their `compact` prop. Navy bands: `py-14 md:py-16` (64px), both `CTABand` and `ClosingBand`; measured drift 64px vs 56px, and their headings 38px vs 34px: make both bands 64px with a 38px heading. Strips under the hero and thin utility bands: `py-10 md:py-12`. Backgrounds alternate `bg-paper` and `bg-paper-2 border-t border-line`; never two of the same in a row.
 

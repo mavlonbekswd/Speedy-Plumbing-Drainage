@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type FocusEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type FocusEvent, type PointerEvent } from "react";
 import { CaretDown, List, Phone, WhatsappLogo, X } from "@phosphor-icons/react/dist/ssr";
 import Button from "@/components/ui/Button";
 import Logo from "@/components/Logo";
@@ -28,6 +28,23 @@ import { CALL_HREF, CALL_NUMBER_DISPLAY, WHATSAPP_URL } from "@/lib/site";
 /** Tab and Shift+Tab inside the open panel wrap rather than escaping to the page behind it. */
 const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
+// ─── The desktop drop-down's hover behaviour, added 19 September 2026 ─────────────────────────
+// PostHog's first evening of live data caught somebody rage-clicking the caret. The control
+// opened on click only, which on a desktop mouse reads as broken.
+//
+// HOVER_CLOSE_MS: leaving with a mouse closes it after a beat, cancelled by coming back, so
+// crossing the gap between the button and the panel never shuts it. The gap itself is bridged by
+// padding on the panel's wrapper rather than by a longer delay, which would leave a card sitting
+// over the page after the pointer has plainly gone.
+//
+// HOVER_CLICK_GRACE_MS: the trap. Hover opens it, the visitor then clicks the button, and a plain
+// toggle would close what they were reaching for. That flicker IS the rage click. So a click that
+// lands within this window of a hover-open leaves the panel open; every other click toggles
+// exactly as it did before. Touch and pen never take this path, and the keyboard path is
+// untouched: the button is still a disclosure with aria-expanded, Escape and a focus return.
+const HOVER_CLOSE_MS = 150;
+const HOVER_CLICK_GRACE_MS = 400;
+
 export interface HeaderServices {
   /** The /services hub. Its label is the drop-down's last link, not the button. */
   hub: NavLink;
@@ -49,6 +66,16 @@ export default function HeaderClient({
   const burgerRef = useRef<HTMLButtonElement>(null);
   const servicesRef = useRef<HTMLDivElement>(null);
   const servicesButtonRef = useRef<HTMLButtonElement>(null);
+  /** When a mouse last opened the panel by hovering. 0 means "not by hover". */
+  const hoverOpenedAt = useRef(0);
+  const hoverCloseTimer = useRef<number | undefined>(undefined);
+  /** The committed open state, readable from an event handler. A pointer can only enter the
+   *  wrapper once per visit to it, so this is never consulted between a set and its commit. */
+  const servicesOpenRef = useRef(false);
+
+  useEffect(() => {
+    servicesOpenRef.current = servicesOpen;
+  }, [servicesOpen]);
 
   // Closing the burger also collapses the nested Services row, so reopening the menu always
   // shows the short version rather than whatever the last visit left expanded.
@@ -145,6 +172,53 @@ export default function HeaderClient({
 
   const closeServices = useCallback(() => setServicesOpen(false), []);
 
+  const cancelHoverClose = useCallback(() => {
+    if (hoverCloseTimer.current !== undefined) {
+      window.clearTimeout(hoverCloseTimer.current);
+      hoverCloseTimer.current = undefined;
+    }
+  }, []);
+
+  // Nothing may be left running after this header goes away.
+  useEffect(() => cancelHoverClose, [cancelHoverClose]);
+
+  /** A mouse over the button or the panel opens it. Touch and pen are ignored entirely: a tap
+   *  already produces a click, and opening on a tap-and-hold would fight it. */
+  const onServicesPointerEnter = useCallback(
+    (event: PointerEvent<HTMLDivElement>) => {
+      if (event.pointerType !== "mouse") return;
+      cancelHoverClose();
+      // Only a closed-to-open transition starts the grace window, so re-entering from the panel
+      // cannot extend it and a panel opened by a click or by the keyboard is never treated as
+      // hover-opened.
+      if (!servicesOpenRef.current) hoverOpenedAt.current = Date.now();
+      setServicesOpen(true);
+    },
+    [cancelHoverClose],
+  );
+
+  const onServicesPointerLeave = useCallback(
+    (event: PointerEvent<HTMLDivElement>) => {
+      if (event.pointerType !== "mouse") return;
+      cancelHoverClose();
+      hoverCloseTimer.current = window.setTimeout(() => {
+        hoverCloseTimer.current = undefined;
+        hoverOpenedAt.current = 0;
+        setServicesOpen(false);
+      }, HOVER_CLOSE_MS);
+    },
+    [cancelHoverClose],
+  );
+
+  /** Toggle, except on the click that immediately follows a hover-open: see HOVER_CLICK_GRACE_MS.
+   *  The decision is made inside the updater so it reads the state as it is at that instant
+   *  rather than whatever the render that installed this handler had closed over. */
+  const onServicesButtonClick = useCallback(() => {
+    const sinceHoverOpen = Date.now() - hoverOpenedAt.current;
+    hoverOpenedAt.current = 0;
+    setServicesOpen((value) => (value && sinceHoverOpen < HOVER_CLICK_GRACE_MS ? true : !value));
+  }, []);
+
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-paper/90 backdrop-blur-[12px]">
       <div className="mx-auto flex h-16 max-w-content items-center justify-between gap-6 px-5 sm:px-8">
@@ -160,12 +234,14 @@ export default function HeaderClient({
                     key={link.href}
                     ref={servicesRef}
                     onBlur={onServicesBlur}
+                    onPointerEnter={onServicesPointerEnter}
+                    onPointerLeave={onServicesPointerLeave}
                     className="relative flex items-center"
                   >
                     <button
                       ref={servicesButtonRef}
                       type="button"
-                      onClick={() => setServicesOpen((value) => !value)}
+                      onClick={onServicesButtonClick}
                       aria-expanded={servicesOpen}
                       aria-controls="header-services"
                       data-cta="menu"
@@ -182,41 +258,50 @@ export default function HeaderClient({
                       />
                     </button>
 
+                    {/* Two elements rather than one, and the outer is the one that opens and
+                        closes. The 12px between the button and the card used to be a margin,
+                        which is dead space: a mouse crossing it left the wrapper and started the
+                        close timer. It is now padding INSIDE this wrapper, so the pointer never
+                        leaves. That only works because `invisible` is on the outer element too:
+                        visibility: hidden takes the padding out of hit testing, and a closed
+                        drop-down cannot swallow clicks meant for the page underneath. */}
                     <div
                       id="header-services"
                       className={[
-                        "absolute left-0 top-full z-50 mt-3 w-[30rem] max-w-[calc(100vw-2.5rem)] rounded-card border border-line bg-white p-3 shadow-card",
+                        "absolute left-0 top-full z-50 w-[30rem] max-w-[calc(100vw-2.5rem)] pt-3",
                         "transition-opacity duration-150 motion-reduce:transition-none",
                         servicesOpen ? "visible opacity-100" : "invisible opacity-0",
                       ].join(" ")}
                     >
-                      <ul className="grid grid-cols-2 gap-x-2">
-                        {services.items.map((service) => (
-                          <li key={service.href}>
-                            <a
-                              href={service.href}
-                              onClick={closeServices}
-                              data-cta={service.cta ?? "nav"}
-                              data-cta-location="header"
-                              data-cta-variant="text_link"
-                              className="flex min-h-[44px] items-center rounded-chip px-3 text-[14.5px] font-semibold text-brand hover:bg-paper-2 hover:text-tint"
-                            >
-                              {service.label}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
+                      <div className="rounded-card border border-line bg-white p-3 shadow-card">
+                        <ul className="grid grid-cols-2 gap-x-2">
+                          {services.items.map((service) => (
+                            <li key={service.href}>
+                              <a
+                                href={service.href}
+                                onClick={closeServices}
+                                data-cta={service.cta ?? "nav"}
+                                data-cta-location="header"
+                                data-cta-variant="text_link"
+                                className="flex min-h-[44px] items-center rounded-chip px-3 text-[14.5px] font-semibold text-brand hover:bg-paper-2 hover:text-tint"
+                              >
+                                {service.label}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
 
-                      <a
-                        href={services.hub.href}
-                        onClick={closeServices}
-                        data-cta="nav"
-                        data-cta-location="header"
-                        data-cta-variant="text_link"
-                        className="mt-2 flex min-h-[44px] items-center rounded-chip border-t border-line px-3 text-[14.5px] font-semibold text-tint hover:bg-paper-2"
-                      >
-                        {services.hub.label}
-                      </a>
+                        <a
+                          href={services.hub.href}
+                          onClick={closeServices}
+                          data-cta="nav"
+                          data-cta-location="header"
+                          data-cta-variant="text_link"
+                          className="mt-2 flex min-h-[44px] items-center rounded-chip border-t border-line px-3 text-[14.5px] font-semibold text-tint hover:bg-paper-2"
+                        >
+                          {services.hub.label}
+                        </a>
+                      </div>
                     </div>
                   </div>
                 );

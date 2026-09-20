@@ -94,7 +94,10 @@ export function MOBILE_CALL_BAR_LABEL(displayNumber: string): string {
 export const AVAILABILITY_LINE = "Open 24/7, including weekends and bank holidays.";
 
 /** Owner, 19 Sept 2026: commercial kitchens, landlord and business work are all in scope. Sitewide,
- *  in the footer, so the ads' "homes and businesses" line is true of every landing page. */
+ *  in the footer, so the ads' "homes and businesses" line is true of every landing page.
+ *  LOCKED: six ad descriptions (the B-side D4 lines, ARIM qc/descriptions-join-audit-2026-09-19.md)
+ *  are supported by this footer sentence and the coverage sentence beside it and by nothing else
+ *  on the page. Reword or move either and six ads lose their landing-page support at once. */
 export const WHO_WE_WORK_FOR_LINE = "We work for homes, landlords and businesses.";
 
 export const INSURED_LEAD = "Fully insured, every plumber and every job.";

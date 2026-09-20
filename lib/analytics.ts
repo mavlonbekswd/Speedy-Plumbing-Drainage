@@ -106,6 +106,9 @@ export const CTA_EVENTS = {
   // that event stays a count of pages people actually went to.
   menu: "menu_toggle",
   email: "email_click",
+  // Enlarging a job photo is not a navigation either: it is the one thing on a
+  // gallery a visitor does that says the pictures are worth looking at.
+  photo: "photo_zoom",
 } as const;
 
 export type CtaKey = keyof typeof CTA_EVENTS;

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ZoomableImage from "@/components/ZoomableImage";
 import { PHOTO_BY_SLUG } from "@/lib/media";
 import { photosForPost } from "@/components/blog/postMedia";
 
@@ -25,17 +26,19 @@ function JobPhoto({ slug }: { slug: string }) {
   // width keeps the subject in frame, which a wide crop of a 9:16 original would not.
   return (
     <figure className="m-0 max-w-[24rem]">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-card border border-line bg-paper">
-        <Image
-          src={photo.file}
-          alt={photo.alt}
-          width={photo.width}
-          height={photo.height}
-          sizes="(max-width: 767px) 100vw, 384px"
-          loading="lazy"
-          className="h-full w-full object-cover"
-        />
-      </div>
+      <ZoomableImage src={photo.file} alt={photo.alt} caption={photo.caption} location="blog_post">
+        <div className="relative aspect-[4/5] overflow-hidden rounded-card border border-line bg-paper">
+          <Image
+            src={photo.file}
+            alt={photo.alt}
+            width={photo.width}
+            height={photo.height}
+            sizes="(max-width: 767px) 100vw, 384px"
+            loading="lazy"
+            className="h-full w-full object-cover"
+          />
+        </div>
+      </ZoomableImage>
       <figcaption className="mt-2 text-[13.5px] leading-snug text-slate">{photo.caption}</figcaption>
     </figure>
   );

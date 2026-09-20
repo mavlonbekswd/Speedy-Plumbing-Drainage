@@ -42,12 +42,12 @@ const PHONE_TAP_LABEL = "phone_tap_label_test";
 const PHONE_CALL_LABEL = "phone_call_label_test";
 const WHATSAPP_LABEL = "whatsapp_label_test";
 
-/** The six keys of CTA_EVENTS in lib/analytics.ts. Hard-coded rather than
+/** The seven keys of CTA_EVENTS in lib/analytics.ts. Hard-coded rather than
  *  imported because that module pulls in posthog-js and an "@/" alias, neither
  *  of which belongs in a Playwright process; a value rendered in markup that is
  *  missing here fires nothing at all, which is exactly the silent failure this
  *  sweep exists to catch. */
-const CTA_KEYS = ["phone", "whatsapp", "book_anchor", "nav", "menu", "email"] as const;
+const CTA_KEYS = ["phone", "whatsapp", "book_anchor", "nav", "menu", "email", "photo"] as const;
 
 const TYPED = {
   name: "Jane Smith",

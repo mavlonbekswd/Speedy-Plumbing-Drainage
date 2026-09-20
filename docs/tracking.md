@@ -169,6 +169,7 @@ route this file has never heard of and does not ship the content tables to the b
 | `nav_click` | `data-cta="nav"` clicked | The CTA property set below |
 | `menu_toggle` | `data-cta="menu"` clicked: the burger, the desktop Services drop-down button and the mobile Services row, all of which open or close a menu and navigate nowhere | The CTA property set below |
 | `email_click` | `data-cta="email"` clicked | The CTA property set below |
+| `photo_zoom` | `data-cta="photo"` clicked: a photo tile enlarged in the lightbox. `cta_location` names the row it sits in (`proof_strip`, `scene_row`, `job_photo_row`, `home_reviews`, `blog_post`, `projects`) | The CTA property set below |
 | `first_interaction` | The first `pointerdown`, `keydown` or `scroll` of a pageview, once per pageview, reset on every client-side navigation | `seconds_since_load`, `interaction_type` |
 | `booking_form_start` | First focus inside a booking form | `form_id`, `service` when known |
 | `booking_form_submit` | Submit handler entered | `form_id`, `service`, `photo_count` |
@@ -196,7 +197,7 @@ component just to own an `onClick`.
 
 | Attribute | Meaning |
 | --- | --- |
-| `data-cta` | Required. One of the keys of `CTA_EVENTS`: `phone`, `whatsapp`, `book_anchor`, `nav`, `menu`, `email` |
+| `data-cta` | Required. One of the keys of `CTA_EVENTS`: `phone`, `whatsapp`, `book_anchor`, `nav`, `menu`, `email`, `photo` |
 | `data-cta-location` | Where it sits: `header`, `hero`, `footer`, `sticky_bar`, `postcode_check` and so on |
 | `data-cta-variant` | `text_link`, `icon_button`, `primary_button`, `secondary_button` |
 | `data-cta-position` | Numeric, where a CTA repeats down a page |
@@ -374,3 +375,13 @@ hashed identifiers the site already sends are ignored.
 
 If `NEXT_PUBLIC_GA4_ID` is left unset, no GA4 property receives pageviews. Ads conversions are
 unaffected. That is a choice, not a fault.
+
+## Conversion labels with a built-in default (20 Sept 2026)
+
+`NEXT_PUBLIC_GADS_LABEL_PHONE_CALL` ("Calls from website (30s+)", the forwarding-number swap) and
+`NEXT_PUBLIC_GADS_LABEL_WHATSAPP` ("WhatsApp click") default to the live labels in `next.config.ts`,
+because the Vercel project's environment cannot be edited by the people who run the site. A
+conversion label is public (it is in every page's HTML). An environment variable of the same name
+overrides the default. The swap line `gtag('config', '<AW id>/<label>', {phone_conversion_number: "01223 482415"})`
+only matches while the displayed number is exactly `01223 482415`, and only swaps for visitors who
+arrived by an ad click: verify it by the served config line, never by eye.

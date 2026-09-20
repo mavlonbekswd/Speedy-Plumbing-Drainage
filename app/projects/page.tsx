@@ -32,6 +32,7 @@ import CTABand from "@/components/CTABand";
 import StaticHero from "@/components/static/StaticHero";
 import WorkVideo from "@/components/WorkVideo";
 import AnimateIn from "@/components/AnimateIn";
+import ZoomableImage from "@/components/ZoomableImage";
 import { DEFAULT_CTA_BAND } from "@/lib/claims";
 import { FALLBACK_HERO, JOB_PHOTOS, WORK_VIDEOS } from "@/lib/media";
 import type { MediaGroup } from "@/lib/types";
@@ -155,17 +156,26 @@ export default function ProjectsPage() {
                   {photos.map((photo, i) => (
                     <AnimateIn key={photo.slug} delay={i * 60}>
                       <figure className="m-0">
-                        <div className="relative aspect-[3/4] overflow-hidden rounded-card border border-line bg-paper">
-                          <Image
-                            src={photo.file}
-                            alt={photo.alt}
-                            width={photo.width}
-                            height={photo.height}
-                            sizes="(max-width: 767px) 50vw, (max-width: 1023px) 33vw, 25vw"
-                            loading="lazy"
-                            className="h-full w-full object-cover"
-                          />
-                        </div>
+                        {/* Photographs enlarge; the clips above do not, because a clip already
+                            has its own play control inside components/WorkVideo.tsx. */}
+                        <ZoomableImage
+                          src={photo.file}
+                          alt={photo.alt}
+                          caption={photo.caption}
+                          location="projects"
+                        >
+                          <div className="relative aspect-[3/4] overflow-hidden rounded-card border border-line bg-paper">
+                            <Image
+                              src={photo.file}
+                              alt={photo.alt}
+                              width={photo.width}
+                              height={photo.height}
+                              sizes="(max-width: 767px) 50vw, (max-width: 1023px) 33vw, 25vw"
+                              loading="lazy"
+                              className="h-full w-full object-cover"
+                            />
+                          </div>
+                        </ZoomableImage>
                         <figcaption className="mt-2 text-[13.5px] leading-snug text-slate">
                           {photo.caption}
                         </figcaption>

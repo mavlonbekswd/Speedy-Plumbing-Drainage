@@ -1,6 +1,7 @@
 import Image from "next/image";
 import AnimateIn from "@/components/AnimateIn";
 import SectionHeading from "@/components/ui/SectionHeading";
+import ZoomableImage from "@/components/ZoomableImage";
 import { PHOTO_BY_SLUG } from "@/lib/media";
 
 interface Props {
@@ -32,17 +33,24 @@ export default function JobPhotoRow({ slugs, eyebrow = "Our own jobs", heading, 
         >
           {photos.map((photo) => (
             <figure key={photo.slug} className="m-0">
-              <div className="relative aspect-[3/4] overflow-hidden rounded-card border border-line bg-paper-2">
-                <Image
-                  src={photo.file}
-                  alt={photo.alt}
-                  width={photo.width}
-                  height={photo.height}
-                  sizes="(max-width: 767px) 50vw, 25vw"
-                  loading="lazy"
-                  className="h-full w-full object-cover"
-                />
-              </div>
+              <ZoomableImage
+                src={photo.file}
+                alt={photo.alt}
+                caption={photo.caption}
+                location="job_photo_row"
+              >
+                <div className="relative aspect-[3/4] overflow-hidden rounded-card border border-line bg-paper-2">
+                  <Image
+                    src={photo.file}
+                    alt={photo.alt}
+                    width={photo.width}
+                    height={photo.height}
+                    sizes="(max-width: 767px) 50vw, 25vw"
+                    loading="lazy"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              </ZoomableImage>
               <figcaption className="mt-2 text-[13.5px] leading-snug text-slate">{photo.caption}</figcaption>
             </figure>
           ))}

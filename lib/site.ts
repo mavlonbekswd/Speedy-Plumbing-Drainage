@@ -94,7 +94,7 @@ export function openGraphFor({
 
 /**
  * The Google Business Profile's public link ("Share" on the profile, a g.page or maps.app.goo.gl
- * URL). Empty until the owner supplies it: the home page's reviews section shows a "read our
- * reviews on Google" link only when this is set, and never a count, a rating or a quote.
+ * URL). Supplied by the owner on 19 Sept 2026. The home page's reviews section links to it and
+ * never shows a count, a rating or a quote. Empty string hides the link.
  */
-export const GOOGLE_PROFILE_URL = "";
+export const GOOGLE_PROFILE_URL: string = "https://share.google/4gcF41pCQiAxxriWN";

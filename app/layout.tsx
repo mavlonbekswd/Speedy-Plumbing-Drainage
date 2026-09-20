@@ -3,6 +3,7 @@ import { Archivo, Inter } from "next/font/google";
 import "./globals.css";
 import PosthogProvider from "@/components/PosthogProvider";
 import JsonLd from "@/components/JsonLd";
+import PhotoLightbox from "@/components/PhotoLightbox";
 import { googleTagHeadScripts } from "@/lib/gtag";
 import { AVAILABILITY_LINE, COVERAGE_SHORT } from "@/lib/claims";
 import { PUBLISHED_SERVICES } from "@/lib/services";
@@ -149,6 +150,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
 
         <PosthogProvider>{children}</PosthogProvider>
+
+        {/* One <dialog> for the whole site, and one delegated listener with it. Every photo tile
+            that enlarges is a server-rendered button carrying data-zoom-src; nothing per tile is
+            a client component. Closed, it holds no picture at all. */}
+        <PhotoLightbox />
 
         <JsonLd data={BUSINESS} id="business-schema" />
       </body>

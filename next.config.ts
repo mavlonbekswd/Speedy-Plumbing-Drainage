@@ -101,6 +101,18 @@ const nextConfig: NextConfig = {
       "NEXT_PUBLIC_POSTHOG_KEY",
       "NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN",
     ),
+    // The two conversion actions created in the Ads account on 20 Sept 2026. A conversion label
+    // is not a secret: it is printed in the served HTML of every page for anyone to read. They
+    // carry a default here because the Vercel project belongs to another account and its
+    // environment variables cannot be edited by the people who run this site; an env var of the
+    // same name still wins, so a label can be rotated without a code change. They do nothing
+    // unless NEXT_PUBLIC_GADS_ID is also set (lib/gtag.ts renders no tag without it), and local
+    // development is silenced by lib/devSilence.ts.
+    //  - PHONE_CALL: "Calls from website (30s+)", the Google forwarding-number swap. The swap only
+    //    matches while the displayed number is exactly "01223 482415".
+    //  - WHATSAPP: "WhatsApp click".
+    NEXT_PUBLIC_GADS_LABEL_PHONE_CALL: pick("NEXT_PUBLIC_GADS_LABEL_PHONE_CALL") || "Bf0iCJbmg_4cEKytwdxE",
+    NEXT_PUBLIC_GADS_LABEL_WHATSAPP: pick("NEXT_PUBLIC_GADS_LABEL_WHATSAPP") || "U1j0CIj0if4cEKytwdxE",
   },
 
   // Required by PostHog: API requests can end in a trailing slash.

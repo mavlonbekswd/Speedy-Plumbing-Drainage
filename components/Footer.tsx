@@ -31,6 +31,8 @@ export default function Footer() {
             <Logo dark ctaLocation="footer" className="mb-5" />
 
             <p className="mb-2 max-w-[42ch] text-[14px] leading-[1.6] text-white/80">
+              {/* LOCKED with the line below it: six ad descriptions rest on these two sentences
+                  alone (see WHO_WE_WORK_FOR_LINE in lib/claims.ts). */}
               Plumbing and drainage across {COVERAGE_LINE}
             </p>
             <p className="mb-6 max-w-[42ch] text-[14px] leading-[1.6] text-white/80">

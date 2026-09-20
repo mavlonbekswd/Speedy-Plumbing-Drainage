@@ -2,6 +2,7 @@ import Image from "next/image";
 import AnimateIn from "@/components/AnimateIn";
 import SectionHeading from "@/components/ui/SectionHeading";
 import WorkVideo from "@/components/WorkVideo";
+import ZoomableImage from "@/components/ZoomableImage";
 import { PHOTO_BY_SLUG, VIDEO_BY_SLUG } from "@/lib/media";
 
 interface Props {
@@ -73,17 +74,26 @@ export default function ProofStrip({
           )}
           {photos.map((photo) => (
             <figure key={photo.slug} className="m-0">
-              <div className="relative aspect-[3/4] overflow-hidden rounded-card border border-line bg-paper-2">
-                <Image
-                  src={photo.file}
-                  alt={photo.alt}
-                  width={photo.width}
-                  height={photo.height}
-                  sizes={compact ? "33vw" : "(max-width: 767px) 50vw, 33vw"}
-                  loading="lazy"
-                  className="h-full w-full object-cover"
-                />
-              </div>
+              {/* The picture enlarges, the caption does not: the clip beside it keeps its own
+                  play control, which components/WorkVideo.tsx owns. */}
+              <ZoomableImage
+                src={photo.file}
+                alt={photo.alt}
+                caption={photo.caption}
+                location="proof_strip"
+              >
+                <div className="relative aspect-[3/4] overflow-hidden rounded-card border border-line bg-paper-2">
+                  <Image
+                    src={photo.file}
+                    alt={photo.alt}
+                    width={photo.width}
+                    height={photo.height}
+                    sizes={compact ? "33vw" : "(max-width: 767px) 50vw, 33vw"}
+                    loading="lazy"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              </ZoomableImage>
               <figcaption
                 className={`leading-snug text-slate ${
                   compact ? "mt-1.5 text-[11.5px] sm:mt-2 sm:text-[13.5px]" : "mt-2 text-[13.5px]"
