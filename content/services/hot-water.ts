@@ -1,8 +1,11 @@
 import type { ServiceContent } from "../../lib/types";
 import {
+  COST_LEAD,
   COVERAGE_SHORT,
   GUARANTEE_SCOPE_LINE,
+  HIDDEN_FEES_LEAD,
   INSURED_LEAD,
+  NIGHT_RATE_LINE,
   OUT_OF_SCOPE_SENTENCE,
   PAYMENT_ANSWER,
   PAYMENT_FAQ,
@@ -46,13 +49,13 @@ const hotWater: ServiceContent = {
     },
     {
       q: "What does it cost?",
-      lead: "The price is agreed before we start.",
+      lead: COST_LEAD,
       rest: "The plumber quotes on site before any work begins, or from a photo you send on WhatsApp, which is free.",
     },
     {
       q: "Any hidden fees?",
-      lead: "None, and no extra charge at night or weekends.",
-      rest: "Nothing changes without your say-so. If the job needs a part nobody expected, you hear about it first.",
+      lead: HIDDEN_FEES_LEAD,
+      rest: `${NIGHT_RATE_LINE} ` + "Nothing changes without your say-so. If the job needs a part nobody expected, you hear about it first.",
     },
     PHONE_ANSWER,
     {

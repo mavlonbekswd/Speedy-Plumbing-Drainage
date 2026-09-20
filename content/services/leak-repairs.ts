@@ -1,9 +1,12 @@
 import type { ServiceContent } from "../../lib/types";
 import {
   AVAILABILITY_LINE,
+  COST_LEAD,
   COVERAGE_SHORT,
   GUARANTEE_SCOPE_LINE,
+  HIDDEN_FEES_LEAD,
   INSURED_LEAD,
+  NIGHT_RATE_LINE,
   PAYMENT_ANSWER,
   PAYMENT_FAQ,
   PHONE_ANSWER,
@@ -39,13 +42,13 @@ const leakRepairs: ServiceContent = {
     },
     {
       q: "What does it cost?",
-      lead: "The price is agreed before we start.",
+      lead: COST_LEAD,
       rest: "The plumber quotes on site before any work starts, or from a photo you send on WhatsApp, which is free.",
     },
     {
       q: "Any hidden fees?",
-      lead: "None, and no extra charge at night or weekends.",
-      rest: "Nothing changes without your say-so. If the leak turns out to be a bigger job once we are in, we stop and tell you.",
+      lead: HIDDEN_FEES_LEAD,
+      rest: `${NIGHT_RATE_LINE} ` + "Nothing changes without your say-so. If the leak turns out to be a bigger job once we are in, we stop and tell you.",
     },
     PHONE_ANSWER,
     {

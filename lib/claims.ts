@@ -17,8 +17,26 @@ import { ADS } from "../content/ads";
 // Section 6.1 shared constants, verbatim
 // ---------------------------------------------------------------------------
 
-/** Speedy has no fee and states none. Process certainty stands where a figure would. */
-export const PRICE_PROCESS_LINE = "The price is agreed before we start. You approve the cost first.";
+export const PRICE_PROCESS_LINE = "The price is agreed before we start";
+
+// The call-out fee. Owner, 20 Sept 2026: "£49 is the call out fee so usually if customer asks us
+// to come then we charge that even for a quote. But if they provide the information through
+// whatsapp then it is free. It applies to all visits." and, to the Ads session the same day,
+// "£49 includes VAT." Evidence: ARIM/speedy/claims-evidence/call-out-fee.md.
+//
+// These are the ONLY strings on the site allowed to name the fee or carry a pound sign:
+// BANNED_PATTERNS, tests/claims.spec.ts and scripts/site-claims-audit.py all release exactly
+// this wording and nothing else. NOT established, so never said: whether the £49 comes off the
+// price of the work when the job goes ahead. Do not write "deducted", "waived", "refunded",
+// "no call-out fee" or "free call-out" anywhere.
+export const CALL_OUT_FEE = "£49";
+export const CALL_OUT_FEE_LEAD = `${CALL_OUT_FEE} call-out fee including VAT.`;
+/** Follows CALL_OUT_FEE_LEAD wherever there is room for a second sentence. */
+export const PRICE_FACT_LINE = `${CALL_OUT_FEE_LEAD} ${PRICE_PROCESS_LINE}`;
+/** Bold lead of the "What does it cost?" card on every service and town page. */
+export const COST_LEAD = CALL_OUT_FEE_LEAD;
+/** Bold lead of the "Any hidden fees?" card. The fee is named, so it is not hidden. */
+export const HIDDEN_FEES_LEAD = `None. The ${CALL_OUT_FEE} call-out fee is the only charge before the work.`;
 
 /** The full footprint, derived from the locked 66 districts. lib/towns.ts regenerates and asserts it. */
 export const COVERAGE_LINE =
@@ -50,6 +68,9 @@ export const PRICE_NOTE =
 
 export const PRICE_BLOCK_LINE =
   "The price is agreed before we start. Nothing begins until you say yes. No extra charge at night or weekends.";
+
+/** Renders directly above PRICE_BLOCK_LINE in the key-facts band. "free" sits with WhatsApp. */
+export const CALL_OUT_BLOCK_LINE = `${CALL_OUT_FEE_LEAD} A quote from photos on WhatsApp is free.`;
 
 /** Links to /guarantee wherever it renders. */
 export const GUARANTEE_LINE = "12-month guarantee on our workmanship.";
@@ -161,10 +182,14 @@ export const PHONE_ANSWER: Answer = {
  * Card 8 of the straight-answers set. Payment was settled on 19 September 2026: paid once the
  * work is finished, by cash, card or bank transfer.
  */
+// Reworded 20 Sept 2026. "Paid once the work is finished" was true of the WORK only once the
+// owner confirmed the £49 call-out fee is charged for every visit, even a visit to quote: a
+// customer who declines the quote still pays the fee with no work done. WHEN the fee is taken
+// (on the day, or with the final bill) has not been stated, so the card does not say.
 export const PAYMENT_ANSWER: Answer = {
   q: "How do I pay?",
-  lead: "Once the work is finished.",
-  rest: "Cash, card or bank transfer. The price is the one you agreed before we started.",
+  lead: "You pay for the work once it is finished.",
+  rest: `Cash, card or bank transfer. The price is the one you agreed before we started. The ${CALL_OUT_FEE} call-out fee is applied.`,
 };
 
 export const PAYMENT_FAQ: Faq = {
@@ -210,6 +235,7 @@ export const MUST_RENDER: readonly MustRenderRule[] = [
   },
   { label: "No extra charge at night or weekends", test: anywhere("No extra charge at night or weekends") },
   { label: "The price is agreed before we start", test: anywhere("The price is agreed before we start") },
+  { label: "The £49 call-out fee, including VAT", test: anywhere(CALL_OUT_FEE_LEAD) },
   {
     label: "12-month guarantee on our workmanship, with the materials scope beside it",
     test: bothAnywhere("12-month guarantee on our workmanship", "Materials are covered by their own maker's warranty"),
@@ -357,10 +383,11 @@ export interface BannedPattern {
 }
 
 export const BANNED_PATTERNS: readonly BannedPattern[] = [
-  // Price. There is no fee and none may be stated, present or absent.
-  { label: "a currency figure", re: /£\s?\d/ },
+  // Price. One figure exists, the £49 call-out fee (CALL_OUT_FEE above), and it may only appear
+  // as "£49 call-out fee". Any other figure, and any other way of naming the fee, is banned.
+  { label: "a currency figure other than the call-out fee", re: /£\s?(?!49 call-out fee\b)\d/ },
   { label: "the fee, in any direction", re: /\bno\s+call[-\s]?out\s+fee\b/i },
-  { label: "the fee named at all", re: /\bcall[-\s]?out\s+(fee|charge)\b/i },
+  { label: "the fee named without its figure", re: /(?<!£49 )\bcall[-\s]?out\s+(fee|charge)\b/i },
   { label: "a fee said to be absent", re: /\bfree\s+call[-\s]?out\b/i },
   { label: "a visit said to be free", re: /\bfree\s+(visit|survey|quotation)\b/i },
   { label: "fixed price", re: /\bfixed\s+price\b/i },

@@ -29,7 +29,7 @@ import {
   COVERAGE_LINE,
   DEFAULT_CTA_BAND,
   FORM_COPY,
-  PRICE_PROCESS_LINE,
+  PRICE_FACT_LINE,
 } from "@/lib/claims";
 import { AREAS_FAQS } from "@/lib/faqs";
 import { FEATURED_PHOTO_SLUGS } from "@/lib/media";
@@ -76,7 +76,7 @@ export default function AreasWeCoverPage() {
           }
           eyebrow="Where we work"
           h1="Areas we cover."
-          facts={[PRICE_PROCESS_LINE, ARRIVAL_LINE, AVAILABILITY_LINE]}
+          facts={[PRICE_FACT_LINE, ARRIVAL_LINE, AVAILABILITY_LINE]}
           sub={COVERAGE_LINE}
           ctaLocation="areas_index"
         />
@@ -100,7 +100,7 @@ export default function AreasWeCoverPage() {
           {ORGANIC_TOWNS.length > 0 && (
             <div className="mt-10 border-t border-line pt-8">
               <p className="max-w-[62ch] text-[15px] leading-[1.7] text-slate">
-                We work in the villages around these three towns, not in the town centres.
+                We work in the villages around these three towns as well as in the town centres too.
               </p>
               <ul className="mt-4 flex flex-wrap gap-2">
                 {ORGANIC_TOWNS.map((town) => (

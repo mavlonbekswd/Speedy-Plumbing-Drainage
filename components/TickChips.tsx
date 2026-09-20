@@ -1,6 +1,7 @@
 import { CheckCircle } from "@phosphor-icons/react/dist/ssr";
 import {
   ARRIVAL_LINE,
+  CALL_OUT_BLOCK_LINE,
   GUARANTEE_LINE,
   GUARANTEE_SCOPE_LINE,
   PRICE_BLOCK_LINE,
@@ -65,7 +66,8 @@ export default function TickChips({
   return (
     <section aria-label="Key facts" className="border-t border-line bg-paper-2">
       <div className="mx-auto max-w-content px-5 py-10 sm:px-8 md:py-12">
-        <ul className="grid grid-cols-2 gap-x-8 gap-y-3 md:grid-cols-4">
+        {/* Centred as one block with the three sentences under it (owner, 20 Sept 2026). */}
+        <ul className="flex flex-wrap justify-center gap-x-8 gap-y-3">
           {TICK_CHIPS.map((tick) => (
             <li key={tick} className="inline-flex items-center gap-2 text-[15px] font-semibold text-brand">
               <CheckCircle size={20} weight="fill" className="flex-shrink-0 text-cta-deep" aria-hidden />
@@ -74,9 +76,13 @@ export default function TickChips({
           ))}
         </ul>
 
-        <p className="mt-5 max-w-[68ch] text-[14px] leading-[1.6] text-slate">{PRICE_BLOCK_LINE}</p>
+        <p className="mt-5 mx-auto max-w-[68ch] text-center text-[14px] leading-[1.6] text-slate">
+          <strong className="font-semibold text-ink">{CALL_OUT_BLOCK_LINE}</strong>
+        </p>
 
-        <p className="mt-1 max-w-[68ch] text-[14px] leading-[1.6] text-slate">
+        <p className="mt-1 mx-auto max-w-[68ch] text-center text-[14px] leading-[1.6] text-slate">{PRICE_BLOCK_LINE}</p>
+
+        <p className="mt-1 mx-auto max-w-[68ch] text-center text-[14px] leading-[1.6] text-slate">
           {guaranteeHref ? (
             <a
               href={guaranteeHref}

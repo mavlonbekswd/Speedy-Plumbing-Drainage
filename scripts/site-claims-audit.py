@@ -58,9 +58,10 @@ CLAIMS = {
 # What must be nowhere. Each of these is a claim Speedy does not hold or has forbidden.
 # ---------------------------------------------------------------------------
 FORBIDDEN = {
-    "a price figure": r"(&pound;|£)\s?\d",
+    # One figure is allowed, in one wording: "£49 call-out fee" (owner, 20 Sept 2026).
+    "a price figure other than the £49 call-out fee": r"(&pound;|£)\s?(?!49 call-out fee\b)\d",
     "the gas credential, in any casing or direction": r"gas\s*safe",
-    "a call-out fee, named or denied": r"call[-\s]?out\s+(fee|charge)|free\s+call[-\s]?out",
+    "a call-out fee named without its figure, or denied": r"(?<!£49 )call[-\s]?out\s+(fee|charge)|free\s+call[-\s]?out|no\s+call[-\s]?out",
     "an aggregateRating": r"aggregate\s?rating",
     "a star rating or review count": r"\b\d[\d,]*\s+reviews?\b|\b\d(\.\d)?\s*[-\s]?star\b",
 }

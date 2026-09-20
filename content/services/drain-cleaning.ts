@@ -1,9 +1,12 @@
 import type { ServiceContent } from "../../lib/types";
 import {
   AVAILABILITY_LINE,
+  COST_LEAD,
   COVERAGE_SHORT,
   GUARANTEE_SCOPE_LINE,
+  HIDDEN_FEES_LEAD,
   INSURED_LEAD,
+  NIGHT_RATE_LINE,
   PAYMENT_ANSWER,
   PAYMENT_FAQ,
   PHONE_ANSWER,
@@ -43,13 +46,13 @@ const drainCleaning: ServiceContent = {
     },
     {
       q: "What does it cost?",
-      lead: "The price is agreed before we start.",
+      lead: COST_LEAD,
       rest: "The full price of the clean, including any descaling, is quoted on site before work starts.",
     },
     {
       q: "Any hidden fees?",
-      lead: "None, and no extra charge at night or weekends.",
-      rest: "Nothing changes without your say-so. If the run needs more than a clean, we tell you before we do it.",
+      lead: HIDDEN_FEES_LEAD,
+      rest: `${NIGHT_RATE_LINE} ` + "Nothing changes without your say-so. If the run needs more than a clean, we tell you before we do it.",
     },
     PHONE_ANSWER,
     {

@@ -1,8 +1,11 @@
 import type { ServiceContent } from "../../lib/types";
 import {
+  COST_LEAD,
   COVERAGE_SHORT,
   GUARANTEE_SCOPE_LINE,
+  HIDDEN_FEES_LEAD,
   INSURED_LEAD,
+  NIGHT_RATE_LINE,
   PAYMENT_ANSWER,
   PAYMENT_FAQ,
   PHONE_ANSWER,
@@ -45,13 +48,13 @@ const blockedDrains: ServiceContent = {
     },
     {
       q: "What does it cost?",
-      lead: "The price is agreed before we start.",
+      lead: COST_LEAD,
       rest: "The full price, including any camera survey or repair, is quoted on site before work starts.",
     },
     {
       q: "Any hidden fees?",
-      lead: "None, and no extra charge at night or weekends.",
-      rest: "Nothing changes without your say-so. If the blockage turns out to be something bigger, we stop and tell you first.",
+      lead: HIDDEN_FEES_LEAD,
+      rest: `${NIGHT_RATE_LINE} ` + "Nothing changes without your say-so. If the blockage turns out to be something bigger, we stop and tell you first.",
     },
     PHONE_ANSWER,
     {

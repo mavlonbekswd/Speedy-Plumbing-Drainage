@@ -1,10 +1,13 @@
 import type { ServiceContent } from "../../lib/types";
 import {
   AVAILABILITY_LINE,
+  COST_LEAD,
   COVERAGE_SHORT,
   EXPERIENCE_LINE,
   GUARANTEE_SCOPE_LINE,
+  HIDDEN_FEES_LEAD,
   INSURED_LEAD,
+  NIGHT_RATE_LINE,
   OUT_OF_SCOPE_SENTENCE,
   PAYMENT_ANSWER,
   PAYMENT_FAQ,
@@ -43,13 +46,13 @@ const bathroomPlumbing: ServiceContent = {
     },
     {
       q: "What does it cost?",
-      lead: "The price is agreed before we start.",
+      lead: COST_LEAD,
       rest: "We quote from your photos on WhatsApp, which is free, or on site. You agree the scope before anything starts.",
     },
     {
       q: "Any hidden fees?",
-      lead: "None, and no extra charge at night or weekends.",
-      rest: "Nothing changes without your say-so. If the job changes once the floor is up, we stop and ask you first.",
+      lead: HIDDEN_FEES_LEAD,
+      rest: `${NIGHT_RATE_LINE} ` + "Nothing changes without your say-so. If the job changes once the floor is up, we stop and ask you first.",
     },
     PHONE_ANSWER,
     {

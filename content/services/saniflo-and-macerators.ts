@@ -1,8 +1,11 @@
 import type { ServiceContent } from "../../lib/types";
 import {
+  COST_LEAD,
   COVERAGE_SHORT,
   GUARANTEE_SCOPE_LINE,
+  HIDDEN_FEES_LEAD,
   INSURED_LEAD,
+  NIGHT_RATE_LINE,
   PAYMENT_ANSWER,
   PAYMENT_FAQ,
   PHONE_ANSWER,
@@ -40,13 +43,13 @@ const sanifloAndMacerators: ServiceContent = {
     },
     {
       q: "What does it cost?",
-      lead: "The price is agreed before we start.",
+      lead: COST_LEAD,
       rest: "The plumber quotes on site before any work begins, or from a photo you send on WhatsApp, which is free.",
     },
     {
       q: "Any hidden fees?",
-      lead: "None, and no extra charge at night or weekends.",
-      rest: "Nothing changes without your say-so. If the unit turns out to need replacing, you hear that before anything else happens.",
+      lead: HIDDEN_FEES_LEAD,
+      rest: `${NIGHT_RATE_LINE} ` + "Nothing changes without your say-so. If the unit turns out to need replacing, you hear that before anything else happens.",
     },
     PHONE_ANSWER,
     {

@@ -33,7 +33,7 @@ interface Props {
 // the list in anything.
 export default function StraightAnswers({
   eyebrow = "Before you ring",
-  title = "Straight answers.",
+  title = "FAQs",
   answers,
   after,
   tinted = false,

@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { Phone, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
 import Button from "@/components/ui/Button";
 import HeroBackdrop from "@/components/HeroBackdrop";
-import { BOOKED_WORK_LINE, FREE_WHATSAPP_LINE, PRICE_PROCESS_LINE, SAME_DAY_LINE } from "@/lib/claims";
+import { BOOKED_WORK_LINE, FREE_WHATSAPP_LINE, PRICE_FACT_LINE, SAME_DAY_LINE } from "@/lib/claims";
 import type { HeroImageKey } from "@/lib/media";
 import { CALL_HREF, CALL_NUMBER_DISPLAY, WHATSAPP_URL } from "@/lib/site";
 
@@ -79,8 +79,8 @@ export default function ServiceHero({
   // belongs to. It adds nothing to either page the first-screen budget is measured on, and it
   // takes nothing away: PRICE_PROCESS_LINE and the appointment line both stay.
   const facts = booked
-    ? [FREE_WHATSAPP_LINE, PRICE_PROCESS_LINE, BOOKED_WORK_LINE]
-    : [PRICE_PROCESS_LINE, urgent ? SAME_DAY_LINE : BOOKED_WORK_LINE];
+    ? [FREE_WHATSAPP_LINE, PRICE_FACT_LINE, BOOKED_WORK_LINE]
+    : [PRICE_FACT_LINE, urgent ? SAME_DAY_LINE : BOOKED_WORK_LINE];
 
   return (
     <section id="hero" className="relative isolate overflow-hidden bg-paper">

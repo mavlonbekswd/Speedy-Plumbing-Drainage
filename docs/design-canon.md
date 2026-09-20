@@ -31,7 +31,8 @@ places (home, /services, every service page, every town page):
 - `part="figures"`: four left-aligned figures (24/7, 45 min, 1 year, 10,000) directly under the hero.
 - `part="ticks"`: the four tick points, the price sentence, and the guarantee line with its scope,
   lower on the page, directly before the navy call band (on the home page, before "Where we work").
-A page never renders one without the other: "1 year" is a figure, and the guarantee's scope
+The figures band is left-aligned; the ticks band is centred as one block (tick row and the three
+sentences under it), by the owner's instruction of 20 Sept 2026. A page never renders one without the other: "1 year" is a figure, and the guarantee's scope
 sentence lives in the ticks band. Both are thin bands: `py-10 md:py-12`, `bg-paper-2 border-t border-line`.
 
 ### Buttons: one style per role

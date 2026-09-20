@@ -1,9 +1,13 @@
 import type { ServiceContent } from "../../lib/types";
 import {
   ANSWERED_LINE,
+  CALL_OUT_FEE_LEAD,
+  COST_LEAD,
   COVERAGE_SHORT,
   GUARANTEE_SCOPE_LINE,
+  HIDDEN_FEES_LEAD,
   INSURED_LEAD,
+  NIGHT_RATE_LINE,
   PAYMENT_ANSWER,
   PAYMENT_FAQ,
   PHONE_ANSWER,
@@ -44,13 +48,13 @@ const emergencyPlumbing: ServiceContent = {
     },
     {
       q: "What does it cost?",
-      lead: "The price is agreed before we start.",
+      lead: COST_LEAD,
       rest: "The plumber quotes on site before any work begins, or from a photo you send on WhatsApp, which is free.",
     },
     {
       q: "Any hidden fees?",
-      lead: "None, and no extra charge at night or weekends.",
-      rest: "Nothing changes without your say-so. If the job turns out bigger once we are in, we stop and tell you first.",
+      lead: HIDDEN_FEES_LEAD,
+      rest: `${NIGHT_RATE_LINE} ` + "Nothing changes without your say-so. If the job turns out bigger once we are in, we stop and tell you first.",
     },
     PHONE_ANSWER,
     {
@@ -140,7 +144,7 @@ const emergencyPlumbing: ServiceContent = {
     },
     {
       q: "How is the price agreed?",
-      a: `${PRICE_PROCESS_LINE} The plumber looks at the job and gives you the price on site, and nothing starts until you say yes.`,
+      a: `${CALL_OUT_FEE_LEAD} ${PRICE_PROCESS_LINE} The plumber looks at the job and gives you the price on site, and nothing starts until you say yes.`,
     },
     {
       q: "Do you guarantee your work?",

@@ -23,6 +23,7 @@ import {
   SAME_DAY_DETAIL_LINE,
   SAME_DAY_LINE,
   SMALL_JOBS_LINE,
+  CALL_OUT_FEE_LEAD,
 } from "./claims";
 
 export { PAYMENT_FAQ } from "./claims";
@@ -49,7 +50,7 @@ export const COVERAGE_FAQ: Faq = {
 
 export const PRICE_FAQ: Faq = {
   q: "How is the price agreed?",
-  a: `${PRICE_PROCESS_LINE} ${FREE_WHATSAPP_LINE} ${NIGHT_RATE_LINE}`,
+  a: `${CALL_OUT_FEE_LEAD} ${PRICE_PROCESS_LINE} ${FREE_WHATSAPP_LINE} ${NIGHT_RATE_LINE}`,
 };
 
 /** The five from the specification, in the order the customer asks them. */

@@ -32,11 +32,11 @@ import {
 } from "@/lib/claims";
 import { GUARANTEE_FAQS } from "@/lib/faqs";
 import type { Step } from "@/lib/types";
-import { SITE_URL, TRADING_NAME, openGraphFor } from "@/lib/site";
+import { SITE_URL, TRADING_NAME, openGraphFor, REGISTERED_NAME } from "@/lib/site";
 
 const TITLE = `Our 1-year workmanship guarantee | ${TRADING_NAME}`;
 const DESCRIPTION =
-  "Twelve months on our workmanship, and we say what that covers. Materials are covered by their own maker's warranty. Ring the number on your invoice to claim.";
+  "Twelve months on our workmanship: what the guarantee covers, what it does not, and how to claim. Contact us first and we inspect and put it right.";
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -46,36 +46,48 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
 };
 
+// The guarantee's terms, as the plumbers give them to customers (owner, 20 Sept 2026). The four
+// paragraphs of GUARANTEE_TERMS are his wording and are rendered verbatim: do not tidy them. The
+// two lists above them are the same terms broken into lines a person can scan, item for item,
+// and must never say more than the terms do. Evidence: ARIM/speedy/claims-evidence/guarantee-12-month.md.
+const GUARANTEE_TERMS: readonly string[] = [
+  `All work carried out by ${REGISTERED_NAME} is covered by a 12-month workmanship guarantee, unless otherwise stated.`,
+  "The guarantee covers faults directly caused by our workmanship. It does not cover normal wear and tear, pre-existing faults, misuse, accidental damage, manufacturer defects, customer-supplied parts, recurring drain blockages, or work altered or repaired by another person or contractor.",
+  "If you believe there is an issue with our work, please contact us first and allow us the opportunity to inspect and rectify the problem.",
+  "Your statutory rights are not affected.",
+];
+
 const COVERED: readonly CoverItem[] = [
-  { lead: "Our workmanship", rest: "on every job we do, including hot water cylinder work." },
+  { lead: "Faults directly caused by our workmanship", rest: "on all work we carry out, unless otherwise stated." },
   { lead: "12 months", rest: "starting the day the job is done." },
-  { lead: "The same 12 months", rest: "whether the job took ten minutes or a full day." },
-  { lead: "We come back", rest: "and put it right if the work fails because of the way we did it." },
+  { lead: "Hot water cylinder work", rest: "is covered on the same terms." },
+  { lead: "We inspect and put it right", rest: "when the fault is down to the way we did the work." },
 ];
 
 const NOT_COVERED: readonly CoverItem[] = [
-  { lead: "Materials", rest: "are covered by their own maker's warranty." },
-  { lead: "A new blockage", rest: "from a different cause." },
+  { lead: "Normal wear and tear", rest: "and faults that were already there." },
+  { lead: "Misuse", rest: "or accidental damage." },
+  { lead: "Manufacturer defects.", rest: "Materials are covered by their own maker's warranty." },
   { lead: "Parts you supplied yourself", rest: "and asked us to fit." },
-  { lead: "Later work by someone else", rest: "on the same pipework." },
-  { lead: "Misuse", rest: "or damage after we left." },
+  { lead: "Recurring drain blockages.", rest: "" },
+  { lead: "Work altered or repaired", rest: "by another person or contractor." },
 ];
 
 const CLAIM_STEPS: readonly Step[] = [
   {
-    icon: "clipboard",
-    title: "Find your invoice",
-    body: "It carries the number to ring and the record of what we did on the day.",
+    icon: "phone",
+    title: "Contact us first",
+    body: "Ring us or message us on WhatsApp before anyone else touches the work. Have your invoice to hand and tell us what has happened.",
   },
   {
-    icon: "phone",
-    title: "Ring the number on your invoice",
-    body: "Tell us what has happened and when you noticed it. A photo on WhatsApp helps.",
+    icon: "clipboard",
+    title: "We inspect it",
+    body: "We book you in and a plumber looks at the work. A photo on WhatsApp beforehand helps.",
   },
   {
     icon: "wrench",
-    title: "A plumber comes back",
-    body: "We book you in, a plumber looks at it, and we put our work right.",
+    title: "We put it right",
+    body: "If the fault was caused by our workmanship, we rectify it.",
   },
 ];
 
@@ -134,12 +146,22 @@ export default function GuaranteePage() {
               </AnimateIn>
             </div>
 
-            <div className="mt-8 flex max-w-[64ch] flex-col gap-2 text-[15.5px] leading-[1.7] text-slate">
-              <p>This guarantee is in addition to your statutory rights and does not replace them.</p>
-              <p>
-                {PRICE_PROCESS_LINE} {NIGHT_RATE_LINE}
-              </p>
-            </div>
+            <AnimateIn>
+              <div className="mt-8 rounded-card border border-line bg-white p-6 shadow-card">
+                <h3 className="font-display text-[19px] font-bold leading-snug text-brand">
+                  12-Month Workmanship Guarantee
+                </h3>
+                <div className="mt-3 flex max-w-[72ch] flex-col gap-3 text-[15.5px] leading-[1.7] text-slate">
+                  {GUARANTEE_TERMS.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                </div>
+              </div>
+            </AnimateIn>
+
+            <p className="mt-6 max-w-[64ch] text-[15.5px] leading-[1.7] text-slate">
+              {PRICE_PROCESS_LINE} {NIGHT_RATE_LINE}
+            </p>
           </div>
         </section>
 

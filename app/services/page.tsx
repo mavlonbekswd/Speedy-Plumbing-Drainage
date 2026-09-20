@@ -27,7 +27,7 @@ import {
   AVAILABILITY_LINE,
   COVERAGE_SHORT,
   DEFAULT_CTA_BAND,
-  PRICE_PROCESS_LINE,
+  PRICE_FACT_LINE,
 } from "@/lib/claims";
 import { SERVICES_HUB_FAQS } from "@/lib/faqs";
 import { BOOKED_SERVICES, URGENT_SERVICES } from "@/lib/services";
@@ -75,7 +75,7 @@ export default function ServicesHubPage() {
           crumbs={<Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Services" }]} />}
           eyebrow="What we do"
           h1="Pick the service for your problem."
-          facts={[PRICE_PROCESS_LINE, AVAILABILITY_LINE]}
+          facts={[PRICE_FACT_LINE, AVAILABILITY_LINE]}
           ctaLocation="services_hub"
           // The same card the home page and every service page carry, so the three page types a
           // visitor actually lands on offer the same third option. It sits after the telephone

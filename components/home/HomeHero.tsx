@@ -2,7 +2,7 @@ import { Phone, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
 import Button from "@/components/ui/Button";
 import CallbackInline from "@/components/CallbackInline";
 import HeroBackdrop from "@/components/HeroBackdrop";
-import { COVERAGE_SHORT, PRICE_PROCESS_LINE } from "@/lib/claims";
+import { COVERAGE_SHORT, PRICE_FACT_LINE } from "@/lib/claims";
 import { CALL_HREF, CALL_NUMBER_DISPLAY, WHATSAPP_URL } from "@/lib/site";
 
 // The first screen of the home page, built to the same contract as components/ServiceHero.tsx:
@@ -31,13 +31,13 @@ function splitLead(line: string): { lead: string; rest: string } {
 
 /** The one sentence that separates the urgent half of the work from the booked half. */
 const WHEN_LINE =
-  "Emergencies same day, with you within 45 minutes. Everything else booked for a time that suits you.";
+  "Emergencies same day, with you within 45 minutes";
 
 // Two facts, not three. The owner's review of 19 September 2026 cut the answering sentence out of
 // the first screen, and nothing was put back in its place: at 390x844 the first screen is a
 // decision (the headline, the number, WhatsApp) and every line added to it pushes the number
 // down the page.
-const FACTS = [PRICE_PROCESS_LINE, WHEN_LINE];
+const FACTS = [PRICE_FACT_LINE, WHEN_LINE];
 
 export default function HomeHero() {
   return (
@@ -51,7 +51,7 @@ export default function HomeHero() {
           </p>
 
           <h1 className="mb-5 text-pretty font-display text-[clamp(38px,4.6vw,62px)] font-extrabold leading-[0.98] text-brand">
-            Burst pipe or blocked drain? Ring us. We will be with you.
+            Burst pipe or blocked drain? Ring us. We will be with you
           </h1>
 
           <div className="mb-3 flex flex-col gap-3 sm:flex-row">
