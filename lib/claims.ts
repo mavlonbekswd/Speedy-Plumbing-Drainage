@@ -196,12 +196,25 @@ export const PHONE_ANSWER: Answer = {
  * work is finished, by cash, card or bank transfer.
  */
 // Reworded 20 Sept 2026 to carry the call-out fee, and reworded again 27 September 2026 when the
-// owner took the fee off the site. The card now says what is settled and nothing more: you pay
-// for the work when it is done, at the price you already agreed. It does not say there is no
-// other charge, because saying a fee is absent is the other half of the same claim.
+// owner took the fee off the site. The card says what is settled and nothing more: you pay for the
+// work when it is done, at the price you already agreed. It does not say there is no other charge,
+// because saying a fee is absent is the other half of the same claim.
+//
+// ⚠ THE LEAD IS AN AD LINE'S ONLY SUPPORT. "You pay once the work is finished." is the exact
+// wording six live ads need — the headline "Pay Once The Work Is Finished" on Drainage D-A, Drain
+// Cleaning DC-A and DC-B, Repairs R-A, Toilet Repairs TR-A and Hot Water H-B — and the phrase the
+// join scripts ARIM/speedy/bulk-c2-2026-09-20/verify_c2.py and bulk-c3-2026-09-20/verify_c3.py
+// search for. It read "You pay for the work once it is finished." until 27 September 2026, which
+// says the same thing in words that do not contain the phrase, and the join failed on six ads
+// across /services/blocked-drains, /drain-cleaning, /leak-repairs, /toilet-repairs, /hot-water and
+// every town page. Do not reword it. Claim: the payment terms the owner settled on 19 September
+// 2026 (ARIM/speedy/claims-evidence/payment-terms.md); the wording is the change, not the fact.
+//
+// This card is answer 8 on every service page AND on every town page (components/TownPage.tsx
+// renders the lead service's answers), which is why one constant covers every page the ads land on.
 export const PAYMENT_ANSWER: Answer = {
   q: "How do I pay?",
-  lead: "You pay for the work once it is finished.",
+  lead: "You pay once the work is finished.",
   rest: "Cash, card or bank transfer. The price is the one you agreed before we started.",
 };
 
@@ -249,6 +262,11 @@ export const MUST_RENDER: readonly MustRenderRule[] = [
   { label: "No extra charge at night or weekends", test: anywhere("No extra charge at night or weekends") },
   { label: "The price is agreed before we start", test: anywhere("The price is agreed before we start") },
   { label: "No Hidden Fees. No Rip Offs.", test: anywhere(NO_HIDDEN_FEES) },
+  // Added 27 September 2026 after the phrase left PAYMENT_ANSWER's lead and six live ads lost
+  // their landing-page support at once. The headline is "Pay Once The Work Is Finished" on
+  // Drainage D-A, Drain Cleaning DC-A and DC-B, Repairs R-A, Toilet Repairs TR-A and Hot Water
+  // H-B, and this rule is what stops a reword of the payment card breaking them again.
+  { label: "Pay once the work is finished, the support for six live ad headlines", test: anywhere("once the work is finished") },
   {
     label: "12-month guarantee on our workmanship, with the materials scope beside it",
     test: bothAnywhere("12-month guarantee on our workmanship", "Materials are covered by their own maker's warranty"),

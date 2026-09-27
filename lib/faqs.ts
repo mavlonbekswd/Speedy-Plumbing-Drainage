@@ -51,9 +51,16 @@ export const COVERAGE_FAQ: Faq = {
 
 // Opens with the answer, which is the process: there is no figure on this site to open with since
 // the owner took the call-out fee off it on 27 September 2026. His line follows the process claim.
+//
+// ⚠ "You approve the cost first." is sitelink SL1's description line 1 in the live account, and
+// this answer is its only support on the home page: the phrase left the page when the long-form
+// price paragraph was cut, and ARIM/speedy/bulk-c2-2026-09-20/verify_c2.py and
+// bulk-c3-2026-09-20/verify_c3.py both fail on HOME without it. PRICE_FAQ renders on /, /services
+// and /contact. Do not drop the sentence. It is the same approved claim as PRICE_NOTE, which has
+// carried the words since the build.
 export const PRICE_FAQ: Faq = {
   q: "How is the price agreed?",
-  a: `${PRICE_PROCESS_LINE}. ${NO_HIDDEN_FEES} ${FREE_WHATSAPP_LINE} ${NIGHT_RATE_LINE}`,
+  a: `You approve the cost first. ${PRICE_PROCESS_LINE}. ${NO_HIDDEN_FEES} ${FREE_WHATSAPP_LINE} ${NIGHT_RATE_LINE}`,
 };
 
 /**

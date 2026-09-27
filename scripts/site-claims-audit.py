@@ -57,6 +57,12 @@ CLAIMS = {
     # The out-of-hours wording, 27 Sept 2026. The account bids on out-of-hours terms and an ad
     # may only say what its landing page renders.
     "Out of hours wording on the page": r"out of hours",
+    # Two phrases live ad copy depends on, checked here as well as in MUST_RENDER because these
+    # are the ones that cost money the moment they stop rendering.
+    # "Pay Once The Work Is Finished": six headlines (D-A, DC-A, DC-B, R-A, TR-A, H-B).
+    "Pay once the work is finished (6 ad headlines)": r"once the work is finished",
+    # Sitelink SL1 description line 1, which needs the home page.
+    "You approve the cost first (sitelink SL1)": r"you approve the cost first",
 }
 
 # ---------------------------------------------------------------------------
