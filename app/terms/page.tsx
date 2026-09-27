@@ -1,11 +1,15 @@
 // Website terms of use, and nothing more.
 //
 // The deliberate limit: this page governs the USE OF THIS WEBSITE. It sets no term of any job.
-// There is no cancellation fee, no deposit, no call-out fee, no minimum charge, no payment
-// deadline, no late-payment interest and no liability cap on this site, because none of those
-// has been settled by the owner and a page that invented one would be inventing a contract the
-// business does not have. Wherever a reader would expect such a term, the honest answer is the
-// one below: the terms of a job are agreed with you directly before work starts.
+// It states no cancellation fee, no deposit, no minimum charge, no payment deadline, no
+// late-payment interest and no liability cap, because none of those has been settled by the
+// owner and a page that invented one would be inventing a contract the business does not have.
+// Wherever a reader would expect such a term, the honest answer is the one below: the terms of a
+// job are agreed with you directly before work starts.
+//
+// It says nothing about a call-out fee EITHER WAY. The fee came off the site on 27 September
+// 2026 (owner), and "there is no call-out fee" is a banned pattern in lib/claims.ts: asserting a
+// sometimes-fee is absent is the more dangerous half of the same claim.
 //
 // Every shared sentence comes from lib/claims.ts (PRICE_PROCESS_LINE, GUARANTEE_LINE with its
 // scope, PAYMENT_ANSWER) so that a change of fact is a change in one file.

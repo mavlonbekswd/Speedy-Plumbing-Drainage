@@ -52,16 +52,22 @@ CLAIMS = {
     "WhatsApp photo quote": r"whats\s?app",
     "Same day service": r"same.day",
     "Small jobs welcome": r"small jobs? (are )?welcome|dripping tap is a job",
+    # The owner's line, 27 Sept 2026, standing where the £49 call-out fee used to stand.
+    "No Hidden Fees. No Rip Offs.": r"no hidden fees\.\s*no rip offs",
+    # The out-of-hours wording, 27 Sept 2026. The account bids on out-of-hours terms and an ad
+    # may only say what its landing page renders.
+    "Out of hours wording on the page": r"out of hours",
 }
 
 # ---------------------------------------------------------------------------
 # What must be nowhere. Each of these is a claim Speedy does not hold or has forbidden.
 # ---------------------------------------------------------------------------
 FORBIDDEN = {
-    # One figure is allowed, in one wording: "£49 call-out fee" (owner, 20 Sept 2026).
-    "a price figure other than the £49 call-out fee": r"(&pound;|£)\s?(?!49 call-out fee\b)\d",
+    # No figure is allowed. The "£49 call-out fee" carve-out was released by the owner on
+    # 20 Sept 2026 and withdrawn by him on 27 Sept 2026, so the rule is absolute again.
+    "a price figure of any kind": r"(&pound;|£)\s?\d",
     "the gas credential, in any casing or direction": r"gas\s*safe",
-    "a call-out fee named without its figure, or denied": r"(?<!£49 )call[-\s]?out\s+(fee|charge)|free\s+call[-\s]?out|no\s+call[-\s]?out",
+    "a call-out fee named, in either direction": r"call[-\s]?out\s+(fee|charge)|free\s+call[-\s]?out|no\s+call[-\s]?out",
     "an aggregateRating": r"aggregate\s?rating",
     "a star rating or review count": r"\b\d[\d,]*\s+reviews?\b|\b\d(\.\d)?\s*[-\s]?star\b",
 }

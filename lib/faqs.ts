@@ -23,7 +23,8 @@ import {
   SAME_DAY_DETAIL_LINE,
   SAME_DAY_LINE,
   SMALL_JOBS_LINE,
-  CALL_OUT_FEE_LEAD,
+  NO_HIDDEN_FEES,
+  PHONE_ANSWERED_SENTENCE,
 } from "./claims";
 
 export { PAYMENT_FAQ } from "./claims";
@@ -48,9 +49,26 @@ export const COVERAGE_FAQ: Faq = {
   a: `Very likely. We cover ${COVERAGE_LINE} Tell us your postcode when you ring and you get a straight yes or no.`,
 };
 
+// Opens with the answer, which is the process: there is no figure on this site to open with since
+// the owner took the call-out fee off it on 27 September 2026. His line follows the process claim.
 export const PRICE_FAQ: Faq = {
   q: "How is the price agreed?",
-  a: `${CALL_OUT_FEE_LEAD} ${PRICE_PROCESS_LINE} ${FREE_WHATSAPP_LINE} ${NIGHT_RATE_LINE}`,
+  a: `${PRICE_PROCESS_LINE}. ${NO_HIDDEN_FEES} ${FREE_WHATSAPP_LINE} ${NIGHT_RATE_LINE}`,
+};
+
+/**
+ * Added 27 September 2026 on the owner's instruction ("Add out of hours on wording on the FAQs").
+ * The account bids on [out of hours plumber near me] and "out of hours plumber", and an ad may
+ * only say what its landing page renders, so the literal words have to be ON the page: this
+ * answer is the only place on the site that carries them.
+ *
+ * Every fact in it is already established elsewhere on the site — 24/7 including bank holidays,
+ * a plumber answers, 45 minutes, no night or weekend surcharge — and nothing is added: no
+ * credential, no review count, no figure, and "aim to" rather than a guaranteed time.
+ */
+export const OUT_OF_HOURS_FAQ: Faq = {
+  q: "Do you do out of hours call-outs?",
+  a: `Yes. We are an out of hours plumber every night, weekend and bank holiday. ${PHONE_ANSWERED_SENTENCE} We aim to be with you within 45 minutes. ${NIGHT_RATE_LINE}`,
 };
 
 /** The five from the specification, in the order the customer asks them. */
@@ -95,12 +113,12 @@ export const WHO_WORKS_FAQ: Faq = {
 
 // Per-page sets. /faqs was removed on 19 Sept 2026 (owner): each page now answers the questions
 // that belong to it, and carries its own FAQPage schema over exactly the list it renders.
-export const HOME_FAQS: readonly Faq[] = [PRICE_FAQ, ARRIVAL_FAQ, COVERAGE_FAQ, GUARANTEE_FAQ, PAYMENT_FAQ, OUT_OF_SCOPE_FAQ];
+export const HOME_FAQS: readonly Faq[] = [PRICE_FAQ, ARRIVAL_FAQ, OUT_OF_HOURS_FAQ, COVERAGE_FAQ, GUARANTEE_FAQ, PAYMENT_FAQ, OUT_OF_SCOPE_FAQ];
 export const SERVICES_HUB_FAQS: readonly Faq[] = [PRICE_FAQ, SMALL_JOBS_FAQ, PHOTO_QUOTE_FAQ, OUT_OF_SCOPE_FAQ];
 export const AREAS_FAQS: readonly Faq[] = [COVERAGE_FAQ, ARRIVAL_FAQ, HOURS_FAQ];
 export const ABOUT_FAQS: readonly Faq[] = [WHO_WORKS_FAQ, WHO_COMES_FAQ, INSURED_FAQ];
 export const GUARANTEE_FAQS: readonly Faq[] = [GUARANTEE_FAQ, INSURED_FAQ, PAYMENT_FAQ];
-export const CONTACT_FAQS: readonly Faq[] = [HOURS_FAQ, PHOTO_QUOTE_FAQ, PRICE_FAQ, PAYMENT_FAQ];
+export const CONTACT_FAQS: readonly Faq[] = [HOURS_FAQ, OUT_OF_HOURS_FAQ, PHOTO_QUOTE_FAQ, PRICE_FAQ, PAYMENT_FAQ];
 
 /**
  * FAQ 1 on every town page, built locally so each URL carries a sentence nothing else has.

@@ -28,15 +28,16 @@ test.describe.configure({ timeout: 120_000 });
 const RAW_RULES: { label: string; re: RegExp }[] = [
   // There is no fee, and none may be stated — as a number, as an absence, or as a discount.
   // Stating a sometimes-fee as absent is drip pricing under the DMCC, the more dangerous half.
-  // One figure is allowed, in one wording: "£49 call-out fee" (owner, 20 Sept 2026;
-  // lib/claims.ts CALL_OUT_FEE). Any other figure, or the fee named any other way, fails.
-  { label: "a currency figure other than the call-out fee", re: /(?:£|&pound;)\s?(?!49 call-out fee\b)\d/ },
+  // NO figure is allowed. The one exception, "£49 call-out fee", was released by the owner on
+  // 20 September 2026 and WITHDRAWN by him on 27 September 2026 ("Remove the £49 call out fee
+  // text from the website"), so this rule is back to the absolute form it started in.
+  { label: "a currency figure", re: /(?:£|&pound;)\s?\d/ },
   // Registration is held by a BUSINESS. Claiming it is a per-se banned practice under the DMCC
   // Act 2024 Sch. 20 — criminal liability, not an ASA ruling. The denial is banned too: it is
   // true, but it contradicts the boiler and hot-water pages this site exists to sell, and the
   // owner never authorised the disclosure. One pattern covers both directions.
   { label: "the gas credential, in any casing and in either direction", re: /gas\s*safe/i },
-  { label: "a call-out fee named without its figure, or denied", re: /(?<!£49 )call[-\s]?out\s+(fee|charge)|free\s+call[-\s]?out|no\s+call[-\s]?out/i },
+  { label: "a call-out fee named, in either direction", re: /call[-\s]?out\s+(fee|charge)|free\s+call[-\s]?out|no\s+call[-\s]?out/i },
   { label: "an aggregateRating", re: /aggregate\s?rating/i },
   // The `u` flag matters: without it the emoji is matched as two lone surrogates, so any other
   // emoji in the same plane — a flag, a house, a droplet — reports as a star rating.
@@ -75,7 +76,7 @@ for (const route of allRoutes) {
   test(`nothing forbidden reaches the served bytes — ${route}`, () => {
     const raw = pages.get(route)!;
     // Both spellings: `&pound;49` and `£49` are the same claim, and only one of them is a byte
-    // match for the pattern.
+    // match for the pattern. The decode also catches an entity-escaped £ in JSON-LD.
     const decoded = unescapeEntities(raw);
     const hits = RAW_RULES.filter((rule) => rule.re.test(raw) || rule.re.test(decoded)).map((r) => r.label);
     expect(hits, `${route} carries: ${hits.join("; ")}`).toEqual([]);

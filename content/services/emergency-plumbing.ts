@@ -1,13 +1,13 @@
 import type { ServiceContent } from "../../lib/types";
+import { OUT_OF_HOURS_FAQ } from "../../lib/faqs";
 import {
-  ANSWERED_LINE,
-  CALL_OUT_FEE_LEAD,
   COST_LEAD,
   COVERAGE_SHORT,
   GUARANTEE_SCOPE_LINE,
   HIDDEN_FEES_LEAD,
   INSURED_LEAD,
   NIGHT_RATE_LINE,
+  NO_HIDDEN_FEES,
   PAYMENT_ANSWER,
   PAYMENT_FAQ,
   PHONE_ANSWER,
@@ -138,13 +138,16 @@ const emergencyPlumbing: ServiceContent = {
       q: "What counts as a plumbing emergency?",
       a: "Water where it should not be, no water at all, or the only toilet in the house out of action. If you are not sure, ring and describe it. We will tell you if it can wait until morning.",
     },
-    {
-      q: "Do you answer at night and at weekends?",
-      a: `Yes. 24/7, including bank holidays, and there is no extra charge for it. ${ANSWERED_LINE}`,
-    },
+    // The out-of-hours question, 27 September 2026 (owner: "Add out of hours on wording on the
+    // FAQs"). It REPLACES "Do you answer at night and at weekends?", which asked the same thing
+    // in words no ad bids on: the account bids on [out of hours plumber near me] and "out of
+    // hours plumber", and an ad may only say what its landing page renders. This page is where
+    // those keywords land, so the literal words have to be here, and the page keeps five FAQs
+    // (lib/services.ts takes three to five). Shared wording, so lib/faqs.ts owns it.
+    OUT_OF_HOURS_FAQ,
     {
       q: "How is the price agreed?",
-      a: `${CALL_OUT_FEE_LEAD} ${PRICE_PROCESS_LINE} The plumber looks at the job and gives you the price on site, and nothing starts until you say yes.`,
+      a: `${PRICE_PROCESS_LINE}. ${NO_HIDDEN_FEES} The plumber looks at the job and gives you the price on site, and nothing starts until you say yes.`,
     },
     {
       q: "Do you guarantee your work?",

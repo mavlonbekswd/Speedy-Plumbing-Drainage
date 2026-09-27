@@ -1,9 +1,9 @@
 import { CheckCircle } from "@phosphor-icons/react/dist/ssr";
 import {
   ARRIVAL_LINE,
-  CALL_OUT_BLOCK_LINE,
   GUARANTEE_LINE,
   GUARANTEE_SCOPE_LINE,
+  NO_HIDDEN_FEES_BLOCK_LINE,
   PRICE_BLOCK_LINE,
   TICK_CHIPS,
 } from "@/lib/claims";
@@ -77,7 +77,7 @@ export default function TickChips({
         </ul>
 
         <p className="mt-5 mx-auto max-w-[68ch] text-center text-[14px] leading-[1.6] text-slate">
-          <strong className="font-semibold text-ink">{CALL_OUT_BLOCK_LINE}</strong>
+          <strong className="font-semibold text-ink">{NO_HIDDEN_FEES_BLOCK_LINE}</strong>
         </p>
 
         <p className="mt-1 mx-auto max-w-[68ch] text-center text-[14px] leading-[1.6] text-slate">{PRICE_BLOCK_LINE}</p>
