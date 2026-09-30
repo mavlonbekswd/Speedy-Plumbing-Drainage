@@ -47,13 +47,13 @@ CLAIMS = {
     "12-month guarantee on workmanship": r"12[\s-]month guarantee|guaranteed for 12 months",
     "Materials covered by the maker's warranty": r"maker.{1,3}s (own )?warranty",
     "Fully insured": r"fully insured",
-    "5+ years' trade experience": r"5\+?\s*years",
+    "15 years' trade experience": r"15\s*years",
     "10,000 jobs between them": r"10,?000 jobs",
     "WhatsApp photo quote": r"whats\s?app",
     "Same day service": r"same.day",
     "Small jobs welcome": r"small jobs? (are )?welcome|dripping tap is a job",
     # The owner's line, 27 Sept 2026, standing where the £49 call-out fee used to stand.
-    "No Hidden Fees. No Rip Offs.": r"no hidden fees\.\s*no rip offs",
+    "No Hidden Fees.": r"no hidden fees\.",
     # The out-of-hours wording, 27 Sept 2026. The account bids on out-of-hours terms and an ad
     # may only say what its landing page renders.
     "Out of hours wording on the page": r"out of hours",

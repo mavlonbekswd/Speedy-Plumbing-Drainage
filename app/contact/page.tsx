@@ -69,7 +69,6 @@ export default function ContactPage() {
           sub="Ring us, message us on WhatsApp, or leave your number and we will ring you back."
           ctaLocation="contact_hero"
           showCall={false}
-          showWhatsApp={false}
         />
 
         {/* One block, two columns from lg. The details are first in the markup, so on a phone the
@@ -95,23 +94,22 @@ export default function ContactPage() {
                     Call {CALL_NUMBER_DISPLAY}
                   </Button>
 
-                  <Button
-                    as="a"
-                    href={WHATSAPP_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    variant="whatsapp"
-                    size="lg"
-                    className="w-full"
-                    data-cta="whatsapp"
-                    data-cta-location="contact_details"
-                    data-cta-variant="secondary_button"
-                  >
-                    <WhatsappLogo size={20} weight="fill" aria-hidden />
-                    WhatsApp us
-                  </Button>
 
-                  <p className="text-[14.5px] leading-[1.6] text-slate">{FREE_WHATSAPP_LINE}</p>
+                  <p className="text-[14.5px] leading-[1.6] text-slate">
+                    {FREE_WHATSAPP_LINE}{" "}
+                    <a
+                      href={WHATSAPP_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-cta="whatsapp"
+                      data-cta-location="contact_details"
+                      data-cta-variant="text_link"
+                      className="inline-flex min-h-[44px] items-center gap-1.5 font-semibold text-brand underline underline-offset-4"
+                    >
+                      <WhatsappLogo size={16} weight="fill" aria-hidden className="text-whatsapp" />
+                      WhatsApp us
+                    </a>
+                  </p>
                 </div>
 
                 <p>

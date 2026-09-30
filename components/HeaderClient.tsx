@@ -1,11 +1,11 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type FocusEvent, type PointerEvent } from "react";
-import { CaretDown, List, Phone, WhatsappLogo, X } from "@phosphor-icons/react/dist/ssr";
+import { CaretDown, List, Phone, X } from "@phosphor-icons/react/dist/ssr";
 import Button from "@/components/ui/Button";
 import Logo from "@/components/Logo";
 import type { NavLink } from "@/lib/nav";
-import { CALL_HREF, CALL_NUMBER_DISPLAY, WHATSAPP_URL } from "@/lib/site";
+import { CALL_HREF, CALL_NUMBER_DISPLAY } from "@/lib/site";
 
 // Sticky paper bar, 64px, one hairline underneath and nothing else. No wash, no shadow: the
 // only things allowed to draw the eye up here are the two pills on the right.
@@ -324,23 +324,9 @@ export default function HeaderClient({
         )}
 
         <div className="flex items-center gap-2.5">
-          {/* Below 640px both pills leave the header: the number lives in the call bar and in
-              the menu, which is where a phone user's thumb already is. */}
-          <Button
-            as="a"
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            variant="whatsapp"
-            size="lg"
-            className="hidden sm:inline-flex"
-            data-cta="whatsapp"
-            data-cta-location="header"
-            data-cta-variant="secondary_button"
-          >
-            <WhatsappLogo size={18} weight="fill" aria-hidden />
-            WhatsApp
-          </Button>
+          {/* Below 640px the number leaves the header for the call bar and the menu, which is
+              where a phone user's thumb already is. The Call pill is the header's one action:
+              the WhatsApp pill came out on 30 Sept 2026 (owner: the aim is more calls). */}
 
           <Button
             as="a"
@@ -471,22 +457,6 @@ export default function HeaderClient({
             >
               <Phone size={18} weight="fill" aria-hidden />
               Call {CALL_NUMBER_DISPLAY}
-            </Button>
-            <Button
-              as="a"
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={close}
-              variant="whatsapp"
-              size="lg"
-              className="w-full"
-              data-cta="whatsapp"
-              data-cta-location="header_mobile_menu"
-              data-cta-variant="secondary_button"
-            >
-              <WhatsappLogo size={18} weight="fill" aria-hidden />
-              WhatsApp us
             </Button>
           </div>
         </div>

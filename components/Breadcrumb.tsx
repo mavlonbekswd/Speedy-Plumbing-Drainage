@@ -8,6 +8,10 @@ export interface Crumb {
 }
 
 /**
+ * The trail and its BreadcrumbList in one component. Since 30 Sept 2026 (owner: "hide this kind
+ * of links") the trail is visually hidden with `sr-only`: the links and the schema are still in
+ * the served HTML for crawlers and screen readers, nothing shows on the page.
+ *
  * The visible trail and its BreadcrumbList in one component, so a page cannot ship one without
  * the other and the two can never disagree about the order.
  *
@@ -34,7 +38,7 @@ export default function Breadcrumb({ items, className = "" }: { items: Crumb[]; 
   };
 
   return (
-    <nav aria-label="Breadcrumb" className={`text-[13px] font-medium text-steel ${className}`}>
+    <nav aria-label="Breadcrumb" className={`sr-only ${className}`}>
       <ol className="flex flex-wrap items-center gap-x-2 gap-y-1">
         {items.map((crumb, index) => (
           <li key={`${crumb.name}-${index}`} className="inline-flex items-center gap-2">

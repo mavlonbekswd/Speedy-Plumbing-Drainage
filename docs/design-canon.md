@@ -8,8 +8,8 @@ genuinely needed, add it here first.
 
 Heroes: every static page renders `components/static/StaticHero.tsx` (through `components/hub/HubHero.tsx`
 on the two hub pages); service and town pages render `components/ServiceHero.tsx`; the home page
-`components/home/HomeHero.tsx`. All three share one order: breadcrumb, eyebrow, H1, Call then
-WhatsApp, fact lines, sub, with `components/HeroBackdrop.tsx` behind at 50% opacity.
+`components/home/HomeHero.tsx`. All three share one order (30 Sept 2026): H1 first, the Call pill, then the fact lines and sub. No eyebrow in a hero, no WhatsApp pill, and the breadcrumb trail is `sr-only`, so nothing sits above the H1. The section-heading eyebrow below is unaffected. Old order for the record: breadcrumb, eyebrow, H1, Call then
+fact lines, sub, with `components/HeroBackdrop.tsx` behind at 50% opacity.
 
 ## The roles
 
@@ -38,7 +38,7 @@ sentence lives in the ticks band. Both are thin bands: `py-10 md:py-12`, `bg-pap
 ### Buttons: one style per role
 All buttons go through `components/ui/Button.tsx`. Roles and their one style:
 - Primary call: `variant="primary"`. Hero size `xl` (60px). Inside a navy band or a card: size `lg` (52px).
-- WhatsApp: `variant="whatsapp"` on light backgrounds, the outlined light variant on navy bands. Same size as the call button beside it, always. Measured drift: on /contact the Call button is 60px and the WhatsApp button beside it is 52px. Make the pair match.
+- WhatsApp: no pill anywhere since 30 Sept 2026 (owner: the aim is more calls). The Call pill stands alone in every hero, band, the header and the mobile bar. WhatsApp survives as a text link in the footer and on the contact page, so the free photo quote the copy and the ads mention stays reachable. Measured drift: on /contact the Call button is 60px and the WhatsApp button beside it is 52px. Make the pair match.
 - Callback ("Book a callback", `data-cta="book_anchor"`): measured drift and the owner's third and fourth screenshots: a WHITE outlined 52px pill under the answer cards, and a NAVY filled 44px pill inside the "Not on the list?" box, on the same page. Canon: `variant="dark"` size `lg` (navy, 52px) everywhere a callback button appears on a light background. Text-link callbacks ("Ask us to ring you" under hero buttons) stay text links.
 - Form submit: amber, 56px, as now. The postcode "Check" button: 52px as now.
 - Accordion rows (FAQ items and problem-grid items): ONE row height and padding. Measured drift: FAQ rows 72px, problem rows 64px. Make both 64px on desktop with the same title size (17px `font-display font-bold`) and the same plus/minus control.

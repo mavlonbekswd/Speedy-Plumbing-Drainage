@@ -99,7 +99,6 @@ export default function PrivacyPage() {
           h1="Privacy notice."
           ctaLocation="privacy_page"
           showCall={false}
-          showWhatsApp={false}
           sub={
             <>
               <p className="text-[14px] font-medium text-steel">Last updated: {LAST_UPDATED}</p>

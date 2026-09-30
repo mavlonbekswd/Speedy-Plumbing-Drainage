@@ -1,11 +1,11 @@
-import { ArrowRight, Phone, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, Phone } from "@phosphor-icons/react/dist/ssr";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileCallBar from "@/components/MobileCallBar";
 import Button from "@/components/ui/Button";
 import { PRICE_PROCESS_LINE } from "@/lib/claims";
 import { PUBLISHED_SERVICES, serviceHref } from "@/lib/services";
-import { CALL_HREF, CALL_NUMBER_DISPLAY, WHATSAPP_URL } from "@/lib/site";
+import { CALL_HREF, CALL_NUMBER_DISPLAY } from "@/lib/site";
 
 // A real 404: Next serves this with a 404 status, which is the whole point of it existing
 // alongside the middleware redirect. Middleware sends an unknown path to a service page, but
@@ -49,21 +49,6 @@ export default function NotFound() {
               Call {CALL_NUMBER_DISPLAY}
             </Button>
 
-            <Button
-              as="a"
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              variant="whatsapp"
-              size="xl"
-              className="w-full sm:w-auto"
-              data-cta="whatsapp"
-              data-cta-location="not_found"
-              data-cta-variant="secondary_button"
-            >
-              <WhatsappLogo size={20} weight="fill" aria-hidden />
-              WhatsApp us
-            </Button>
           </div>
 
           {PUBLISHED_SERVICES.length > 0 && (

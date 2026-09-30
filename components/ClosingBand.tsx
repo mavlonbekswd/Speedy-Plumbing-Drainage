@@ -1,7 +1,7 @@
-import { Phone, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
+import { Phone } from "@phosphor-icons/react/dist/ssr";
 import AnimateIn from "@/components/AnimateIn";
 import Button from "@/components/ui/Button";
-import { CALL_HREF, CALL_NUMBER_DISPLAY, WHATSAPP_URL } from "@/lib/site";
+import { CALL_HREF, CALL_NUMBER_DISPLAY } from "@/lib/site";
 
 // The last thing above the footer. The SAME band as CTABand, to the pixel: same 64px rhythm, same
 // 38px heading, same pair of buttons. They were 64px/38px and 56px/34px on the same page until
@@ -32,21 +32,6 @@ export default function ClosingBand({ heading, sub }: { heading: string; sub: st
               >
                 <Phone size={20} weight="fill" aria-hidden />
                 Call {CALL_NUMBER_DISPLAY}
-              </Button>
-              <Button
-                as="a"
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="ghost"
-                size="lg"
-                className="text-white"
-                data-cta="whatsapp"
-                data-cta-location="bottom_band"
-                data-cta-variant="secondary_button"
-              >
-                <WhatsappLogo size={20} weight="fill" aria-hidden />
-                WhatsApp us
               </Button>
             </div>
           </div>

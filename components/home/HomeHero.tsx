@@ -1,17 +1,17 @@
-import { Phone, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
+import { Phone } from "@phosphor-icons/react/dist/ssr";
 import Button from "@/components/ui/Button";
 import CallbackInline from "@/components/CallbackInline";
 import HeroBackdrop from "@/components/HeroBackdrop";
-import { COVERAGE_SHORT, PRICE_FACT_LINE } from "@/lib/claims";
-import { CALL_HREF, CALL_NUMBER_DISPLAY, WHATSAPP_URL } from "@/lib/site";
+import { PRICE_FACT_LINE } from "@/lib/claims";
+import { CALL_HREF, CALL_NUMBER_DISPLAY } from "@/lib/site";
 
 // The first screen of the home page, built to the same contract as components/ServiceHero.tsx:
-// eyebrow, H1, the two pills, then the facts, with the callback card in the right column from lg
+// H1, the Call pill, then the facts, with the callback card in the right column from lg
 // and below everything on a phone.
 //
 // Deliberately NOT geo-personalised. Reading the geo header would take the whole route off the
 // static path, and the owner's brief puts speed first on the page most visitors land on. The
-// eyebrow therefore names the footprint rather than the visitor's town.
+// (No eyebrow since 30 Sept 2026: the first screen is the pain, the solution, then the call.)
 //
 // The photograph behind it is decoration (components/HeroBackdrop.tsx): the section is
 // `relative isolate overflow-hidden` so the backdrop's paper gradient sits under the text and
@@ -46,10 +46,6 @@ export default function HomeHero() {
 
       <div className="mx-auto grid max-w-content items-start gap-10 px-5 pb-14 pt-8 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:pb-20 lg:pt-12">
         <div className="max-w-[38rem]">
-          <p className="animate-fade-up mb-3 text-[12px] font-semibold uppercase tracking-[0.16em] text-tint">
-            Plumbing and drainage across {COVERAGE_SHORT}
-          </p>
-
           <h1 className="mb-5 text-pretty font-display text-[clamp(38px,4.6vw,62px)] font-extrabold leading-[0.98] text-brand">
             Burst pipe or blocked drain? Ring us. We will be with you
           </h1>
@@ -67,21 +63,6 @@ export default function HomeHero() {
             >
               <Phone size={20} weight="fill" aria-hidden />
               Call {CALL_NUMBER_DISPLAY}
-            </Button>
-            <Button
-              as="a"
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              variant="whatsapp"
-              size="xl"
-              className="w-full sm:w-auto"
-              data-cta="whatsapp"
-              data-cta-location="hero"
-              data-cta-variant="secondary_button"
-            >
-              <WhatsappLogo size={22} weight="fill" aria-hidden />
-              WhatsApp us
             </Button>
           </div>
 

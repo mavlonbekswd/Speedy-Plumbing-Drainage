@@ -32,7 +32,8 @@ export const PRICE_PROCESS_LINE = "The price is agreed before we start";
 //
 // The owner's own line, verbatim, with his capitalisation and his full stops. It is a statement
 // about how the price is presented, not a price, and it stands wherever the fee line stood.
-export const NO_HIDDEN_FEES = "No Hidden Fees. No Rip Offs.";
+// "No Rip Offs." came off on 30 September 2026 (owner: "remove no rip offs too").
+export const NO_HIDDEN_FEES = "No Hidden Fees.";
 /** The hero fact line: the owner's line, then the process claim that has always sat beside it. */
 export const PRICE_FACT_LINE = `${NO_HIDDEN_FEES} ${PRICE_PROCESS_LINE}`;
 /**
@@ -102,7 +103,7 @@ export const URGENT_GRID_NOTE =
  * Never "10,000+", and never the company's: the company is three months old.
  */
 export const EXPERIENCE_LINE =
-  "Our plumbers bring 5+ years' hands-on trade experience and 10,000 jobs between them.";
+  "Our plumbers bring 15 years' hands-on trade experience and 10,000 jobs between them.";
 
 export const BOOKED_WORK_LINE =
   "We give you a time and we turn up at it. Small jobs are welcome; a dripping tap is a job.";
@@ -261,7 +262,7 @@ export const MUST_RENDER: readonly MustRenderRule[] = [
   },
   { label: "No extra charge at night or weekends", test: anywhere("No extra charge at night or weekends") },
   { label: "The price is agreed before we start", test: anywhere("The price is agreed before we start") },
-  { label: "No Hidden Fees. No Rip Offs.", test: anywhere(NO_HIDDEN_FEES) },
+  { label: "No Hidden Fees.", test: anywhere(NO_HIDDEN_FEES) },
   // Added 27 September 2026 after the phrase left PAYMENT_ANSWER's lead and six live ads lost
   // their landing-page support at once. The headline is "Pay Once The Work Is Finished" on
   // Drainage D-A, Drain Cleaning DC-A and DC-B, Repairs R-A, Toilet Repairs TR-A and Hot Water
@@ -271,7 +272,7 @@ export const MUST_RENDER: readonly MustRenderRule[] = [
     label: "12-month guarantee on our workmanship, with the materials scope beside it",
     test: bothAnywhere("12-month guarantee on our workmanship", "Materials are covered by their own maker's warranty"),
   },
-  { label: "5+ years, the plumbers' experience and never the company's", test: anywhere("5+ years") },
+  { label: "15 years, the plumbers' experience and never the company's", test: anywhere("15 years") },
   { label: "Arrival within 45 minutes", test: anywhere("within 45 minutes") },
   { label: "Fully insured", test: anywhere("Fully insured") },
   // "same day" or the adjectival "same-day": the rule is about the wording, not the hyphen.

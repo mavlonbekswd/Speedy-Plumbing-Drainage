@@ -289,7 +289,8 @@ price claim without one. If you cannot point at the file, the sentence does not 
 - **No price figure anywhere.** Not in a heading, not in copy, not in a JSON-LD offer. A call-out
   fee is never named in either direction, present or absent: the owner took the £49 line off the
   site on 27 September 2026, and "no call-out fee" is banned too. Where a price line is needed,
-  the owner's wording is "No Hidden Fees. No Rip Offs." (`NO_HIDDEN_FEES` in `lib/claims.ts`).
+  the owner's wording is "No Hidden Fees." (`NO_HIDDEN_FEES` in `lib/claims.ts`; "No Rip Offs." was
+  dropped on 30 September 2026).
 - **Never "Gas Safe", in any casing or direction.** Not "Gas Safe registered", not "not Gas Safe
   registered". The credential is not held.
 - **"Free" belongs to the WhatsApp photo quote alone.** The pattern catches any string that says

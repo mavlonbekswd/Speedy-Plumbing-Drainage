@@ -63,7 +63,7 @@ const drainCleaning: ServiceContent = {
     {
       q: "Who is coming?",
       lead: "One of our own plumbers.",
-      rest: "5+ years on the tools and 10,000 jobs between them, so they know what a kitchen run collects.",
+      rest: "15 years on the tools and 10,000 jobs between them, so they know what a kitchen run collects.",
     },
     {
       q: "What if it fails?",

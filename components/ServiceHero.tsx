@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
-import { Phone, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
+import { Phone } from "@phosphor-icons/react/dist/ssr";
 import Button from "@/components/ui/Button";
 import HeroBackdrop from "@/components/HeroBackdrop";
-import { BOOKED_WORK_LINE, FREE_WHATSAPP_LINE, PRICE_FACT_LINE, SAME_DAY_LINE } from "@/lib/claims";
+import { BOOKED_WORK_LINE, PRICE_FACT_LINE, SAME_DAY_LINE } from "@/lib/claims";
 import type { HeroImageKey } from "@/lib/media";
-import { CALL_HREF, CALL_NUMBER_DISPLAY, WHATSAPP_URL } from "@/lib/site";
+import { CALL_HREF, CALL_NUMBER_DISPLAY } from "@/lib/site";
 
 interface Props {
   /** Breadcrumb slot. A node, not data, so this component never imports the breadcrumb itself. */
@@ -16,16 +16,10 @@ interface Props {
   /** Urgent pages carry the same-day line; booked pages carry the appointment line instead. */
   urgent: boolean;
   /**
-   * A service page for work you book a time for, rather than an emergency: a tap, a toilet, a
-   * bathroom, hot water, a macerator. Owner review, 19 September 2026: somebody booking a tap
-   * would rather send a picture and be told the price than ring and describe it. So on these
-   * pages, and ONLY these, the WhatsApp button says what it does and FREE_WHATSAPP_LINE reads
-   * directly under the buttons.
-   *
-   * The call still comes first in DOM order and is still the primary button: that is a contract
-   * (tests/town-headline.spec.ts wants the telephone link before any form), not a preference.
-   * Urgent service pages and every town page are untouched. There the call IS the action, and
-   * their first screen is measured against a 60-word budget this line would spend.
+   * A service page for work you book a time for. Kept in the contract (ServicePage passes it)
+   * but the hero no longer renders differently for it: on 30 Sept 2026 the owner removed the
+   * WhatsApp pill everywhere so the Call pill is the one action, which retired the booked-page
+   * "Send a photo for a quote" button and its fact line.
    */
   booked?: boolean;
   /** A released line shown on the service page only, never on a town page. */
@@ -46,7 +40,7 @@ function splitLead(line: string): { lead: string; rest: string } {
 
 // The first screen of a service or town page.
 //
-// Order, urgent and booked alike: eyebrow, H1, the buttons, then the two one-line facts, then
+// Order, urgent and booked alike: H1, the button, then the two one-line facts, then
 // the sub sentence. The buttons come before the reading matter because the person on the other
 // end of it has water coming through a ceiling.
 //
@@ -75,25 +69,18 @@ export default function ServiceHero({
   // first screen is a decision, not a page: hero copy is budgeted at 60 words
   // (tests/town-headline.spec.ts), and this change spends less of it.
   //
-  // On a booked page a third line joins them, first, so it sits directly under the button it
-  // belongs to. It adds nothing to either page the first-screen budget is measured on, and it
-  // takes nothing away: PRICE_PROCESS_LINE and the appointment line both stay.
-  const facts = booked
-    ? [FREE_WHATSAPP_LINE, PRICE_FACT_LINE, BOOKED_WORK_LINE]
-    : [PRICE_FACT_LINE, urgent ? SAME_DAY_LINE : BOOKED_WORK_LINE];
+  const facts = [PRICE_FACT_LINE, urgent ? SAME_DAY_LINE : BOOKED_WORK_LINE];
 
   return (
     <section id="hero" className="relative isolate overflow-hidden bg-paper">
       {heroImage && <HeroBackdrop image={heroImage} />}
       <div className="mx-auto grid max-w-content items-start gap-10 px-5 pb-14 pt-8 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:pb-20 lg:pt-12">
         <div className="max-w-[38rem]">
-          {crumbs && <div className="mb-5">{crumbs}</div>}
+          {/* The trail is sr-only, so no wrapper spacing: the H1 opens the hero. */}
+          {crumbs}
 
-          {/* One eyebrow size everywhere, urgent or booked: 12px. The urgent pages ran 11px. */}
-          <p className="animate-fade-up mb-3 text-[12px] font-semibold uppercase tracking-[0.16em] text-tint">
-            {eyebrow}
-          </p>
-
+          {/* No eyebrow (owner, 30 Sept 2026): the first screen is the pain, the solution, then
+              the call. The leaf's `eyebrow` string is kept in the data for the meta copy only. */}
           <h1
             className={`text-pretty font-display font-extrabold text-brand ${
               urgent
@@ -112,38 +99,22 @@ export default function ServiceHero({
             </p>
           )}
 
-          {/* The booked label is longer, so the pair stays stacked until md rather than sm: two
-              pills side by side at 640px would need more room than a 640px screen has. */}
-          <div className={`mb-3 flex flex-col gap-3 ${booked ? "md:flex-row" : "sm:flex-row"}`}>
+          {/* One button. The WhatsApp pill came out on 30 Sept 2026 (owner: the aim is more
+              calls); the channel is still reachable from the footer and the contact page, and the
+              free photo quote is still stated in the answer cards where the ads need it. */}
+          <div className="mb-3 flex flex-col gap-3 sm:flex-row">
             <Button
               as="a"
               href={CALL_HREF}
               variant="primary"
               size="xl"
-              className={`nums w-full ${booked ? "md:w-auto" : "sm:w-auto"}`}
+              className="nums w-full sm:w-auto"
               data-cta="phone"
               data-cta-location="hero"
               data-cta-variant="primary_button"
             >
               <Phone size={20} weight="fill" aria-hidden />
               Call {CALL_NUMBER_DISPLAY}
-            </Button>
-            <Button
-              as="a"
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              variant="whatsapp"
-              size="xl"
-              // The booked label is long enough to overflow a narrow phone against the pill's
-              // default `whitespace-nowrap`, so on those pages it is allowed to wrap instead.
-              className={`w-full ${booked ? "!whitespace-normal text-center md:w-auto" : "sm:w-auto"}`}
-              data-cta="whatsapp"
-              data-cta-location="hero"
-              data-cta-variant="secondary_button"
-            >
-              <WhatsappLogo size={22} weight="fill" aria-hidden />
-              {booked ? "Send a photo for a quote" : "WhatsApp us"}
             </Button>
           </div>
 

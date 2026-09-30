@@ -33,7 +33,7 @@ const STATS: readonly { big: string; label: string }[] = [
   { big: "24/7", label: "Answered day and night" },
   { big: "45 min", label: ARRIVAL_LINE },
   { big: "1 year", label: "Guarantee on our workmanship" },
-  { big: "10,000", label: "Jobs between our plumbers, 5+ years on the tools" },
+  { big: "10,000", label: "Jobs between our plumbers, 15 years on the tools" },
 ];
 
 export default function TickChips({

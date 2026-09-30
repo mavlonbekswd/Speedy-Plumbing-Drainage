@@ -1,9 +1,9 @@
 import type { ReactNode } from "react";
-import { Phone, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
+import { Phone } from "@phosphor-icons/react/dist/ssr";
 import HeroBackdrop from "@/components/HeroBackdrop";
 import Button from "@/components/ui/Button";
 import type { HeroImageKey } from "@/lib/media";
-import { CALL_HREF, CALL_NUMBER_DISPLAY, WHATSAPP_URL } from "@/lib/site";
+import { CALL_HREF, CALL_NUMBER_DISPLAY } from "@/lib/site";
 
 // The first screen of a STATIC page: /about, /guarantee, /contact, /projects, /blog, a blog post,
 // /terms, /privacy, and (through components/hub/HubHero.tsx) /services and /areas-we-cover.
@@ -12,7 +12,7 @@ import { CALL_HREF, CALL_NUMBER_DISPLAY, WHATSAPP_URL } from "@/lib/site";
 // top paddings, an eyebrow on some pages and not others, the sub sentence above the buttons on
 // one page and below on the next. One component, one order, no drift.
 //
-// The order, every time: breadcrumb, eyebrow, H1, the Call pill then the WhatsApp pill, anything
+// The order, every time: breadcrumb, eyebrow, H1, the Call pill, anything
 // the page adds under them, the one-line facts, the sub. It is the order in
 // components/ServiceHero.tsx and components/home/HomeHero.tsx, and it puts the number above the
 // reading matter because the person on the other end of it has water coming through a ceiling.
@@ -43,9 +43,8 @@ export interface StaticHeroProps {
   facts?: readonly string[];
   /** snake_case area name, for data-cta-location. Kept verbatim per page: it is live analytics. */
   ctaLocation: string;
-  /** /privacy and /contact carry no hero buttons; both flags go false there. */
+  /** /privacy and /contact carry no hero button; the flag goes false there. */
   showCall?: boolean;
-  showWhatsApp?: boolean;
   /**
    * Right column from lg, below everything on a phone, and after the telephone link in DOM
    * order: no form may precede the number a caller is looking for. `data-hero-aside` keeps a
@@ -72,11 +71,10 @@ export default function StaticHero({
   facts,
   ctaLocation,
   showCall = true,
-  showWhatsApp = true,
   aside,
   children,
 }: StaticHeroProps) {
-  const hasButtons = showCall || showWhatsApp;
+  const hasButtons = showCall;
 
   // The two-column grid only exists when there is a second column. A page with no aside keeps
   // the single measured column it had before, so nothing shifts on the pages that have none.
@@ -90,14 +88,11 @@ export default function StaticHero({
 
       <div className={container}>
         <div className="max-w-[38rem]">
-          {crumbs && <div className="mb-5">{crumbs}</div>}
+          {/* The trail is sr-only, so no wrapper spacing: the H1 opens the hero. */}
+          {crumbs}
 
-          {eyebrow && (
-            <p className="animate-fade-up mb-3 text-[12px] font-semibold uppercase tracking-[0.16em] text-tint">
-              {eyebrow}
-            </p>
-          )}
-
+          {/* `eyebrow` is accepted but not rendered since 30 Sept 2026 (owner): every hero on the
+              site opens with the H1, then the call. Pages keep passing it so nothing breaks. */}
           <h1 className="mb-5 max-w-[20ch] text-pretty font-display text-[clamp(34px,4.6vw,60px)] font-extrabold leading-[1.02] text-brand">
             {h1}
           </h1>
@@ -117,23 +112,6 @@ export default function StaticHero({
                 >
                   <Phone size={20} weight="fill" aria-hidden />
                   Call {CALL_NUMBER_DISPLAY}
-                </Button>
-              )}
-              {showWhatsApp && (
-                <Button
-                  as="a"
-                  href={WHATSAPP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  variant="whatsapp"
-                  size="xl"
-                  className="w-full sm:w-auto"
-                  data-cta="whatsapp"
-                  data-cta-location={ctaLocation}
-                  data-cta-variant="secondary_button"
-                >
-                  <WhatsappLogo size={22} weight="fill" aria-hidden />
-                  WhatsApp us
                 </Button>
               )}
             </div>
