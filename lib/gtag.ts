@@ -247,10 +247,18 @@ export interface GoogleTagHeadScripts {
  * Everything the layout needs to render the Google tag, or null when there is
  * no valid Ads account id, in which case nothing at all should be rendered.
  *
- * `displayNumber` is the phone number as it is printed on the page. Google
- * swaps it for a forwarding number on paid sessions and reports the calls that
- * ran past the action's minimum duration; the real business number stays in
- * the HTML for organic visitors and for name-address-phone consistency.
+ * `displayNumber` is the phone number as it is printed on the page. On paid
+ * sessions Google hands a forwarding number to `phone_conversion_callback` and
+ * reports the calls that ran past the action's minimum duration. The callback
+ * puts that number into the tel: links only, so every visitor still READS the
+ * real business number, while a tap from an ad visitor dials the forwarding
+ * number and is counted. The owner's decision of 9 October 2026.
+ *
+ * Two parts, because tel: links can render after the callback has run (the
+ * mobile call bar, client-side navigation): the callback rewrites the links on
+ * the page now, and a capture-phase click listener rewrites any tel: link at
+ * the moment it is tapped. The forwarding number reaches Google as plain
+ * digits, either 0-prefixed or 44-prefixed; both become +44.
  */
 export function googleTagHeadScripts(displayNumber: string): GoogleTagHeadScripts | null {
   if (!GADS_ID) return null;
@@ -267,8 +275,20 @@ export function googleTagHeadScripts(displayNumber: string): GoogleTagHeadScript
   if (GA4_ID) lines.push(`gtag('config',${js(GA4_ID)});`);
   if (GADS_LABEL_PHONE_CALL) {
     lines.push(
+      "function spdTel(n){var d=String(n).replace(/\\D/g,'');" +
+        "if(d.indexOf('44')===0)d=d.slice(2);else if(d.charAt(0)==='0')d=d.slice(1);" +
+        "return d?'tel:+44'+d:'';}",
+      "function spdSwap(){var h=window.spdFwdHref;if(!h)return;" +
+        "var a=document.querySelectorAll('a[href^=\"tel:\"]');" +
+        "for(var i=0;i<a.length;i++)a[i].setAttribute('href',h);}",
+      "document.addEventListener('click',function(e){var h=window.spdFwdHref;" +
+        "var a=h&&e.target&&e.target.closest&&e.target.closest('a[href^=\"tel:\"]');" +
+        "if(a)a.setAttribute('href',h);},true);",
       `gtag('config',${js(`${GADS_ID}/${GADS_LABEL_PHONE_CALL}`)},` +
-        `{phone_conversion_number:${js(displayNumber)}});`,
+        `{phone_conversion_number:${js(displayNumber)},` +
+        "phone_conversion_callback:function(f,m){window.spdFwdHref=spdTel(m||f);" +
+        "if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',spdSwap);" +
+        "else spdSwap();}});",
     );
   }
 
