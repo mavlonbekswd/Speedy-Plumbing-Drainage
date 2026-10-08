@@ -108,8 +108,9 @@ const nextConfig: NextConfig = {
     // same name still wins, so a label can be rotated without a code change. They do nothing
     // unless NEXT_PUBLIC_GADS_ID is also set (lib/gtag.ts renders no tag without it), and local
     // development is silenced by lib/devSilence.ts.
-    //  - PHONE_CALL: "Calls from website (30s+)", the Google forwarding-number swap. The swap only
-    //    matches while the displayed number is exactly "01223 482415".
+    //  - PHONE_CALL: "Calls from website (30s+)", the Google forwarding number, written into the
+    //    tel: links only (the visible number never changes). It only matches while the displayed
+    //    number is exactly "01223 482415".
     //  - WHATSAPP: "WhatsApp click".
     NEXT_PUBLIC_GADS_LABEL_PHONE_CALL: pick("NEXT_PUBLIC_GADS_LABEL_PHONE_CALL") || "Bf0iCJbmg_4cEKytwdxE",
     NEXT_PUBLIC_GADS_LABEL_WHATSAPP: pick("NEXT_PUBLIC_GADS_LABEL_WHATSAPP") || "U1j0CIj0if4cEKytwdxE",
