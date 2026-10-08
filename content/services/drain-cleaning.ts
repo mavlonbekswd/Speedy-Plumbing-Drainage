@@ -34,7 +34,7 @@ const drainCleaning: ServiceContent = {
   },
   hero: {
     eyebrow: `Drain cleaning, day or night, across ${COVERAGE_SHORT}`,
-    h1Top: "Slow drain or a smell?",
+    h1Top: "Drain cleaning for a slow drain or a smell.",
     h1Bottom: "We will be with you within 45 minutes.",
     sub: "",
   },
@@ -120,6 +120,22 @@ const drainCleaning: ServiceContent = {
         "Cleaned and descaled where it needs it",
         "Plain-English notes on their condition",
         "Booked for a time that suits you",
+      ],
+    },
+    // Added 9 Oct 2026 for [commercial drain cleaning near me] and [commercial drain cleaning
+    // service near me]. Claim file who-we-work-for.md: commercial kitchens are in scope; never
+    // "approved contractor", "contract rates" or a named client.
+    {
+      id: "commercial",
+      heading: "Commercial drain cleaning",
+      paragraphs: [
+        "Restaurants, cafés, pubs and other commercial kitchens send far more grease down the drain than a house does, and it sets in the floor gullies and the run outside.",
+        "We clean the gullies and the grease run, descale where it needs it and flow test it. If you would rather book the drains in than wait for them to stop, tell us how often and we come back on that schedule.",
+      ],
+      bullets: [
+        "Floor gullies and grease runs cleaned",
+        "Visits on a schedule you set",
+        "Plain-English notes on what we found",
       ],
     },
   ],

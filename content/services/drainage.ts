@@ -29,8 +29,8 @@ const drainage: ServiceContent = {
   cardBlurb:
     "We inspect the whole run and tell you what is causing it. That means you deal with the cause instead of paying for the same clearance again.",
   meta: {
-    title: "Drainage & Drain Surveys Cambridgeshire | Speedy Plumbing & Drain",
-    description: `A drain that keeps blocking has a cause. Camera drain surveys and diagnosis across ${COVERAGE_SHORT}, with you within 45 minutes.`,
+    title: "Drainage & CCTV Drain Surveys Cambridgeshire | Speedy Plumbing & Drain",
+    description: `A drain that keeps blocking has a cause. CCTV drain surveys, pre-purchase and home buyer drain surveys across ${COVERAGE_SHORT}.`,
   },
   hero: {
     eyebrow: `Drainage, day or night, across ${COVERAGE_SHORT}`,
@@ -109,7 +109,7 @@ const drainage: ServiceContent = {
   sections: [
     {
       id: "camera-survey",
-      heading: "What a camera survey shows",
+      heading: "CCTV drain survey: what the camera shows",
       paragraphs: [
         "A camera goes down the run and you watch it on a screen with the plumber. You see a fault where it is, and you get its depth and its distance.",
         "It is worth having when a drain has blocked more than once and nobody has looked, or before you buy a house. Afterwards you get plain-English notes on the condition of your drains, and a written quote for what will be done.",
@@ -120,6 +120,23 @@ const drainage: ServiceContent = {
         "Know the depth and the distance",
         "Worth having before you buy a house",
         "Plain-English notes, not a jargon report",
+      ],
+    },
+    // Added 9 Oct 2026: three D keywords ([pre purchase drain survey near me], [home buyers drain
+    // survey near me], "drain survey") land here, and the page had the words only on a card.
+    // Claim file drain-cameras-and-written-quote.md allows "Home Buyer Drain Surveys"; it forbids
+    // a named report standard, "lender-approved", a survey price and promising the footage.
+    {
+      id: "pre-purchase-survey",
+      heading: "Pre-purchase and home buyer drain surveys",
+      paragraphs: [
+        "Buying a house, and the survey flagged the drains, or nobody has looked at them at all? We put the camera down the run before you exchange.",
+        "You get plain-English notes on what we found and where, and a written quote for anything that needs doing. Then you know what you are buying, and you can raise it before you commit instead of after.",
+      ],
+      bullets: [
+        "Surveyed before you exchange",
+        "Plain-English notes on the condition of the drains",
+        "A written quote for what will be done",
       ],
     },
   ],
