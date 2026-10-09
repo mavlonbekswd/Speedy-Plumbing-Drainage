@@ -30,23 +30,23 @@ export default function Footer() {
           <div>
             <Logo dark ctaLocation="footer" className="mb-5" />
 
-            <p className="mb-2 max-w-[42ch] text-[14px] leading-[1.6] text-white/80">
+            <p className="mb-2 max-w-[42ch] text-base leading-[1.6] text-white/80">
               {/* LOCKED with the line below it: six ad descriptions rest on these two sentences
                   alone (see WHO_WE_WORK_FOR_LINE in lib/claims.ts). */}
               Plumbing and drainage across {COVERAGE_LINE}
             </p>
-            <p className="mb-6 max-w-[42ch] text-[14px] leading-[1.6] text-white/80">
+            <p className="mb-6 max-w-[42ch] text-base leading-[1.6] text-white/80">
               {AVAILABILITY_LINE} {WHO_WE_WORK_FOR_LINE}
             </p>
 
-            <ul className="flex flex-col gap-3 text-[14.5px]">
+            <ul className="flex flex-col gap-1 text-[0.90625rem]">
               <li>
                 <a
                   href={CALL_HREF}
                   data-cta="phone"
                   data-cta-location="footer"
                   data-cta-variant="text_link"
-                  className="nums press inline-flex items-center gap-2.5 font-semibold text-white hover:text-cta"
+                  className="nums press inline-flex min-h-[44px] items-center gap-2.5 font-semibold text-white hover:text-cta"
                 >
                   <Phone size={16} weight="fill" aria-hidden className="text-cta" />
                   {CALL_NUMBER_DISPLAY}
@@ -60,7 +60,7 @@ export default function Footer() {
                   data-cta="whatsapp"
                   data-cta-location="footer"
                   data-cta-variant="text_link"
-                  className="press inline-flex items-center gap-2.5 font-semibold text-white hover:text-cta"
+                  className="press inline-flex min-h-[44px] items-center gap-2.5 font-semibold text-white hover:text-cta"
                 >
                   <WhatsappLogo size={16} weight="fill" aria-hidden className="text-whatsapp" />
                   WhatsApp us
@@ -72,7 +72,7 @@ export default function Footer() {
                   data-cta="email"
                   data-cta-location="footer"
                   data-cta-variant="text_link"
-                  className="press inline-flex items-center gap-2.5 text-white/80 hover:text-white"
+                  className="press inline-flex min-h-[44px] items-center gap-2.5 text-white/80 hover:text-white"
                 >
                   <EnvelopeSimple size={16} weight="fill" aria-hidden className="text-tint-bright" />
                   {CONTACT_EMAIL}
@@ -90,8 +90,8 @@ export default function Footer() {
                 const areas = group.links.some((link) => link.href.startsWith("/areas/"));
                 return (
                   <div key={group.heading}>
-                    <p className="mb-4 font-display text-[15px] font-bold text-white">{group.heading}</p>
-                    <ul className={areas ? "flex flex-wrap gap-x-4 gap-y-2.5" : "flex flex-col gap-2.5"}>
+                    <p className="mb-4 font-display text-[0.9375rem] font-bold text-white">{group.heading}</p>
+                    <ul className={areas ? "flex flex-wrap gap-x-4" : "flex flex-col"}>
                       {group.links.map((link) => (
                         <li key={link.href}>
                           <a
@@ -99,7 +99,11 @@ export default function Footer() {
                             data-cta={link.cta ?? "nav"}
                             data-cta-location={areas ? "footer_areas" : "footer"}
                             data-cta-variant="text_link"
-                            className="text-[14px] text-white/80 hover:text-white"
+                            className={`inline-flex min-h-[36px] items-center text-[0.875rem] text-white/80 hover:text-white ${
+                              // Town names can be three letters ("Ely", "Diss"). The padding
+                              // widens the tap area into the gap without moving the text.
+                              areas ? "-mx-2 px-2" : ""
+                            }`}
                           >
                             {link.label}
                           </a>
@@ -113,7 +117,7 @@ export default function Footer() {
           )}
         </div>
 
-        <p className="mt-8 text-[12px] text-white/70">
+        <p className="mt-8 text-[0.8125rem] text-white/70">
           &copy; {year} {TRADING_NAME}
         </p>
 
@@ -122,7 +126,7 @@ export default function Footer() {
             office all have to appear because the trading name differs from the registered one.
             One constant, one JSX expression, so the rendered paragraph is a single text node
             and the excluded-copy spec can match it whole. Do not split it. */}
-        <p className="mt-3 text-[11.5px] leading-relaxed text-white/70">{FOOTER_LEGAL_LINE}</p>
+        <p className="mt-3 text-[0.8125rem] leading-relaxed text-white/70">{FOOTER_LEGAL_LINE}</p>
       </div>
     </footer>
   );

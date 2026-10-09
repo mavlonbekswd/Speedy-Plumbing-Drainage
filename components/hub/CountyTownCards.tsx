@@ -43,8 +43,8 @@ export default function CountyTownCards({ eyebrow, heading, tinted = false, chil
               <li key={county}>
                 <AnimateIn delay={i * 60} className="h-full">
                   <div className="flex h-full flex-col rounded-card border border-line bg-white p-6 shadow-card">
-                    <h3 className="font-display text-[19px] font-bold leading-snug text-brand">{county}</h3>
-                    <p className="nums mt-1 text-[13px] font-semibold uppercase tracking-[0.12em] text-steel">
+                    <h3 className="font-display text-[1.1875rem] font-bold leading-snug text-brand">{county}</h3>
+                    <p className="nums mt-1 text-[0.8125rem] font-semibold uppercase tracking-[0.12em] text-steel">
                       {towns.length} {towns.length === 1 ? "town" : "towns"}
                     </p>
 
@@ -56,7 +56,7 @@ export default function CountyTownCards({ eyebrow, heading, tinted = false, chil
                             data-cta="nav"
                             data-cta-location="areas_index_towns"
                             data-cta-variant="chip"
-                            className="press inline-flex min-h-[44px] items-center rounded-chip border border-line bg-paper px-4 text-[15px] font-semibold text-brand hover:border-tint"
+                            className="press inline-flex min-h-[44px] items-center rounded-chip border border-line bg-paper px-4 text-[0.9375rem] font-semibold text-brand hover:border-tint"
                           >
                             {town.name}
                           </a>

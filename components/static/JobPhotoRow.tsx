@@ -51,7 +51,7 @@ export default function JobPhotoRow({ slugs, eyebrow = "Our own jobs", heading, 
                   />
                 </div>
               </ZoomableImage>
-              <figcaption className="mt-2 text-[13.5px] leading-snug text-slate">{photo.caption}</figcaption>
+              <figcaption className="mt-2 text-[0.84375rem] leading-snug text-slate">{photo.caption}</figcaption>
             </figure>
           ))}
         </div>

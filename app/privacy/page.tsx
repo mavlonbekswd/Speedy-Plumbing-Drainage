@@ -67,7 +67,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
       <h2 className="font-display text-[clamp(22px,2.4vw,30px)] font-extrabold leading-[1.15] text-brand">
         {title}
       </h2>
-      <div className="mt-4 flex max-w-[64ch] flex-col gap-3 text-[16.5px] leading-[1.65] text-slate">
+      <div className="mt-4 flex max-w-[64ch] flex-col gap-3 text-[1.03125rem] leading-[1.65] text-slate">
         {children}
       </div>
     </section>
@@ -101,7 +101,7 @@ export default function PrivacyPage() {
           showCall={false}
           sub={
             <>
-              <p className="text-[14px] font-medium text-steel">Last updated: {LAST_UPDATED}</p>
+              <p className="text-[0.875rem] font-medium text-steel">Last updated: {LAST_UPDATED}</p>
               <p>
                 This page says what happens to your details when you ring us, send us a message or fill in
                 a form, and what this website records while you read it. It is written to match the site as
@@ -117,7 +117,7 @@ export default function PrivacyPage() {
               <p>
                 <Lead>{REGISTERED_NAME} is the controller of your data.</Lead> It trades as {TRADING_NAME}.
               </p>
-              <ul className="flex list-none flex-col gap-1 rounded-card border border-line bg-white p-6 text-[15.5px] text-ink shadow-card">
+              <ul className="flex list-none flex-col gap-1 rounded-card border border-line bg-white p-6 text-[0.96875rem] text-ink shadow-card">
                 <li>Registered in England and Wales, company number {COMPANY_NUMBER}.</li>
                 <li>Registered office: {REGISTERED_OFFICE}.</li>
                 <li>
@@ -218,16 +218,16 @@ export default function PrivacyPage() {
               </p>
               <ul className="flex list-disc flex-col gap-2 pl-5">
                 <li>
-                  PostHog, with names beginning <code className="text-[15px] text-ink">ph_</code>. Its
+                  PostHog, with names beginning <code className="text-[0.9375rem] text-ink">ph_</code>. Its
                   requests are routed through our own domain rather than sent straight to PostHog.
                 </li>
                 <li>
-                  Google, with names beginning <code className="text-[15px] text-ink">_ga</code> and{" "}
-                  <code className="text-[15px] text-ink">_gcl_</code>.
+                  Google, with names beginning <code className="text-[0.9375rem] text-ink">_ga</code> and{" "}
+                  <code className="text-[0.9375rem] text-ink">_gcl_</code>.
                 </li>
                 <li>
                   Our own storage entry,{" "}
-                  <code className="text-[15px] text-ink">{CLICK_ID_STORAGE_KEY}</code>, which holds a Google
+                  <code className="text-[0.9375rem] text-ink">{CLICK_ID_STORAGE_KEY}</code>, which holds a Google
                   click identifier for 90 days so that a booking can be attributed to the advert that led to
                   it.
                 </li>

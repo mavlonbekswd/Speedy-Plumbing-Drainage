@@ -31,7 +31,7 @@ function splitLead(line: string): { lead: string; rest: string } {
 
 /** The one sentence that separates the urgent half of the work from the booked half. */
 const WHEN_LINE =
-  "Emergencies same day, with you within 45 minutes";
+  "Emergencies same day, with you within 45 minutes.";
 
 // Two facts, not three. The owner's review of 19 September 2026 cut the answering sentence out of
 // the first screen, and nothing was put back in its place: at 390x844 the first screen is a
@@ -47,7 +47,7 @@ export default function HomeHero() {
       <div className="mx-auto grid max-w-content items-start gap-10 px-5 pb-14 pt-8 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:pb-20 lg:pt-12">
         <div className="max-w-[38rem]">
           <h1 className="mb-5 text-pretty font-display text-[clamp(38px,4.6vw,62px)] font-extrabold leading-[0.98] text-brand">
-            Burst pipe or blocked drain? Ring us. We will be with you
+            Burst pipe or blocked drain? Ring us. We will be with you.
           </h1>
 
           <div className="mb-3 flex flex-col gap-3 sm:flex-row">
@@ -69,7 +69,7 @@ export default function HomeHero() {
           {FACTS.map((fact) => {
             const { lead, rest } = splitLead(fact);
             return (
-              <p key={fact} className="animate-fade-up-2 mb-1 text-[14.5px] leading-snug text-slate">
+              <p key={fact} className="animate-fade-up-2 mb-1 text-[0.90625rem] leading-snug text-slate">
                 <strong className="font-semibold text-brand">{lead}</strong>
                 {rest ? ` ${rest}` : ""}
               </p>

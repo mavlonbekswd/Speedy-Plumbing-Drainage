@@ -94,7 +94,7 @@ export default function ServiceHero({
           </h1>
 
           {serviceOnlyLine && (
-            <p className="animate-fade-up-1 mb-4 font-display text-[20px] font-extrabold leading-tight text-brand">
+            <p className="animate-fade-up-1 mb-4 font-display text-[1.25rem] font-extrabold leading-tight text-brand">
               {serviceOnlyLine}
             </p>
           )}
@@ -121,14 +121,14 @@ export default function ServiceHero({
           {facts.map((fact) => {
             const { lead, rest } = splitLead(fact);
             return (
-              <p key={fact} className="animate-fade-up-2 mb-1 text-[14.5px] leading-snug text-slate">
+              <p key={fact} className="animate-fade-up-2 mb-1 text-[0.90625rem] leading-snug text-slate">
                 <strong className="font-semibold text-brand">{lead}</strong>
                 {rest ? ` ${rest}` : ""}
               </p>
             );
           })}
 
-          {sub && <p className="animate-fade-up-2 mt-4 max-w-[48ch] text-[16px] leading-[1.6] text-slate">{sub}</p>}
+          {sub && <p className="animate-fade-up-2 mt-4 max-w-[48ch] text-[1rem] leading-[1.6] text-slate">{sub}</p>}
         </div>
 
         {aside && <div data-hero-aside className="w-full lg:max-w-[440px] lg:justify-self-end">{aside}</div>}

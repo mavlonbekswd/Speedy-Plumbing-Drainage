@@ -68,7 +68,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
       <h2 className="font-display text-[clamp(22px,2.4vw,30px)] font-extrabold leading-[1.15] text-brand">
         {title}
       </h2>
-      <div className="mt-4 flex max-w-[64ch] flex-col gap-3 text-[16.5px] leading-[1.65] text-slate">
+      <div className="mt-4 flex max-w-[64ch] flex-col gap-3 text-[1.03125rem] leading-[1.65] text-slate">
         {children}
       </div>
     </section>
@@ -99,7 +99,7 @@ export default function TermsPage() {
           ctaLocation="terms_page"
           sub={
             <>
-              <p className="text-[14px] font-medium text-steel">Last updated: {LAST_UPDATED}</p>
+              <p className="text-[0.875rem] font-medium text-steel">Last updated: {LAST_UPDATED}</p>
               <p>
                 These terms cover your use of this website. They do not set the terms of a plumbing job. The
                 terms of any job are agreed with you directly, before work starts.

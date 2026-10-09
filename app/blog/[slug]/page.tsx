@@ -120,7 +120,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <div className="mx-auto max-w-content px-5 py-14 sm:px-8 md:py-20">
               <PostBody slug={post.slug} body={post.body} />
 
-              <p className="mt-10 max-w-[66ch] text-[16px] leading-[1.7] text-slate">{PRICE_PROCESS_LINE}</p>
+              <p className="mt-10 max-w-[66ch] text-[1rem] leading-[1.7] text-slate">{PRICE_PROCESS_LINE}</p>
             </div>
           </section>
         </article>

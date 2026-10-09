@@ -1,7 +1,7 @@
 // /about. Who you are ringing, in one scroll.
 //
 // Rebuilt on the owner's review of 19 September 2026: shorter, with pictures instead of
-// paragraphs. The hero is a label, not a speech; "Local Plumber" is two sentences, both of them
+// paragraphs. The hero is a label, not a speech; "Local plumber" is two sentences, both of them
 // the owner's own words and both built from lib/claims.ts so a fact changes in one place.
 //
 // NO CREDENTIAL CLAIM OF ANY KIND appears here. What we can put in writing is the insurance, the
@@ -104,7 +104,7 @@ function GuaranteeSentence({ location }: { location: string }) {
 // One line each. No card claims a credential, an award or a first place.
 const HOLD_US_TO: { title: string; body: ReactNode }[] = [
   {
-    title: "Local Plumber",
+    title: "Local plumber",
     body: `We cover ${COVERAGE_LINE}`,
   },
   {
@@ -166,7 +166,7 @@ export default function AboutPage() {
             data-cta="book_anchor"
             data-cta-location="about_hero"
             data-cta-variant="text_link"
-            className="inline-flex min-h-[44px] items-center text-[15.5px] font-semibold text-brand underline underline-offset-4 hover:text-tint"
+            className="inline-flex min-h-[44px] items-center text-[0.96875rem] font-semibold text-brand underline underline-offset-4 hover:text-tint"
           >
             Ask us to ring you
           </a>
@@ -175,8 +175,8 @@ export default function AboutPage() {
         <section className="border-t border-line bg-paper-2">
           <div className="mx-auto grid max-w-content items-center gap-10 px-5 py-14 sm:px-8 md:grid-cols-2 md:gap-14 md:py-20">
             <AnimateIn>
-              <SectionHeading eyebrow="Who you are ringing" title="Local Plumber." />
-              <div className="mt-5 flex max-w-[58ch] flex-col gap-4 text-[16.5px] leading-[1.7] text-slate">
+              <SectionHeading eyebrow="Who you are ringing" title="Local plumber." />
+              <div className="mt-5 flex max-w-[58ch] flex-col gap-4 text-[1.03125rem] leading-[1.7] text-slate">
                 {LOCAL_PLUMBER_PARAGRAPHS.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
@@ -213,8 +213,8 @@ export default function AboutPage() {
               {HOLD_US_TO.map((item, i) => (
                 <AnimateIn key={item.title} delay={i * 70} className="h-full">
                   <div className="flex h-full flex-col gap-2 rounded-card border border-line bg-white p-6 shadow-card">
-                    <h3 className="font-display text-[19px] font-bold leading-snug text-brand">{item.title}</h3>
-                    <p className="max-w-[46ch] text-[15px] leading-[1.65] text-slate">{item.body}</p>
+                    <h3 className="font-display text-[1.1875rem] font-bold leading-snug text-brand">{item.title}</h3>
+                    <p className="max-w-[46ch] text-base leading-[1.65] text-slate">{item.body}</p>
                   </div>
                 </AnimateIn>
               ))}
@@ -233,8 +233,8 @@ export default function AboutPage() {
                 <AnimateIn key={item.title} delay={i * 80} className="h-full">
                   <div className="flex h-full flex-col gap-2 rounded-card border border-line bg-white p-6 shadow-card">
                     {item.icon}
-                    <h3 className="font-display text-[19px] font-bold leading-snug text-brand">{item.title}</h3>
-                    <p className="max-w-[46ch] text-[15px] leading-[1.65] text-slate">{item.body}</p>
+                    <h3 className="font-display text-[1.1875rem] font-bold leading-snug text-brand">{item.title}</h3>
+                    <p className="max-w-[46ch] text-base leading-[1.65] text-slate">{item.body}</p>
                   </div>
                 </AnimateIn>
               ))}

@@ -95,7 +95,7 @@ export default function ProblemGrid({
               "Open one for what we do about it" is an instruction, and an instruction has to be
               next to the thing it points at. */}
           <SectionHeading
-            eyebrow="Start with what you can see"
+            eyebrow="Common problems"
             title={heading}
             sub={hasLead ? undefined : sub}
           />
@@ -106,7 +106,7 @@ export default function ProblemGrid({
         {hasLead && (
           <div className="mt-5 flex flex-col gap-2">
             {lead!.map((line) => (
-              <p key={line} className="max-w-[62ch] text-[16px] leading-[1.65] text-slate">
+              <p key={line} className="max-w-[62ch] text-[1rem] leading-[1.65] text-slate">
                 {line}
               </p>
             ))}
@@ -114,7 +114,7 @@ export default function ProblemGrid({
         )}
 
         <div className={compact ? (hasLead ? "mt-6 sm:mt-8" : "mt-8 sm:mt-10") : hasLead ? "mt-8" : "mt-10"}>
-          {hasLead && sub && <p className="mb-4 text-[14.5px] leading-[1.6] text-steel">{sub}</p>}
+          {hasLead && sub && <p className="mb-4 text-base leading-[1.6] text-steel">{sub}</p>}
 
           <div
             className={`grid items-start md:grid-cols-2 md:gap-4 ${compact ? "gap-2.5 sm:gap-3" : "gap-3"}`}
@@ -145,8 +145,8 @@ export default function ProblemGrid({
                     hidden={!on}
                     className={`-mt-1 max-w-[62ch] text-slate ${
                       compact
-                        ? "px-4 pb-4 text-[13.5px] leading-[1.6] sm:px-6 sm:pb-5 sm:text-[15px] sm:leading-[1.7]"
-                        : "px-5 pb-5 text-[15px] leading-[1.7] sm:px-6"
+                        ? "px-4 pb-4 text-base leading-[1.6] sm:px-6 sm:pb-5 sm:text-[0.9375rem] sm:leading-[1.7]"
+                        : "px-5 pb-5 text-base leading-[1.7] sm:px-6"
                     }`}
                   >
                     {card.body}
@@ -164,7 +164,7 @@ export default function ProblemGrid({
         {note && (
           <AnimateIn delay={120}>
             <div className="mt-8 flex flex-col gap-4 rounded-card bg-tint-soft px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-[14.5px] font-medium text-brand">{note}</p>
+              <p className="text-[0.90625rem] font-medium text-brand">{note}</p>
               <Button
                 as="a"
                 href="#book"

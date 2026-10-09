@@ -45,8 +45,8 @@ export default function WhyUs() {
           {REASONS.map((reason, i) => (
             <AnimateIn key={reason.title} delay={i * 80} className="h-full">
               <div className="flex h-full flex-col gap-2 rounded-card border border-line bg-white p-6 shadow-card">
-                <h3 className="font-display text-[19px] font-bold leading-snug text-brand">{reason.title}</h3>
-                <p className="text-[14.5px] leading-[1.6] text-slate">{reason.body}</p>
+                <h3 className="font-display text-[1.1875rem] font-bold leading-snug text-brand">{reason.title}</h3>
+                <p className="text-base leading-[1.6] text-slate">{reason.body}</p>
               </div>
             </AnimateIn>
           ))}

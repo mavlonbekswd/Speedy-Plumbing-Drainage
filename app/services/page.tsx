@@ -96,7 +96,7 @@ export default function ServicesHubPage() {
             not. The callback link is third, after the number, as it is everywhere else. */}
         <section className="border-t border-line bg-paper-2">
           <div className="mx-auto max-w-content px-5 py-10 sm:px-8 md:py-12">
-            <p className="mx-auto max-w-[62ch] text-center text-[16.5px] leading-[1.6] text-slate">
+            <p className="mx-auto max-w-[62ch] text-center text-[1.03125rem] leading-[1.6] text-slate">
               Not sure which one? Ring{" "}
               <a
                 href={CALL_HREF}

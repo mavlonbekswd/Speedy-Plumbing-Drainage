@@ -95,8 +95,10 @@ export default function ContactPage() {
                   </Button>
 
 
-                  <p className="text-[14.5px] leading-[1.6] text-slate">
-                    {FREE_WHATSAPP_LINE}{" "}
+                  {/* The link sits on its own line: as an inline 44px target inside the sentence it
+                      pushed that line apart from the one above it. */}
+                  <p className="flex flex-col items-start text-base leading-[1.6] text-slate">
+                    {FREE_WHATSAPP_LINE}
                     <a
                       href={WHATSAPP_URL}
                       target="_blank"
@@ -118,19 +120,19 @@ export default function ContactPage() {
                     data-cta="email"
                     data-cta-location="contact_details"
                     data-cta-variant="text_link"
-                    className="press inline-flex min-h-[44px] items-center gap-2 break-all text-[15.5px] font-semibold text-brand underline underline-offset-4 hover:text-tint"
+                    className="press inline-flex min-h-[44px] items-center gap-2 break-all text-[0.96875rem] font-semibold text-brand underline underline-offset-4 hover:text-tint"
                   >
                     <EnvelopeSimple size={18} weight="fill" aria-hidden className="text-tint" />
                     {CONTACT_EMAIL}
                   </a>
                 </p>
 
-                <p className="flex items-start gap-2 text-[15.5px] font-semibold leading-[1.6] text-ink">
+                <p className="flex items-start gap-2 text-[0.96875rem] font-semibold leading-[1.6] text-ink">
                   <Clock size={18} weight="fill" aria-hidden className="mt-[3px] flex-shrink-0 text-tint" />
                   {AVAILABILITY_LINE}
                 </p>
 
-                <div className="nums border-t border-line pt-5 text-[13.5px] leading-[1.7] text-steel">
+                <div className="nums border-t border-line pt-5 text-base leading-[1.7] text-steel">
                   <p>
                     {TRADING_NAME} is a trading name of {REGISTERED_NAME}, registered in England &amp; Wales.
                     Company number {COMPANY_NUMBER}. Registered office: {REGISTERED_OFFICE}.

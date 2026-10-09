@@ -48,7 +48,7 @@ export default function Breadcrumb({ items, className = "" }: { items: Crumb[]; 
                 data-cta="nav"
                 data-cta-location="breadcrumb"
                 data-cta-variant="text_link"
-                className="text-slate hover:text-tint"
+                className="inline-flex min-h-[36px] items-center text-slate hover:text-tint"
               >
                 {crumb.name}
               </a>

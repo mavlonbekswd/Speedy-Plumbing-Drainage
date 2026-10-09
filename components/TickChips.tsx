@@ -54,7 +54,7 @@ export default function TickChips({
                 <p className="nums font-display text-[clamp(28px,3vw,38px)] font-extrabold leading-none text-brand">
                   {stat.big}
                 </p>
-                <p className="mt-2 text-[13.5px] leading-snug text-slate">{stat.label}</p>
+                <p className="mt-2 text-[0.84375rem] leading-snug text-slate">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -69,20 +69,20 @@ export default function TickChips({
         {/* Centred as one block with the three sentences under it (owner, 20 Sept 2026). */}
         <ul className="flex flex-wrap justify-center gap-x-8 gap-y-3">
           {TICK_CHIPS.map((tick) => (
-            <li key={tick} className="inline-flex items-center gap-2 text-[15px] font-semibold text-brand">
+            <li key={tick} className="inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-brand">
               <CheckCircle size={20} weight="fill" className="flex-shrink-0 text-cta-deep" aria-hidden />
               {tick}
             </li>
           ))}
         </ul>
 
-        <p className="mt-5 mx-auto max-w-[68ch] text-center text-[14px] leading-[1.6] text-slate">
+        <p className="mt-5 mx-auto max-w-[68ch] text-center text-base leading-[1.6] text-slate">
           <strong className="font-semibold text-ink">{NO_HIDDEN_FEES_BLOCK_LINE}</strong>
         </p>
 
-        <p className="mt-1 mx-auto max-w-[68ch] text-center text-[14px] leading-[1.6] text-slate">{PRICE_BLOCK_LINE}</p>
+        <p className="mt-1 mx-auto max-w-[68ch] text-center text-base leading-[1.6] text-slate">{PRICE_BLOCK_LINE}</p>
 
-        <p className="mt-1 mx-auto max-w-[68ch] text-center text-[14px] leading-[1.6] text-slate">
+        <p className="mt-1 mx-auto max-w-[68ch] text-center text-base leading-[1.6] text-slate">
           {guaranteeHref ? (
             <a
               href={guaranteeHref}

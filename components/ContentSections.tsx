@@ -35,13 +35,13 @@ export default function ContentSections({ sections, tinted = false, compact = fa
                   {section.paragraphs.map((paragraph, index) => (
                     <p
                       key={paragraph}
-                      className={`max-w-[62ch] text-[16px] leading-[1.7] text-slate ${index === 0 ? "" : "mt-4"}`}
+                      className={`max-w-[62ch] text-[1rem] leading-[1.7] text-slate ${index === 0 ? "" : "mt-4"}`}
                     >
                       {paragraph}
                     </p>
                   ))}
                   {section.bullets && section.bullets.length > 0 && (
-                    <ul className="mt-4 flex max-w-[62ch] list-disc flex-col gap-2 pl-5 text-[15.5px] leading-[1.7] text-slate">
+                    <ul className="mt-4 flex max-w-[62ch] list-disc flex-col gap-2 pl-5 text-base leading-[1.7] text-slate">
                       {section.bullets.map((bullet) => (
                         <li key={bullet}>{bullet}</li>
                       ))}

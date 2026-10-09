@@ -147,7 +147,7 @@ const emergencyPlumbing: ServiceContent = {
     OUT_OF_HOURS_FAQ,
     {
       q: "How is the price agreed?",
-      a: `${PRICE_PROCESS_LINE}. ${NO_HIDDEN_FEES} The plumber looks at the job and gives you the price on site, and nothing starts until you say yes.`,
+      a: `${PRICE_PROCESS_LINE} ${NO_HIDDEN_FEES} The plumber looks at the job and gives you the price on site, and nothing starts until you say yes.`,
     },
     {
       q: "Do you guarantee your work?",

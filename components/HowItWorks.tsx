@@ -51,7 +51,7 @@ export default function HowItWorks({
         {intro && (
           <p
             className={`max-w-[62ch] leading-[1.65] text-slate ${
-              compact ? "mt-4 text-[15px] sm:mt-5 sm:text-[16px]" : "mt-5 text-[16px]"
+              compact ? "mt-4 text-[0.9375rem] sm:mt-5 sm:text-[1rem]" : "mt-5 text-[1rem]"
             }`}
           >
             {intro}
@@ -82,7 +82,7 @@ export default function HowItWorks({
                 <div className={`flex items-center gap-3 ${compact ? "absolute left-0 top-4 sm:static" : ""}`}>
                   <span
                     className={`nums flex items-center justify-center rounded-pill bg-brand font-display font-bold text-cta ${
-                      compact ? "h-8 w-8 text-[13px] sm:h-9 sm:w-9 sm:text-[14px]" : "h-9 w-9 text-[14px]"
+                      compact ? "h-8 w-8 text-[0.8125rem] sm:h-9 sm:w-9 sm:text-[0.875rem]" : "h-9 w-9 text-[0.875rem]"
                     }`}
                     aria-hidden
                   >
@@ -96,7 +96,7 @@ export default function HowItWorks({
                 </div>
                 <h3
                   className={`font-display font-bold leading-snug text-brand ${
-                    compact ? "text-[16.5px] sm:text-[19px]" : "text-[19px]"
+                    compact ? "text-[1.03125rem] sm:text-[1.1875rem]" : "text-[1.1875rem]"
                   }`}
                 >
                   {step.title}
@@ -104,8 +104,8 @@ export default function HowItWorks({
                 <p
                   className={`text-slate ${
                     compact
-                      ? "text-[13.5px] leading-[1.55] sm:text-[14.5px] sm:leading-[1.6]"
-                      : "text-[14.5px] leading-[1.6]"
+                      ? "text-[0.84375rem] leading-[1.55] sm:text-[0.90625rem] sm:leading-[1.6]"
+                      : "text-base leading-[1.6]"
                   }`}
                 >
                   {step.body}

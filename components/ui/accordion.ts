@@ -13,7 +13,7 @@ export const ACCORDION_ROW =
 export const ACCORDION_ROW_COMPACT =
   "flex w-full items-center justify-between gap-4 rounded-card px-4 py-3 text-left sm:px-6 sm:py-4";
 
-export const ACCORDION_TITLE = "font-display text-[17px] font-bold leading-snug text-brand";
+export const ACCORDION_TITLE = "font-display text-[1.0625rem] font-bold leading-snug text-brand";
 
 /** The plus/minus, filled navy when the row is open. */
 export function accordionControl(open: boolean): string {

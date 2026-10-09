@@ -39,7 +39,7 @@ function JobPhoto({ slug }: { slug: string }) {
           />
         </div>
       </ZoomableImage>
-      <figcaption className="mt-2 text-[13.5px] leading-snug text-slate">{photo.caption}</figcaption>
+      <figcaption className="mt-2 text-[0.84375rem] leading-snug text-slate">{photo.caption}</figcaption>
     </figure>
   );
 }
@@ -62,7 +62,7 @@ export default function PostBody({
           </h2>
 
           {paragraphsOf(block.p).map((paragraph) => (
-            <p key={paragraph} className="text-[16.5px] leading-[1.75] text-slate">
+            <p key={paragraph} className="text-[1.03125rem] leading-[1.75] text-slate">
               {paragraph}
             </p>
           ))}

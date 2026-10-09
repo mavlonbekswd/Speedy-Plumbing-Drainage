@@ -42,7 +42,7 @@ export default function TownsByCounty({ heading = "Towns we cover.", tinted = fa
     counties.map((county, i) =>
       wrap(
         <>
-          <h3 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-tint">{county}</h3>
+          <h3 className="text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-tint">{county}</h3>
           <ul className={`flex flex-wrap gap-2 ${collapsible ? "mt-2.5" : "mt-3"}`}>
             {TOWNS_BY_COUNTY[county].map((town) => (
               <li key={town.slug}>
@@ -52,7 +52,7 @@ export default function TownsByCounty({ heading = "Towns we cover.", tinted = fa
                   data-cta-location="service_areas"
                   data-cta-variant="chip"
                   className={`press inline-flex min-h-[44px] items-center rounded-chip border border-line bg-white font-semibold text-brand hover:border-tint ${
-                    collapsible ? "px-3.5 text-[14px] sm:px-4 sm:text-[15px]" : "px-4 text-[15px]"
+                    collapsible ? "px-3.5 text-[0.875rem] sm:px-4 sm:text-[0.9375rem]" : "px-4 text-[0.9375rem]"
                   }`}
                 >
                   {town.name}
@@ -81,7 +81,7 @@ export default function TownsByCounty({ heading = "Towns we cover.", tinted = fa
           // No reveal wrapper inside the disclosure: a closed <details> gives its children no box,
           // so an IntersectionObserver would never see them come into view.
           <details className="mt-6 rounded-card border border-line bg-white">
-            <summary className="flex min-h-[44px] cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 font-display text-[16px] font-bold text-brand [&::-webkit-details-marker]:hidden">
+            <summary className="flex min-h-[44px] cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 font-display text-[1rem] font-bold text-brand [&::-webkit-details-marker]:hidden">
               <span>
                 See all <span className="nums">{total}</span> towns
               </span>
@@ -105,7 +105,7 @@ export default function TownsByCounty({ heading = "Towns we cover.", tinted = fa
 
         <p
           className={`max-w-[62ch] leading-[1.7] text-slate ${
-            collapsible ? "mt-6 text-[14.5px] sm:text-[15px]" : "mt-8 text-[15px]"
+            collapsible ? "mt-6 text-[0.90625rem] sm:text-[0.9375rem]" : "mt-8 text-[0.9375rem]"
           }`}
         >
           {COVERAGE_LINE}

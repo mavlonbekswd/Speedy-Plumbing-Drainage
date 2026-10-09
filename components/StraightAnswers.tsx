@@ -33,7 +33,7 @@ interface Props {
 // the list in anything.
 export default function StraightAnswers({
   eyebrow = "Before you ring",
-  title = "FAQs",
+  title = "Straight answers.",
   answers,
   after,
   tinted = false,
@@ -75,14 +75,14 @@ export default function StraightAnswers({
             >
               <dt
                 className={`font-display font-bold leading-snug text-brand ${
-                  compact ? "text-[16px] sm:text-[19px]" : "text-[19px]"
+                  compact ? "text-[1rem] sm:text-[1.1875rem]" : "text-[1.1875rem]"
                 }`}
               >
                 {answer.q}
               </dt>
               <dd
                 className={`m-0 text-slate ${
-                  compact ? "text-[13.5px] leading-[1.55] sm:text-[15px] sm:leading-[1.6]" : "text-[15px] leading-[1.6]"
+                  compact ? "text-[0.84375rem] leading-[1.55] sm:text-[0.9375rem] sm:leading-[1.6]" : "text-base leading-[1.6]"
                 }`}
               >
                 <strong className="font-bold text-ink">{answer.lead}</strong> {answer.rest}
@@ -95,7 +95,7 @@ export default function StraightAnswers({
           <div
             className={`flex flex-col gap-5 sm:flex-row sm:items-center ${compact ? "mt-6 sm:mt-8" : "mt-10"}`}
           >
-            <p className="max-w-[52ch] text-[16.5px] leading-[1.6] text-slate">{after.text}</p>
+            <p className="max-w-[52ch] text-[1.03125rem] leading-[1.6] text-slate">{after.text}</p>
             <Button
               as="a"
               href="#book"

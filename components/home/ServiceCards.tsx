@@ -68,7 +68,7 @@ export default function ServiceCards() {
                 )}
 
                 <div className="flex flex-1 flex-col gap-2 p-6">
-                  <h3 className="font-display text-[19px] font-bold leading-snug text-brand">
+                  <h3 className="font-display text-[1.1875rem] font-bold leading-snug text-brand">
                     <a
                       href={serviceHref(service.slug)}
                       data-cta="nav"
@@ -79,7 +79,7 @@ export default function ServiceCards() {
                       {service.navLabel}
                     </a>
                   </h3>
-                  <p className="text-[14.5px] leading-[1.6] text-slate">{service.cardBlurb}</p>
+                  <p className="text-base leading-[1.6] text-slate">{service.cardBlurb}</p>
                 </div>
               </article>
             </AnimateIn>
