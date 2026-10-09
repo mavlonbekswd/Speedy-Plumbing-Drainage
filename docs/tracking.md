@@ -94,10 +94,16 @@ accident.
 
 **The phone-CALL label is used only by the number-swap config.** When it is set, the inline tag
 adds `gtag('config', '<ads id>/<call label>', { phone_conversion_number: <the number as printed> })`.
-Google then swaps the displayed number for a forwarding number on paid sessions and reports the
-calls itself; the real business number stays in the HTML for organic visitors and for
-name-address-phone consistency. It also needs a forwarding number configured on the action, or
-the tag has nothing to swap to.
+The same line also passes a `phone_conversion_callback` (owner's decision, 9 October 2026: every
+visitor must READ the real number). With a callback present, Google does not replace any text on
+the page: its tag sets `autoreplace` only when neither a callback nor a CSS class is given. On paid
+sessions Google hands the forwarding number to the callback, which writes it into every `tel:`
+link's `href` only, and a capture-phase click listener does the same for any `tel:` link rendered
+later (the mobile call bar, client-side navigation). So the page always shows `01223 482415`, a tap
+from an ad visitor dials the forwarding number, and Google reports the calls that run past the
+action's minimum duration. The cost: a desktop ad visitor who reads the number and dials it by hand
+reaches the real line, and Google never sees that call. It also needs a forwarding number
+configured on the action, or the callback is never called.
 
 ### Silent versus loud
 
@@ -383,5 +389,5 @@ unaffected. That is a choice, not a fault.
 because the Vercel project's environment cannot be edited by the people who run the site. A
 conversion label is public (it is in every page's HTML). An environment variable of the same name
 overrides the default. The swap line `gtag('config', '<AW id>/<label>', {phone_conversion_number: "01223 482415"})`
-only matches while the displayed number is exactly `01223 482415`, and only swaps for visitors who
+only matches while the displayed number is exactly `01223 482415`, and only swaps the `tel:` links (never the visible text) for visitors who
 arrived by an ad click: verify it by the served config line, never by eye.
