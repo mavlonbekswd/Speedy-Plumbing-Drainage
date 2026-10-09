@@ -28,7 +28,7 @@ const blockedDrains: ServiceContent = {
   cardBlurb:
     "We find where it is blocked, unblock it and run water through to check. That means the drain is back in use and you know the blockage has gone.",
   meta: {
-    title: "Blocked Drains Cambridgeshire | 24/7 Unblocking | Speedy Plumbing & Drain",
+    title: "Blocked Drains & Drain Unblocking Cambridgeshire | Speedy Plumbing & Drain",
     description: `Blocked sink, toilet or outside drain? We unblock drains across ${COVERAGE_SHORT}, with you within 45 minutes, day or night.`,
   },
   hero: {
@@ -79,7 +79,7 @@ const blockedDrains: ServiceContent = {
     buttonLabel: "Book a callback",
   },
   problems: {
-    heading: "What we get called out to unblock.",
+    heading: "Drain unblocking for sinks, toilets, showers and outside drains.",
     sub: "Start with what you can see. Open one for what we do on arrival.",
     cards: [
       {
@@ -108,6 +108,33 @@ const blockedDrains: ServiceContent = {
       },
     ],
   },
+  // Added 9 Oct 2026 for the D and DC keywords that land here: "blocked toilet" (two of the
+  // campaign's three conversions) and "blocked shower drain" had one card each and no heading.
+  // No new claim: what we do, in the words the searcher uses.
+  sections: [
+    {
+      id: "blocked-toilet",
+      heading: "Blocked toilet?",
+      paragraphs: [
+        "Stop flushing it. Every flush puts more water into a pan that cannot empty, and that is how a blocked toilet ends up on the bathroom floor.",
+        "We clear the pan and the soil pipe behind it without damaging either, then flush it through to check. If the toilet is fine and the blockage is further down the drain, we follow it outside and unblock it there.",
+        "If it is your only toilet, say so when you ring.",
+      ],
+      bullets: [
+        "Pan and soil pipe cleared, not just plunged",
+        "Flushed through to check before we leave",
+        "Followed outside if the drain is the cause",
+      ],
+    },
+    {
+      id: "blocked-shower",
+      heading: "Blocked shower or bath drain?",
+      paragraphs: [
+        "Usually hair and soap, caught in the waste and the trap. We take them apart, pull it out and run the water to check, so you are not standing in it.",
+        "If the shower and the bath are both slow, the blockage is probably in the pipe they share, and that is where we clear it.",
+      ],
+    },
+  ],
   adLines: ["We arrive within 45 minutes. Open 24/7, including weekends and bank holidays."],
   ctaBand: {
     heading: "Blocked right now?",
