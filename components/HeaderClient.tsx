@@ -247,7 +247,7 @@ export default function HeaderClient({
                       data-cta="menu"
                       data-cta-location="header"
                       data-cta-variant="text_link"
-                      className="press inline-flex items-center gap-1.5 text-[14.5px] font-semibold text-brand hover:text-tint"
+                      className="press inline-flex items-center gap-1.5 text-[0.90625rem] font-semibold text-brand hover:text-tint"
                     >
                       {link.label}
                       <CaretDown
@@ -283,7 +283,7 @@ export default function HeaderClient({
                                 data-cta={service.cta ?? "nav"}
                                 data-cta-location="header"
                                 data-cta-variant="text_link"
-                                className="flex min-h-[44px] items-center rounded-chip px-3 text-[14.5px] font-semibold text-brand hover:bg-paper-2 hover:text-tint"
+                                className="flex min-h-[44px] items-center rounded-chip px-3 text-[0.90625rem] font-semibold text-brand hover:bg-paper-2 hover:text-tint"
                               >
                                 {service.label}
                               </a>
@@ -297,7 +297,7 @@ export default function HeaderClient({
                           data-cta="nav"
                           data-cta-location="header"
                           data-cta-variant="text_link"
-                          className="mt-2 flex min-h-[44px] items-center rounded-chip border-t border-line px-3 text-[14.5px] font-semibold text-tint hover:bg-paper-2"
+                          className="mt-2 flex min-h-[44px] items-center rounded-chip border-t border-line px-3 text-[0.90625rem] font-semibold text-tint hover:bg-paper-2"
                         >
                           {services.hub.label}
                         </a>
@@ -314,7 +314,7 @@ export default function HeaderClient({
                   data-cta={link.cta ?? "nav"}
                   data-cta-location="header"
                   data-cta-variant="text_link"
-                  className="press text-[14.5px] font-semibold text-brand hover:text-tint"
+                  className="press text-[0.90625rem] font-semibold text-brand hover:text-tint"
                 >
                   {link.label}
                 </a>
@@ -381,7 +381,7 @@ export default function HeaderClient({
                         data-cta="menu"
                         data-cta-location="header_mobile_menu"
                         data-cta-variant="text_link"
-                        className="flex min-h-[52px] w-full items-center justify-between gap-3 text-left text-[17px] font-semibold text-brand"
+                        className="flex min-h-[52px] w-full items-center justify-between gap-3 text-left text-[1.0625rem] font-semibold text-brand"
                       >
                         {link.label}
                         <CaretDown
@@ -402,7 +402,7 @@ export default function HeaderClient({
                                 data-cta={service.cta ?? "nav"}
                                 data-cta-location="header_mobile_menu"
                                 data-cta-variant="text_link"
-                                className="flex min-h-[46px] items-center text-[16px] font-semibold text-slate"
+                                className="flex min-h-[46px] items-center text-[1rem] font-semibold text-slate"
                               >
                                 {service.label}
                               </a>
@@ -415,7 +415,7 @@ export default function HeaderClient({
                               data-cta="nav"
                               data-cta-location="header_mobile_menu"
                               data-cta-variant="text_link"
-                              className="flex min-h-[46px] items-center text-[16px] font-semibold text-tint"
+                              className="flex min-h-[46px] items-center text-[1rem] font-semibold text-tint"
                             >
                               {services.hub.label}
                             </a>
@@ -434,7 +434,7 @@ export default function HeaderClient({
                     data-cta={link.cta ?? "nav"}
                     data-cta-location="header_mobile_menu"
                     data-cta-variant="text_link"
-                    className="flex min-h-[52px] items-center border-b border-line text-[17px] font-semibold text-brand"
+                    className="flex min-h-[52px] items-center border-b border-line text-[1.0625rem] font-semibold text-brand"
                   >
                     {link.label}
                   </a>

@@ -99,7 +99,7 @@ export default function AreasWeCoverPage() {
         <CountyTownCards eyebrow="Town by town" heading="The towns we work in.">
           {ORGANIC_TOWNS.length > 0 && (
             <div className="mt-10 border-t border-line pt-8">
-              <p className="max-w-[62ch] text-[15px] leading-[1.7] text-slate">
+              <p className="max-w-[62ch] text-base leading-[1.7] text-slate">
                 We work in the villages around these three towns as well as in the town centres too.
               </p>
               <ul className="mt-4 flex flex-wrap gap-2">
@@ -110,7 +110,7 @@ export default function AreasWeCoverPage() {
                       data-cta="nav"
                       data-cta-location="areas_index_organic"
                       data-cta-variant="chip"
-                      className="press inline-flex min-h-[44px] items-center rounded-chip border border-line bg-white px-4 text-[15px] font-semibold text-brand hover:border-tint"
+                      className="press inline-flex min-h-[44px] items-center rounded-chip border border-line bg-white px-4 text-[0.9375rem] font-semibold text-brand hover:border-tint"
                     >
                       {placeOf(town)}
                     </a>

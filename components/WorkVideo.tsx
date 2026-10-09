@@ -59,7 +59,7 @@ export default function WorkVideo({ slug, className = "" }: { slug: string; clas
           </>
         )}
       </div>
-      <figcaption className="mt-2 text-[13.5px] leading-snug text-slate">{video.caption}</figcaption>
+      <figcaption className="mt-2 text-[0.84375rem] leading-snug text-slate">{video.caption}</figcaption>
     </figure>
   );
 }

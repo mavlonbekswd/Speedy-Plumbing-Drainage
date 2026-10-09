@@ -43,14 +43,14 @@ export default function Logo({
 
       <span className="flex flex-col leading-none">
         <span
-          className={`font-display text-[21px] font-extrabold italic leading-none tracking-[-0.02em] ${
+          className={`font-display text-[1.3125rem] font-extrabold italic leading-none tracking-[-0.02em] ${
             dark ? "text-white" : "text-brand"
           }`}
         >
           SPEEDY
         </span>
         <span
-          className={`mt-[3px] text-[9.5px] font-bold uppercase leading-none tracking-[0.13em] ${
+          className={`mt-[3px] text-[0.59375rem] font-bold uppercase leading-none tracking-[0.13em] ${
             dark ? "text-white/70" : "text-slate"
           }`}
         >

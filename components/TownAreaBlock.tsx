@@ -31,7 +31,7 @@ export default function TownAreaBlock({ city, tinted = false, compact = false }:
         <AnimateIn>
           <SectionHeading eyebrow="Where we work" title={`Where in ${placeOf(city)} we work.`} sub={city.blurb || undefined} />
 
-          <p className="mt-6 text-[15px] font-semibold text-brand">
+          <p className="mt-6 text-[0.9375rem] font-semibold text-brand">
             Postcode districts we cover here: {city.postcodeDistricts.join(", ")}.
           </p>
 
@@ -39,7 +39,7 @@ export default function TownAreaBlock({ city, tinted = false, compact = false }:
             {city.nearbyAreas.map((area) => (
               <li
                 key={area}
-                className="inline-flex items-center rounded-chip border border-line bg-white px-3 py-1.5 text-[13.5px] font-medium text-brand"
+                className="inline-flex items-center rounded-chip border border-line bg-white px-3 py-1.5 text-[0.84375rem] font-medium text-brand"
               >
                 {area}
               </li>
@@ -47,14 +47,14 @@ export default function TownAreaBlock({ city, tinted = false, compact = false }:
           </ul>
 
           <div className="mt-8 grid gap-x-10 gap-y-3 md:grid-cols-2">
-            <p className="max-w-[58ch] text-[14.5px] leading-[1.65] text-slate">{city.localNote}</p>
-            <p className="max-w-[58ch] text-[14.5px] leading-[1.65] text-slate">{city.serviceNotes.emergency}</p>
+            <p className="max-w-[58ch] text-base leading-[1.65] text-slate">{city.localNote}</p>
+            <p className="max-w-[58ch] text-base leading-[1.65] text-slate">{city.serviceNotes.emergency}</p>
           </div>
         </AnimateIn>
 
         {nearby.length > 0 && (
           <AnimateIn delay={80}>
-            <h3 className="mt-10 text-[13px] font-semibold uppercase tracking-[0.16em] text-tint">
+            <h3 className="mt-10 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-tint">
               Also covering nearby areas
             </h3>
             <ul className="mt-3 flex flex-wrap gap-2">
@@ -65,7 +65,7 @@ export default function TownAreaBlock({ city, tinted = false, compact = false }:
                     data-cta="nav"
                     data-cta-location="nearby_areas"
                     data-cta-variant="chip"
-                    className="press inline-flex min-h-[44px] items-center rounded-chip border border-line bg-white px-4 text-[15px] font-semibold text-brand hover:border-tint"
+                    className="press inline-flex min-h-[44px] items-center rounded-chip border border-line bg-white px-4 text-[0.9375rem] font-semibold text-brand hover:border-tint"
                   >
                     {town.name}
                   </a>

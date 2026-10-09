@@ -28,7 +28,7 @@ import FormStatus, {
 } from "@/components/FormStatus";
 
 /** Focus order on an empty submit: the first thing the customer is missing. */
-const FOCUS_ORDER = ["phone", "name", "postcode"] as const;
+const FOCUS_ORDER = ["phone", "postcode", "name"] as const;
 
 export interface CallbackInlineProps {
   /** `${slug}_hero`, `area_${town}_hero`, and so on. Never reused across two forms on a page. */
@@ -95,8 +95,8 @@ export default function CallbackInline({
 
       {state !== "success" && (
         <>
-          <p className="font-display text-[19px] font-bold leading-snug text-brand">{title}</p>
-          <p className="mb-4 mt-1 text-[14.5px] leading-[1.5] text-slate">{FORM_COPY.inline.sub}</p>
+          <p className="font-display text-[1.1875rem] font-bold leading-snug text-brand">{title}</p>
+          <p className="mb-4 mt-1 text-base leading-[1.5] text-slate">{FORM_COPY.inline.sub}</p>
 
           <form
             ref={formRef}
@@ -130,24 +130,7 @@ export default function CallbackInline({
               <FieldError id={`${idPrefix}-phone-error`} message={errors.phone} />
             </div>
 
-            <div className="grid grid-cols-[1fr_0.85fr] gap-3">
-              <div className="flex flex-col gap-1.5">
-                <label htmlFor={`${idPrefix}-name`} className={LABEL_CLASS}>
-                  {FORM_COPY.full.nameLabel}
-                </label>
-                <input
-                  id={`${idPrefix}-name`}
-                  name="name"
-                  type="text"
-                  required
-                  autoComplete="name"
-                  aria-invalid={errors.name ? true : undefined}
-                  aria-describedby={errors.name ? `${idPrefix}-name-error` : undefined}
-                  className={FIELD_CLASS}
-                />
-                <FieldError id={`${idPrefix}-name-error`} message={errors.name} />
-              </div>
-
+            <div className="grid grid-cols-[0.85fr_1fr] gap-3">
               <div className="flex flex-col gap-1.5">
                 <label htmlFor={`${idPrefix}-postcode`} className={LABEL_CLASS}>
                   {FORM_COPY.full.postcodeLabel}
@@ -169,17 +152,34 @@ export default function CallbackInline({
                 />
                 <FieldError id={`${idPrefix}-postcode-error`} message={errors.postcode} />
               </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor={`${idPrefix}-name`} className={LABEL_CLASS}>
+                  {FORM_COPY.full.nameLabel}
+                </label>
+                <input
+                  id={`${idPrefix}-name`}
+                  name="name"
+                  type="text"
+                  required
+                  autoComplete="name"
+                  aria-invalid={errors.name ? true : undefined}
+                  aria-describedby={errors.name ? `${idPrefix}-name-error` : undefined}
+                  className={FIELD_CLASS}
+                />
+                <FieldError id={`${idPrefix}-name-error`} message={errors.name} />
+              </div>
             </div>
 
             <button
               type="submit"
               disabled={state === "sending"}
-              className="press mt-1 inline-flex min-h-[56px] items-center justify-center rounded-pill bg-cta px-6 text-[16.5px] font-bold text-ink hover:bg-cta-deep disabled:opacity-50"
+              className="press mt-1 inline-flex min-h-[56px] items-center justify-center rounded-pill bg-cta px-6 text-[1.03125rem] font-bold text-ink hover:bg-cta-deep disabled:opacity-50"
             >
               {state === "sending" ? FORM_COPY.inline.submitting : FORM_COPY.inline.submit}
             </button>
 
-            <p className="text-center text-[12.5px] text-steel">{FORM_COPY.inline.finePrint}</p>
+            <p className="text-center text-[0.8125rem] text-steel">{FORM_COPY.inline.finePrint}</p>
           </form>
         </>
       )}

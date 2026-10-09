@@ -33,7 +33,7 @@ export default function IllustrationRow({
   if (variant === "aside") {
     return (
       <div>
-        <h3 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-tint">{heading}</h3>
+        <h3 className="text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-tint">{heading}</h3>
         <ul className={`mt-4 grid gap-2.5 sm:gap-4 ${items.length >= 3 ? "grid-cols-3" : "grid-cols-2"}`}>
           {items.map((item) => (
             <li key={item.slug}>
@@ -51,7 +51,7 @@ export default function IllustrationRow({
                     />
                   </div>
                 </ZoomableImage>
-                <figcaption className="mt-2 text-[13.5px] leading-[1.5] text-slate">{item.caption}</figcaption>
+                <figcaption className="mt-2 text-base leading-[1.5] text-slate">{item.caption}</figcaption>
               </figure>
             </li>
           ))}
@@ -89,7 +89,7 @@ export default function IllustrationRow({
                     />
                   </div>
                 </ZoomableImage>
-                <figcaption className="mt-2 text-[14px] leading-[1.5] text-slate">{item.caption}</figcaption>
+                <figcaption className="mt-2 text-base leading-[1.5] text-slate">{item.caption}</figcaption>
               </figure>
             </li>
           ))}

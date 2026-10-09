@@ -17,7 +17,9 @@ import { ADS } from "../content/ads";
 // Section 6.1 shared constants, verbatim
 // ---------------------------------------------------------------------------
 
-export const PRICE_PROCESS_LINE = "The price is agreed before we start";
+// Ends with a full stop since 9 Oct 2026: it is joined onto other sentences on home, about,
+// guarantee, blog, the 404 and the contact callback, and without one those read as run-ons.
+export const PRICE_PROCESS_LINE = "The price is agreed before we start.";
 
 // THE CALL-OUT FEE IS OFF THE SITE. Owner (Maher), 24 September 2026: "Let's not mention call out
 // fee anywhere." Actioned 27 September 2026: "Remove the £49 call out fee text from the website
@@ -42,7 +44,7 @@ export const PRICE_FACT_LINE = `${NO_HIDDEN_FEES} ${PRICE_PROCESS_LINE}`;
  * comes from. NO_HIDDEN_FEES is the lead of the card directly below it, and two adjacent cards
  * must not open on the same sentence.
  */
-export const COST_LEAD = `${PRICE_PROCESS_LINE}.`;
+export const COST_LEAD = PRICE_PROCESS_LINE;
 /** Bold lead of the "Any hidden fees?" card. The owner's line is the answer to that question. */
 export const HIDDEN_FEES_LEAD = NO_HIDDEN_FEES;
 

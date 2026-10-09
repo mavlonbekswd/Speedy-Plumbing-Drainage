@@ -21,7 +21,8 @@
   --ink:         #0B1730; /* body / strong text; also text on the cta colour */
   --slate:       #3A4A66; /* muted body text (AA on paper) */
   --steel:       #52627D; /* fine print / small caps labels (AA on paper) */
-  --line:        #DCE3EE; /* hairline borders */
+  --line:        #DCE3EE; /* hairline borders, decorative only */
+  --edge:        #7D8BA3; /* form field borders: 3.45:1 on white */
   --white:       #FFFFFF;
   --whatsapp:    #25D366;
 }

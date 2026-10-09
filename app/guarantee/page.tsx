@@ -116,7 +116,7 @@ export default function GuaranteePage() {
               <p className="nums font-display text-[clamp(54px,9vw,92px)] font-extrabold leading-[0.9] text-brand">
                 1 year
               </p>
-              <p className="mt-3 text-[16.5px] font-semibold leading-snug text-slate">on our workmanship</p>
+              <p className="mt-3 text-[1.03125rem] font-semibold leading-snug text-slate">on our workmanship</p>
             </div>
           }
         >
@@ -125,7 +125,7 @@ export default function GuaranteePage() {
             data-cta="book_anchor"
             data-cta-location="guarantee_hero"
             data-cta-variant="text_link"
-            className="inline-flex min-h-[44px] items-center text-[15.5px] font-semibold text-brand underline underline-offset-4 hover:text-tint"
+            className="inline-flex min-h-[44px] items-center text-[0.96875rem] font-semibold text-brand underline underline-offset-4 hover:text-tint"
           >
             Ask us to ring you
           </a>
@@ -148,10 +148,10 @@ export default function GuaranteePage() {
 
             <AnimateIn>
               <div className="mt-8 rounded-card border border-line bg-white p-6 shadow-card">
-                <h3 className="font-display text-[19px] font-bold leading-snug text-brand">
+                <h3 className="font-display text-[1.1875rem] font-bold leading-snug text-brand">
                   12-Month Workmanship Guarantee
                 </h3>
-                <div className="mt-3 flex max-w-[72ch] flex-col gap-3 text-[15.5px] leading-[1.7] text-slate">
+                <div className="mt-3 flex max-w-[72ch] flex-col gap-3 text-base leading-[1.7] text-slate">
                   {GUARANTEE_TERMS.map((paragraph) => (
                     <p key={paragraph}>{paragraph}</p>
                   ))}
@@ -159,7 +159,7 @@ export default function GuaranteePage() {
               </div>
             </AnimateIn>
 
-            <p className="mt-6 max-w-[64ch] text-[15.5px] leading-[1.7] text-slate">
+            <p className="mt-6 max-w-[64ch] text-base leading-[1.7] text-slate">
               {PRICE_PROCESS_LINE} {NIGHT_RATE_LINE}
             </p>
           </div>

@@ -60,7 +60,7 @@ export const COVERAGE_FAQ: Faq = {
 // carried the words since the build.
 export const PRICE_FAQ: Faq = {
   q: "How is the price agreed?",
-  a: `You approve the cost first. ${PRICE_PROCESS_LINE}. ${NO_HIDDEN_FEES} ${FREE_WHATSAPP_LINE} ${NIGHT_RATE_LINE}`,
+  a: `You approve the cost first. ${PRICE_PROCESS_LINE} ${NO_HIDDEN_FEES} ${FREE_WHATSAPP_LINE} ${NIGHT_RATE_LINE}`,
 };
 
 /**

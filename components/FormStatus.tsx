@@ -33,17 +33,17 @@ export type FormState = "idle" | "sending" | "success" | "error";
 
 /** 17px is the floor that stops iOS zooming the page on focus; 52px is the tap target. */
 export const FIELD_CLASS =
-  "field w-full min-h-[52px] rounded-chip border border-line bg-white px-4 py-3 text-[17px] leading-[1.4] text-ink";
+  "field w-full min-h-[52px] rounded-chip border border-edge bg-white px-4 py-3 text-[1.0625rem] leading-[1.4] text-ink";
 
-export const LABEL_CLASS = "text-[14px] font-semibold text-brand";
+export const LABEL_CLASS = "text-[0.875rem] font-semibold text-brand";
 
-export const HINT_CLASS = "text-[13.5px] leading-[1.5] text-steel";
+export const HINT_CLASS = "text-base leading-[1.5] text-steel";
 
 /** Inline, under its field, referenced by the field's aria-describedby. */
 export function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
   return (
-    <p id={id} className="text-[13.5px] font-semibold text-[#B3261E]">
+    <p id={id} className="text-[0.84375rem] font-semibold text-[#B3261E]">
       {message}
     </p>
   );
@@ -148,12 +148,12 @@ export default function FormStatus({
       <div aria-live="polite">
         {state === "success" && (
           <div className="flex flex-col gap-3">
-            <p className="font-display text-[22px] font-bold leading-snug text-brand">
+            <p className="font-display text-[1.375rem] font-bold leading-snug text-brand">
               {successHeading}
             </p>
-            {successBody && <p className="text-[15.5px] leading-[1.65] text-slate">{successBody}</p>}
+            {successBody && <p className="text-base leading-[1.65] text-slate">{successBody}</p>}
             {photosDropped > 0 && (
-              <p className="text-[15.5px] leading-[1.65] text-slate">
+              <p className="text-base leading-[1.65] text-slate">
                 {photosDropped === 1
                   ? "Your photo did not come through with the request. "
                   : "Your photos did not come through with the request. "}
@@ -182,7 +182,7 @@ export default function FormStatus({
       {state === "error" && (
         <p
           role="alert"
-          className="rounded-chip bg-[#FDECEA] px-4 py-3 text-[14.5px] font-semibold leading-[1.6] text-[#B3261E]"
+          className="rounded-chip bg-[#FDECEA] px-4 py-3 text-[0.90625rem] font-semibold leading-[1.6] text-[#B3261E]"
         >
           <WithCallLink text={errorText} location="form_error" />
         </p>

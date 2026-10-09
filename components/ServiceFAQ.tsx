@@ -53,7 +53,7 @@ export default function ServiceFAQ({ faqs, heading = "Questions people ask us.",
                   <p
                     id={bodyId}
                     hidden={!on}
-                    className="-mt-1 max-w-[62ch] px-5 pb-5 text-[15px] leading-[1.7] text-slate sm:px-6"
+                    className="-mt-1 max-w-[62ch] px-5 pb-5 text-base leading-[1.7] text-slate sm:px-6"
                   >
                     {faq.a}
                   </p>

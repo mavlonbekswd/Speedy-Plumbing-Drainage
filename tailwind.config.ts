@@ -27,6 +27,9 @@ const config: Config = {
         slate:    "#3A4A66",
         steel:    "#52627D",
         line:     "#DCE3EE",
+        // Form field borders. 3.45:1 on white and 3.21:1 on paper, so a field reads as a field
+        // (WCAG 1.4.11 asks 3:1 of a control's boundary); line is for decorative hairlines only.
+        edge:     "#7D8BA3",
         white:    "#FFFFFF",
         whatsapp: "#25D366",
       },

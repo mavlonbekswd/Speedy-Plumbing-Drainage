@@ -21,8 +21,8 @@ export default function CoverList({
   const Glyph = tone === "yes" ? Check : X;
   return (
     <div className="flex h-full flex-col gap-4 rounded-card border border-line bg-white p-6 shadow-card">
-      <h3 className="font-display text-[19px] font-bold leading-snug text-brand">{title}</h3>
-      <ul className="flex flex-col gap-3 text-[15.5px] leading-[1.6] text-slate">
+      <h3 className="font-display text-[1.1875rem] font-bold leading-snug text-brand">{title}</h3>
+      <ul className="flex flex-col gap-3 text-base leading-[1.6] text-slate">
         {items.map((item) => (
           <li key={item.lead} className="flex gap-3">
             <span

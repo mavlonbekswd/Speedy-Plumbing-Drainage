@@ -122,7 +122,7 @@ export default function StaticHero({
           {facts?.map((fact) => {
             const { lead, rest } = splitLead(fact);
             return (
-              <p key={fact} className="animate-fade-up-2 mb-1 text-[14.5px] leading-snug text-slate">
+              <p key={fact} className="animate-fade-up-2 mb-1 text-[0.90625rem] leading-snug text-slate">
                 <strong className="font-semibold text-brand">{lead}</strong>
                 {rest ? ` ${rest}` : ""}
               </p>
@@ -130,7 +130,7 @@ export default function StaticHero({
           })}
 
           {sub && (
-            <div className="animate-fade-up-2 mt-4 flex max-w-[48ch] flex-col gap-3 text-[16px] leading-[1.6] text-slate">
+            <div className="animate-fade-up-2 mt-4 flex max-w-[48ch] flex-col gap-3 text-[1rem] leading-[1.6] text-slate">
               {typeof sub === "string" ? <p>{sub}</p> : sub}
             </div>
           )}

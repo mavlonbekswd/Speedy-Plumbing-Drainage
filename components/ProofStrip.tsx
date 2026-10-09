@@ -67,7 +67,7 @@ export default function ProofStrip({
               slug={video.slug}
               className={
                 compact
-                  ? "[&_figcaption]:mt-1.5 [&_figcaption]:text-[11.5px] sm:[&_figcaption]:mt-2 sm:[&_figcaption]:text-[13.5px]"
+                  ? "[&_figcaption]:mt-1.5 [&_figcaption]:text-[0.8125rem] sm:[&_figcaption]:mt-2 sm:[&_figcaption]:text-[0.84375rem]"
                   : ""
               }
             />
@@ -96,7 +96,7 @@ export default function ProofStrip({
               </ZoomableImage>
               <figcaption
                 className={`leading-snug text-slate ${
-                  compact ? "mt-1.5 text-[11.5px] sm:mt-2 sm:text-[13.5px]" : "mt-2 text-[13.5px]"
+                  compact ? "mt-1.5 text-[0.8125rem] sm:mt-2 sm:text-[0.84375rem]" : "mt-2 text-[0.84375rem]"
                 }`}
               >
                 {photo.caption}

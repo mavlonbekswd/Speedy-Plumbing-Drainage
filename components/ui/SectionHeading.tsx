@@ -23,7 +23,7 @@ export default function SectionHeading({
     <div className={`${centred ? "mx-auto max-w-[44rem] text-center" : ""} ${className}`}>
       {eyebrow && (
         <p
-          className={`mb-3 text-[12px] font-semibold uppercase tracking-[0.16em] ${dark ? "text-tint-bright" : "text-tint"}`}
+          className={`mb-3 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] ${dark ? "text-tint-bright" : "text-tint"}`}
         >
           {eyebrow}
         </p>
@@ -36,7 +36,7 @@ export default function SectionHeading({
       </h2>
       {sub && (
         <p
-          className={`mt-4 max-w-[58ch] text-[16.5px] leading-[1.6] ${dark ? "text-white/80" : "text-slate"} ${centred ? "mx-auto" : ""}`}
+          className={`mt-4 max-w-[58ch] text-[1.03125rem] leading-[1.6] ${dark ? "text-white/80" : "text-slate"} ${centred ? "mx-auto" : ""}`}
         >
           {sub}
         </p>

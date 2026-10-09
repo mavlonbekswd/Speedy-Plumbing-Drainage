@@ -37,7 +37,7 @@ export default function Reviews() {
             <SectionHeading eyebrow="Reviews" title="Our reviews live on our Google profile." />
 
             {HAS_REVIEWS ? null : (
-              <p className="mt-5 max-w-[52ch] text-[16px] leading-[1.7] text-slate">
+              <p className="mt-5 max-w-[52ch] text-[1rem] leading-[1.7] text-slate">
                 We do not reprint them here. We ask every customer to leave one, we offer nothing in return, and
                 we filter nothing out.
               </p>
@@ -51,7 +51,7 @@ export default function Reviews() {
                 data-cta="nav"
                 data-cta-location="home_reviews"
                 data-cta-variant="secondary_button"
-                className="mt-6 inline-flex min-h-[44px] items-center gap-1.5 rounded-chip border border-line bg-white px-4 text-[15px] font-semibold text-brand hover:border-tint"
+                className="mt-6 inline-flex min-h-[44px] items-center gap-1.5 rounded-chip border border-line bg-white px-4 text-[0.9375rem] font-semibold text-brand hover:border-tint"
               >
                 Read our reviews on Google <ArrowRight size={15} weight="bold" aria-hidden />
               </a>
@@ -64,7 +64,7 @@ export default function Reviews() {
                 data-cta="nav"
                 data-cta-location="home_reviews"
                 data-cta-variant="text_link"
-                className="mt-6 inline-flex min-h-[44px] items-center gap-1.5 text-[15px] font-bold text-tint hover:underline hover:underline-offset-4"
+                className="mt-6 inline-flex min-h-[44px] items-center gap-1.5 text-[0.9375rem] font-bold text-tint hover:underline hover:underline-offset-4"
               >
                 See more of our own jobs <ArrowRight size={15} weight="bold" aria-hidden />
               </a>
@@ -93,7 +93,7 @@ export default function Reviews() {
                       />
                     </div>
                   </ZoomableImage>
-                  <figcaption className="mt-2 text-[13px] leading-snug text-slate">{photo.caption}</figcaption>
+                  <figcaption className="mt-2 text-[0.8125rem] leading-snug text-slate">{photo.caption}</figcaption>
                 </figure>
               ))}
             </div>

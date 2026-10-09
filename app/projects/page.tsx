@@ -77,7 +77,7 @@ function Chip({ href, children }: { href: string; children: React.ReactNode }) {
       data-cta="nav"
       data-cta-location="projects_groups"
       data-cta-variant="chip"
-      className="press inline-flex min-h-[44px] items-center rounded-chip border border-line bg-white px-4 text-[15px] font-semibold text-brand hover:border-tint"
+      className="press inline-flex min-h-[44px] items-center rounded-chip border border-line bg-white px-4 text-[0.9375rem] font-semibold text-brand hover:border-tint"
     >
       {children}
     </a>
@@ -176,7 +176,7 @@ export default function ProjectsPage() {
                             />
                           </div>
                         </ZoomableImage>
-                        <figcaption className="mt-2 text-[13.5px] leading-snug text-slate">
+                        <figcaption className="mt-2 text-[0.84375rem] leading-snug text-slate">
                           {photo.caption}
                         </figcaption>
                       </figure>

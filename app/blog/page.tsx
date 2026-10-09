@@ -59,7 +59,7 @@ export default function BlogIndexPage() {
           ctaLocation="blog_index_hero"
         >
           {PUBLISHED_POSTS.length === 0 && (
-            <p className="max-w-[58ch] text-[16.5px] leading-[1.7] text-slate">
+            <p className="max-w-[58ch] text-[1.03125rem] leading-[1.7] text-slate">
               There is nothing to read here yet. The quickest answer is the phone. {ANSWERED_LINE}
             </p>
           )}
@@ -75,11 +75,11 @@ export default function BlogIndexPage() {
                   <li key={post.slug} className="list-none">
                     <AnimateIn delay={i * 70} className="h-full">
                       <article className="flex h-full flex-col gap-3 rounded-card border border-line bg-white p-6 shadow-card">
-                        <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-tint">
+                        <p className="text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-tint">
                           <span className="nums">{readableDate(post.date)}</span>
                           {post.readingTime ? ` · ${post.readingTime}` : ""}
                         </p>
-                        <h2 className="font-display text-[19px] font-bold leading-snug text-brand">
+                        <h2 className="font-display text-[1.1875rem] font-bold leading-snug text-brand">
                           <a
                             href={blogHref(post.slug)}
                             data-cta="nav"
@@ -90,7 +90,7 @@ export default function BlogIndexPage() {
                             {post.title}
                           </a>
                         </h2>
-                        <p className="max-w-[52ch] text-[15px] leading-[1.7] text-slate">{post.excerpt}</p>
+                        <p className="max-w-[52ch] text-base leading-[1.7] text-slate">{post.excerpt}</p>
                       </article>
                     </AnimateIn>
                   </li>

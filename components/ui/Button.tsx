@@ -13,9 +13,9 @@ const VARIANT: Record<Variant, string> = {
 };
 // md is the 44px tap-target floor, lg the header and band size, xl the hero call pill.
 const SIZE: Record<Size, string> = {
-  md: "min-h-[44px] px-5 text-[14.5px]",
-  lg: "min-h-[52px] px-7 text-[16px]",
-  xl: "min-h-[60px] px-8 text-[18px] font-bold",
+  md: "min-h-[44px] px-5 text-[0.90625rem]",
+  lg: "min-h-[52px] px-7 text-[1rem]",
+  xl: "min-h-[60px] px-8 text-[1.125rem] font-bold",
 };
 const BASE =
   "press inline-flex items-center justify-center gap-2 rounded-pill font-semibold whitespace-nowrap disabled:opacity-50";

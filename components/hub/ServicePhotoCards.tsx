@@ -77,17 +77,17 @@ export default function ServicePhotoCards({ services, eyebrow, heading }: Props)
                   )}
 
                   <div className="flex flex-1 flex-col p-6">
-                    <p className="mb-2 text-[12px] font-semibold uppercase tracking-[0.16em] text-tint">
+                    <p className="mb-2 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-tint">
                       {service.kind === "urgent" ? "Emergency" : "Booked visit"}
                     </p>
 
-                    <h3 className="font-display text-[19px] font-bold leading-snug text-brand">
+                    <h3 className="font-display text-[1.1875rem] font-bold leading-snug text-brand">
                       {service.navLabel}
                     </h3>
 
-                    <p className="mt-2 text-[14.5px] leading-[1.6] text-slate">{service.cardBlurb}</p>
+                    <p className="mt-2 text-base leading-[1.6] text-slate">{service.cardBlurb}</p>
 
-                    <span className="mt-auto inline-flex items-center gap-1.5 pt-4 text-[14px] font-bold text-tint group-hover:underline group-hover:underline-offset-4">
+                    <span className="mt-auto inline-flex items-center gap-1.5 pt-4 text-[0.875rem] font-bold text-tint group-hover:underline group-hover:underline-offset-4">
                       Read the page <ArrowRight size={14} weight="bold" aria-hidden />
                     </span>
                   </div>

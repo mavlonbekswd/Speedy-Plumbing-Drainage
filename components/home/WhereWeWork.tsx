@@ -23,11 +23,11 @@ export default function WhereWeWork() {
     <section id="areas" className="bg-brand">
       <div className="mx-auto grid max-w-content items-start gap-12 px-5 py-14 sm:px-8 md:py-20 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
         <AnimateIn>
-          <SectionHeading eyebrow="Where we work" title="Where we work." sub={COVERAGE_LINE} dark />
+          <SectionHeading eyebrow="Coverage" title="Where we work." sub={COVERAGE_LINE} dark />
 
           {counties.length > 0 && (
             <details className="group mt-8">
-              <summary className="press inline-flex min-h-[46px] cursor-pointer list-none select-none items-center gap-2 rounded-pill border border-white/25 bg-white/10 px-5 text-[14.5px] font-bold text-white [&::-webkit-details-marker]:hidden">
+              <summary className="press inline-flex min-h-[46px] cursor-pointer list-none select-none items-center gap-2 rounded-pill border border-white/25 bg-white/10 px-5 text-[0.90625rem] font-bold text-white [&::-webkit-details-marker]:hidden">
                 See every town
                 <CaretDown size={15} weight="bold" className="transition-transform group-open:rotate-180" aria-hidden />
               </summary>
@@ -36,7 +36,7 @@ export default function WhereWeWork() {
                 {counties.map((county) => (
                   <div key={county}>
                     {/* The county label, the same 13px uppercase label the other town lists use. */}
-                    <p className="mb-2 text-[13px] font-semibold uppercase tracking-[0.16em] text-white/70">
+                    <p className="mb-2 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-white/70">
                       {county}
                     </p>
                     <ul className="flex flex-wrap gap-2">
@@ -47,7 +47,7 @@ export default function WhereWeWork() {
                             data-cta="nav"
                             data-cta-location="where_we_work"
                             data-cta-variant="chip"
-                            className="press inline-flex min-h-[44px] items-center rounded-chip bg-white/10 px-4 text-[14px] font-semibold text-white hover:bg-white hover:text-brand"
+                            className="press inline-flex min-h-[44px] items-center rounded-chip bg-white/10 px-4 text-[0.875rem] font-semibold text-white hover:bg-white hover:text-brand"
                           >
                             {town.name}
                           </a>
@@ -61,7 +61,7 @@ export default function WhereWeWork() {
           )}
 
           {areasHubPublished && (
-            <p className="mt-6 text-[15px] leading-[1.6] text-white/80">
+            <p className="mt-6 text-base leading-[1.6] text-white/80">
               <a
                 href="/areas-we-cover"
                 data-cta="nav"

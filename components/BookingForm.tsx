@@ -221,7 +221,7 @@ export default function BookingForm({
             <button
               type="submit"
               disabled={state === "sending"}
-              className="press inline-flex min-h-[56px] items-center justify-center rounded-pill bg-cta px-7 text-[16.5px] font-bold text-ink hover:bg-cta-deep disabled:opacity-50"
+              className="press inline-flex min-h-[56px] items-center justify-center rounded-pill bg-cta px-7 text-[1.03125rem] font-bold text-ink hover:bg-cta-deep disabled:opacity-50"
             >
               {state === "sending" ? FORM_COPY.full.submitting : FORM_COPY.full.submit}
             </button>
@@ -230,7 +230,7 @@ export default function BookingForm({
               data-cta="phone"
               data-cta-location="booking_section"
               data-cta-variant="text_link"
-              className="text-[14.5px] font-semibold tabular-nums text-brand underline underline-offset-4"
+              className="inline-flex min-h-[44px] items-center text-[0.90625rem] font-semibold tabular-nums text-brand underline underline-offset-4"
             >
               {FORM_COPY.full.preferToCall(CALL_NUMBER_DISPLAY)}
             </a>

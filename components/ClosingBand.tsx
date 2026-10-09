@@ -16,7 +16,7 @@ export default function ClosingBand({ heading, sub }: { heading: string; sub: st
               <h2 className="text-pretty font-display text-[clamp(26px,3.2vw,38px)] font-extrabold leading-[1.05] text-white">
                 {heading}
               </h2>
-              <p className="mt-2 max-w-[48ch] text-[16px] leading-[1.6] text-white/80">{sub}</p>
+              <p className="mt-2 max-w-[48ch] text-[1rem] leading-[1.6] text-white/80">{sub}</p>
             </div>
 
             <div className="flex flex-shrink-0 flex-col gap-3 sm:flex-row sm:items-center">

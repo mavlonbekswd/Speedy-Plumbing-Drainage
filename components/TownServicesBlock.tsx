@@ -93,11 +93,11 @@ export default function TownServicesBlock({
             const [lead, ...rest] = group.lines;
             return (
               <div key={group.key}>
-                <h3 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-tint">{group.title}</h3>
+                <h3 className="text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-tint">{group.title}</h3>
 
                 {/* Outside the reveal wrapper: a sentence an ad paid for may not wait on a
                     script, and one <p> per string keeps each one a single text node. */}
-                {lead && <p className="mt-3 max-w-[62ch] text-[16px] leading-[1.65] text-slate">{lead}</p>}
+                {lead && <p className="mt-3 max-w-[62ch] text-[1rem] leading-[1.65] text-slate">{lead}</p>}
 
                 {group.items.length > 0 && (
                   // A single card goes full width rather than sitting in a three-up grid with two
@@ -115,7 +115,7 @@ export default function TownServicesBlock({
                             delay={i * 60}
                             className="flex h-full flex-col rounded-card border border-line bg-white p-6 shadow-card"
                           >
-                            <h4 className="font-display text-[19px] font-bold leading-snug">
+                            <h4 className="font-display text-[1.1875rem] font-bold leading-snug">
                               <a
                                 href={serviceHref(service.slug)}
                                 data-cta="nav"
@@ -126,11 +126,11 @@ export default function TownServicesBlock({
                                 {service.navLabel}
                               </a>
                             </h4>
-                            <p className="mt-1 max-w-[58ch] text-[14.5px] leading-[1.6] text-slate">
+                            <p className="mt-1 max-w-[58ch] text-base leading-[1.6] text-slate">
                               {service.townLine}
                             </p>
                             {note && (
-                              <p className="mt-2 max-w-[58ch] text-[14.5px] leading-[1.6] text-slate">{note}</p>
+                              <p className="mt-2 max-w-[58ch] text-base leading-[1.6] text-slate">{note}</p>
                             )}
                           </AnimateIn>
                         </li>
@@ -140,7 +140,7 @@ export default function TownServicesBlock({
                 )}
 
                 {rest.map((line) => (
-                  <p key={line} className="mt-4 max-w-[62ch] text-[16px] leading-[1.65] text-slate">
+                  <p key={line} className="mt-4 max-w-[62ch] text-[1rem] leading-[1.65] text-slate">
                     {line}
                   </p>
                 ))}

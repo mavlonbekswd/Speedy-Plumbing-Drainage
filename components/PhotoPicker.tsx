@@ -110,7 +110,7 @@ export default function PhotoPicker({ id, files, onChange, max = 4 }: PhotoPicke
         multiple
         aria-describedby={hintId}
         onChange={handleSelect}
-        className="block w-full text-[15px] text-slate file:mr-4 file:min-h-[44px] file:cursor-pointer file:rounded-pill file:border file:border-line file:bg-paper-2 file:px-5 file:text-[14.5px] file:font-semibold file:text-brand"
+        className="block w-full text-[0.9375rem] text-slate file:mr-4 file:min-h-[44px] file:cursor-pointer file:rounded-pill file:border file:border-line file:bg-paper-2 file:px-5 file:text-[0.90625rem] file:font-semibold file:text-brand"
       />
 
       {busy && <p className={HINT_CLASS}>Preparing your photos...</p>}
@@ -134,7 +134,7 @@ export default function PhotoPicker({ id, files, onChange, max = 4 }: PhotoPicke
                 type="button"
                 onClick={() => remove(index)}
                 aria-label={`Remove photo ${index + 1}`}
-                className="press flex h-11 w-11 items-center justify-center rounded-pill border border-line text-[18px] font-bold text-brand"
+                className="press flex h-11 w-11 items-center justify-center rounded-pill border border-line text-[1.125rem] font-bold text-brand"
               >
                 <span aria-hidden>&times;</span>
               </button>
@@ -146,7 +146,7 @@ export default function PhotoPicker({ id, files, onChange, max = 4 }: PhotoPicke
       {skipped.length > 0 && (
         <ul className="flex flex-col gap-1 pt-1">
           {skipped.map((entry, index) => (
-            <li key={`${entry.name}-${index}`} className="text-[13.5px] leading-[1.5] text-[#B3261E]">
+            <li key={`${entry.name}-${index}`} className="text-base leading-[1.5] text-[#B3261E]">
               {entry.name} was not added, because {SKIP_REASON[entry.reason]}.
             </li>
           ))}

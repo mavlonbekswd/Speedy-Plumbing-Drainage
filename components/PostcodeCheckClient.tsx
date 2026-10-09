@@ -67,8 +67,8 @@ export default function PostcodeCheckClient({ variant = "light", townByDistrict 
   const cardClass = dark
     ? "rounded-card border border-white/20 bg-white/10 p-5 shadow-dark sm:p-6"
     : "rounded-card border border-line bg-white p-5 shadow-card sm:p-6";
-  const labelClass = dark ? "text-[14px] font-semibold text-white" : LABEL_CLASS;
-  const bodyClass = dark ? "text-[15.5px] leading-[1.6] text-white" : "text-[15.5px] leading-[1.6] text-slate";
+  const labelClass = dark ? "text-[0.875rem] font-semibold text-white" : LABEL_CLASS;
+  const bodyClass = dark ? "text-base leading-[1.6] text-white" : "text-base leading-[1.6] text-slate";
   const linkClass = dark
     ? "font-bold text-white underline underline-offset-4"
     : "font-bold text-brand underline underline-offset-4";

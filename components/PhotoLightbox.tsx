@@ -111,7 +111,7 @@ export default function PhotoLightbox() {
               className="max-h-[86vh] max-w-[92vw] rounded-card object-contain"
             />
             {photo.caption && (
-              <p className="max-w-[92vw] text-center text-[14px] leading-snug text-white/90">
+              <p className="max-w-[92vw] text-center text-[0.875rem] leading-snug text-white/90">
                 {photo.caption}
               </p>
             )}
