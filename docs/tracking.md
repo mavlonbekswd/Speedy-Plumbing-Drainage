@@ -65,7 +65,17 @@ while `posthog-js` still loads through the extension carve-out and looks healthy
 is on because PostHog's API requests can end in a trailing slash. `tests/proxy.spec.ts` proves all
 of this on the wire against a real build.
 
-### 5. Click ids
+### 5. Microsoft Clarity
+
+Heatmaps and session recordings. `lib/clarity.ts` renders Microsoft's standard snippet as a plain
+inline `<script>` in `<head>`, for the same reason as the Google tag. The project id is public, so
+it has a default in that file; `NEXT_PUBLIC_CLARITY_ID` overrides it and `off` removes the tag.
+Silenced in `next dev` like everything else. No `clarity('consent')` call is made: with no banner
+on this site, nothing could truthfully send one. Microsoft has required a consent signal for UK
+and EEA traffic since 31 October 2025, so expect Clarity to run without cookies for UK visitors,
+which means recordings and heatmaps still arrive but a visit is not joined up across pages.
+
+### 6. Click ids
 
 `lib/clickIds.ts`, below.
 

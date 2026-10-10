@@ -64,6 +64,7 @@ only place in the repository where the full set of names is listed with what eac
 | `NEXT_PUBLIC_GADS_LABEL_PHONE_CALL` | public | Conversion label for the calls-from-website action. Used **only** by the number-swap config line; no code path fires a conversion against it. |
 | `NEXT_PUBLIC_GADS_LABEL_WHATSAPP` | public | Conversion label for a WhatsApp tap. |
 | `NEXT_PUBLIC_GA4_ID` | public | GA4 measurement id, configured on the same tag load. Validated against `G-` plus 6 or more characters. |
+| `NEXT_PUBLIC_CLARITY_ID` | public | Microsoft Clarity project id. Unset means the id written into `lib/clarity.ts`; `off` (or any malformed value) removes the tag. |
 
 `VERCEL_ENV` is set by the platform, not by you. `app/robots.ts` and `lib/telegram.ts` both read
 it.

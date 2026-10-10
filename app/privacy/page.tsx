@@ -11,6 +11,7 @@
 //   lib/analytics.ts                the events and their properties
 //   lib/formTracking.ts             what happens on a form start, submit and success
 //   lib/gtag.ts                     what reaches Google, and which parts are hashed
+//   lib/clarity.ts                  Microsoft Clarity's standard tag, default settings
 //   lib/clickIds.ts                 the storage key and the 90-day window
 //   lib/book.ts + app/api/book      where a booking goes
 //   lib/telegram.ts                 that the Telegram message IS the record; no database
@@ -147,7 +148,7 @@ export default function PrivacyPage() {
                 browser before they are sent, and at most four of them go through.
               </p>
               <p>
-                <Lead>How you use the site.</Lead> Our analytics provider records all of this from the
+                <Lead>How you use the site.</Lead> Our analytics providers record all of this from the
                 first page you open:
               </p>
               <ul className="flex list-disc flex-col gap-2 pl-5">
@@ -186,6 +187,11 @@ export default function PrivacyPage() {
                 States.
               </p>
               <p>
+                <Lead>Microsoft Clarity.</Lead> Heatmaps and session recording. Your visit is recorded as a
+                replay showing where you tapped, moved and scrolled, with what you type into a form masked
+                in the recording. Microsoft is based in the United States.
+              </p>
+              <p>
                 <Lead>Google Ads and Google Analytics.</Lead> Page views and conversions. When you submit a
                 booking, your phone number, your name, and your email address if you gave one, are sent to
                 Google only as SHA-256 hashes, never in plain text, together with your postcode and country,
@@ -201,7 +207,7 @@ export default function PrivacyPage() {
 
             <Section title="Where it goes outside the UK">
               <p>
-                <Lead>PostHog, Google, Telegram and Vercel all process data outside the UK, including in
+                <Lead>PostHog, Microsoft, Google, Telegram and Vercel all process data outside the UK, including in
                 the United States.</Lead> Those transfers rely on the safeguards each of those providers
                 offers for international transfers, under their own terms with us.
               </p>
@@ -214,12 +220,17 @@ export default function PrivacyPage() {
             <Section title="Cookies and storage on your device">
               <p>
                 <Lead>From the first page you open, this site sets analytics and advertising cookies and
-                writes entries into your browser storage.</Lead> There are three sets:
+                writes entries into your browser storage.</Lead> There are four sets:
               </p>
               <ul className="flex list-disc flex-col gap-2 pl-5">
                 <li>
                   PostHog, with names beginning <code className="text-[0.9375rem] text-ink">ph_</code>. Its
                   requests are routed through our own domain rather than sent straight to PostHog.
+                </li>
+                <li>
+                  Microsoft Clarity, which may set <code className="text-[0.9375rem] text-ink">_clck</code> and{" "}
+                  <code className="text-[0.9375rem] text-ink">_clsk</code>, plus Microsoft&apos;s own cookies on{" "}
+                  <code className="text-[0.9375rem] text-ink">clarity.ms</code>.
                 </li>
                 <li>
                   Google, with names beginning <code className="text-[0.9375rem] text-ink">_ga</code> and{" "}
@@ -256,7 +267,7 @@ export default function PrivacyPage() {
                 message.
               </p>
               <p>
-                Analytics data is held by PostHog and by Google under their own retention settings. Those
+                Analytics data is held by PostHog, Microsoft and Google under their own retention settings. Those
                 periods are set by them rather than by us, so we will not put a number here that we do not
                 control.
               </p>

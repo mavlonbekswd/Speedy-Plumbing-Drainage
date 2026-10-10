@@ -679,6 +679,7 @@ test.describe("the privacy notice matches what was actually built", () => {
 
     for (const required of [
       "posthog",
+      "microsoft clarity",
       "united states",
       "session recording",
       "google ads",
