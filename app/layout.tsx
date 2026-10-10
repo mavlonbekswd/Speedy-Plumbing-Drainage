@@ -5,6 +5,7 @@ import PosthogProvider from "@/components/PosthogProvider";
 import JsonLd from "@/components/JsonLd";
 import PhotoLightbox from "@/components/PhotoLightbox";
 import { googleTagHeadScripts } from "@/lib/gtag";
+import { clarityInlineScript } from "@/lib/clarity";
 import { AVAILABILITY_LINE, COVERAGE_SHORT } from "@/lib/claims";
 import { PUBLISHED_SERVICES } from "@/lib/services";
 import { AREA_SERVED, COUNTY_ORDER } from "@/lib/towns";
@@ -122,6 +123,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   // Null whenever there is no valid Ads account id, in which case nothing at all is rendered
   // and every conversion helper in lib/gtag.ts is already a no-op.
   const google = googleTagHeadScripts(CALL_NUMBER_DISPLAY);
+  // Null in `next dev` and when NEXT_PUBLIC_CLARITY_ID is "off" or malformed. See lib/clarity.ts.
+  const clarity = clarityInlineScript();
 
   return (
     <html lang="en-GB" className={`${display.variable} ${body.variable}`}>
@@ -138,6 +141,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <script id="google-tag" dangerouslySetInnerHTML={{ __html: google.inline }} />
           </>
         )}
+        {clarity && <script id="clarity-tag" dangerouslySetInnerHTML={{ __html: clarity }} />}
       </head>
       <body className="bg-paper font-sans text-ink antialiased">
         {/* First focusable element in the document, invisible until it has focus. Every page
